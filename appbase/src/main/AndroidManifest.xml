@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nxin.base" >
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 自定义GlideModule -->
+    <meta-data
+        android:name="com.nxin.base.model.network.glide.GlideConfiguration"
+        android:value="GlideModule" />
+</manifest>

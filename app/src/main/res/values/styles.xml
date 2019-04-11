@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
 
     <!-- 系统主题样式 -->
-    <style name="AppTheme" parent="QsTheme">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <!--actionbar底色-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -17,6 +17,22 @@
         <!--test-->
         <item name="android:windowBackground">@color/color_white</item>
         <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+
+    <style name="small_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <!--StateButton的style:去阴影（见v21 style.xml） -->
+    <style name="state_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">0dp</item>
     </style>
 
 </resources>

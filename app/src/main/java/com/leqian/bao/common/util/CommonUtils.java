@@ -12,7 +12,8 @@ import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.DisplayMetrics;
 
-import com.qsmaxmin.qsbase.common.utils.QsHelper;
+
+import com.nxin.base.utils.ProHelper;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -37,11 +38,11 @@ public class CommonUtils {
     private static long lastClickTime;
 
     public static int dp2px(float dp) {
-        return (int) dp2px(QsHelper.getInstance().getApplication().getResources(), dp);
+        return (int) dp2px(ProHelper.getApplication().getResources(), dp);
     }
 
     public static int sp2px(float sp) {
-        return (int) sp2px(QsHelper.getInstance().getApplication().getResources(), sp);
+        return (int) sp2px(ProHelper.getApplication().getResources(), sp);
     }
 
     public static float dp2px(Resources resources, float dp) {
@@ -62,11 +63,11 @@ public class CommonUtils {
      * Manifest中meta_data的字符串信息
      */
     public static String getMetaInfo(String metaKey, String defaultValue) {
-        PackageManager pManager = QsHelper.getInstance().getApplication().getPackageManager();
+        PackageManager pManager = ProHelper.getApplication().getPackageManager();
         ApplicationInfo appInfo;
         String msg = defaultValue;
         try {
-            appInfo = pManager.getApplicationInfo(QsHelper.getInstance().getApplication().getPackageName(), PackageManager.GET_META_DATA);
+            appInfo = pManager.getApplicationInfo(ProHelper.getApplication().getPackageName(), PackageManager.GET_META_DATA);
         } catch (PackageManager.NameNotFoundException e) {
             return msg;
         }
@@ -82,7 +83,7 @@ public class CommonUtils {
     }
 
     public static int getScreenWidth() {
-        return getScreenWidth(QsHelper.getInstance().getScreenHelper().currentActivity());
+        return getScreenWidth(ProHelper.getScreenHelper().currentActivity());
     }
 
     /**
@@ -98,7 +99,7 @@ public class CommonUtils {
     }
 
     public static int getScreenHeight() {
-        return getScreenHeight(QsHelper.getInstance().getScreenHelper().currentActivity());
+        return getScreenHeight(ProHelper.getScreenHelper().currentActivity());
     }
 
     /**
@@ -140,7 +141,7 @@ public class CommonUtils {
      * 转换文件的大小，将文件的字节数转换为kb、mb、或gb
      */
     public static String formatterFileSize(long size) {
-        return Formatter.formatFileSize(QsHelper.getInstance().getApplication(), size);
+        return Formatter.formatFileSize(ProHelper.getApplication(), size);
     }
 
 
@@ -148,13 +149,13 @@ public class CommonUtils {
      * 获取客户端名称
      */
     public static String getAppVersion() {
-        return getAppVersion(QsHelper.getInstance().getApplication().getPackageName());
+        return getAppVersion(ProHelper.getApplication().getPackageName());
     }
 
     public static String getAppVersion(String packageName) {
         String strVersion = "";
         try {
-            strVersion = QsHelper.getInstance().getApplication().getPackageManager().getPackageInfo(packageName, 0).versionName;
+            strVersion = ProHelper.getApplication().getPackageManager().getPackageInfo(packageName, 0).versionName;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -220,7 +221,7 @@ public class CommonUtils {
      * 判断 用户是否安装第三方客户端
      */
     public static boolean isOtherAppAvailable(String packageName) {
-        final PackageManager packageManager = QsHelper.getInstance().getApplication().getPackageManager();// 获取packagemanager
+        final PackageManager packageManager = ProHelper.getApplication().getPackageManager();// 获取packagemanager
         List<PackageInfo> infoList = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
         if (infoList != null) {
             for (int i = 0; i < infoList.size(); i++) {

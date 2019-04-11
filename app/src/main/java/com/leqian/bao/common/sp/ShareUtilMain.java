@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.leqian.bao.GlobalApplication;
-import com.qsmaxmin.qsbase.common.utils.QsHelper;
+import com.nxin.base.utils.ProHelper;
 
 /**
  * Created by fcl on 19.4.10
@@ -23,7 +23,7 @@ public class ShareUtilMain {
 
 
     static {
-        preferences = QsHelper.getInstance().getApplication().getSharedPreferences(SHARE_FILE_NAME, Context.MODE_PRIVATE);
+        preferences = ProHelper.getApplication().getSharedPreferences(SHARE_FILE_NAME, Context.MODE_PRIVATE);
     }
 
     /**

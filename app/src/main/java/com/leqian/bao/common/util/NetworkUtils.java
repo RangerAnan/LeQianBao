@@ -8,7 +8,8 @@ import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 
-import com.qsmaxmin.qsbase.common.utils.QsHelper;
+
+import com.nxin.base.utils.ProHelper;
 
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -60,8 +61,8 @@ public class NetworkUtils {
      * 获取手机串号IMEI
      */
     public static String getDeviceIMEI() {
-        if (ContextCompat.checkSelfPermission(QsHelper.getInstance().getApplication(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-            TelephonyManager tm = (TelephonyManager) QsHelper.getInstance().getApplication().getSystemService(Context.TELEPHONY_SERVICE);
+        if (ContextCompat.checkSelfPermission(ProHelper.getApplication(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+            TelephonyManager tm = (TelephonyManager) ProHelper.getApplication().getSystemService(Context.TELEPHONY_SERVICE);
             String deviceId = tm.getDeviceId();
             return (deviceId == null || deviceId.length() == 0) ? UUID.randomUUID().toString() : tm.getDeviceId();
         }
@@ -84,7 +85,7 @@ public class NetworkUtils {
      * 判断蜂窝网络是否连接
      */
     public static boolean isMobileConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) QsHelper.getInstance().getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) ProHelper.getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mMobileNetworkInfo = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         return mMobileNetworkInfo != null && mMobileNetworkInfo.isConnected();
     }
@@ -93,7 +94,7 @@ public class NetworkUtils {
      * 判断WIFI网络是否链接
      */
     public static boolean isWifiConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) QsHelper.getInstance().getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) ProHelper.getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWiFiNetworkInfo = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         return mWiFiNetworkInfo != null && mWiFiNetworkInfo.isConnected();
     }
@@ -102,7 +103,7 @@ public class NetworkUtils {
      * 判断是否有网络连接
      */
     public static boolean isNetworkConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) QsHelper.getInstance().getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) ProHelper.getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (mConnectivityManager != null) {
             NetworkInfo[] info = mConnectivityManager.getAllNetworkInfo();
             if (info != null) {
@@ -120,7 +121,7 @@ public class NetworkUtils {
      * 获取蜂窝网络提供商
      */
     public static String getCellularType() {
-        TelephonyManager telManager = (TelephonyManager) QsHelper.getInstance().getApplication().getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager telManager = (TelephonyManager) ProHelper.getApplication().getSystemService(Context.TELEPHONY_SERVICE);
         String operator = telManager.getSimOperator();
         if (operator != null) {
 

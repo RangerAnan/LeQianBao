@@ -8,4 +8,22 @@
     <color name="colorBlack">#000000</color>
     <color name="color_white">#ffffff</color>
     <color name="color_red">#DE2B2B</color>
+
+
+    <!--gray color-->
+    <color name="color_gray">#838383</color>
+    <color name="color_gray_6">#5F6060</color>
+    <color name="color_gray_c">#C8C8C8</color>
+    <color name="color_gray_d">#D8D8D8</color>
+    <color name="color_gray_e">#EEEFEF</color>
+    <color name="color_gray_f">#F1F1F1</color>
+
+
+    <color name="color_576b95">#576b95</color>
+
+
+    <color name="btn_orange1">#ff4e00</color>
+    <color name="btn_orange2">#ee4900</color>
+    <color name="btn_orange3">#d74200</color>
+
 </resources>

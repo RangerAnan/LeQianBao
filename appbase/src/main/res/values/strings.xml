@@ -1,0 +1,37 @@
+<resources>
+    <string name="loading">全力加载中...</string>
+    <string name="click_to_refresh">网络不给力,点击屏幕刷新吧~</string>
+
+    <string name="close">关闭</string>
+    <string name="menu_settings">设置</string>
+    <string name="prompt">提示</string>
+    <string name="check_connection">无可用网络连接，请检查网络设置</string>
+
+
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+
+    <string name="toast_no_open">无法打开</string>
+    <string name="error_not_login">无法获取用户信息</string>
+    <string name="param_error">参数错误</string>
+    <string name="error_network">网络异常</string>
+
+    <string name="webview_file_browser_title">文件选择</string>
+
+    <string name="param_lost">参数缺失</string>
+
+
+    <!--权限提示-->
+    <string name="Permissons_Not_Storage">无法获得存储权限</string>
+    <string name="permissons_can_not_camera">无法获得拍照权限</string>
+    <string name="permission_no_camera_storage">无法获得拍照或存储权限</string>
+    <string name="permissons_can_not_get_image">无法获得选择图片权限</string>
+    <string name="Permissons_Not_Camra">无法获得拍照和获取图片权限 </string>
+    <string name="Permissons_Not_Location">无法获得定位权限</string>
+    <string name="Permissons_Not_Location_Storage">请检查存储权限</string>
+    <string name="Permissons_Not_Location_Phone">请检查电话权限</string>
+    <string name="Permissons_Not_Audio">无法获得录音权限 </string>
+    <string name="Permissons_Not_Contacts">无法获得通讯录权限 </string>
+    <string name="Permissons_Not_Phone">无法获得拨打电话权限 </string>
+    <string name="Permissons_Not_Video">无法获得视频权限 </string>
+</resources>
