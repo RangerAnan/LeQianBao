@@ -1,7 +1,9 @@
-package com.leqian.bao;
+package com.leqian.bao.view.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.leqian.bao.R;
 
 public class MainActivity extends AppCompatActivity {
 
