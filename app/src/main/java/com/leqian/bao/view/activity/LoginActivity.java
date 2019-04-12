@@ -1,6 +1,7 @@
 package com.leqian.bao.view.activity;
 
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -11,11 +12,13 @@ import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.util.ToastUtil;
+import com.leqian.bao.model.BaseHttp;
 import com.leqian.bao.model.account.LoginResp;
 import com.leqian.bao.view.activity.account.AccountHttp;
 import com.nxin.base.model.http.OkHttpUtils;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.model.http.utils.L;
+import com.nxin.base.utils.JsonUtils;
 import com.nxin.base.utils.Logger;
 import com.nxin.base.widget.NXActivity;
 
@@ -47,6 +50,7 @@ public class LoginActivity extends NXActivity {
     @BindView(R.id.iv_psd_look)
     ImageView iv_psd_look;
 
+    private boolean isShowPwd = false;
 
     @Override
     public int getLayoutId() {
@@ -97,7 +101,7 @@ public class LoginActivity extends NXActivity {
     }
 
 
-    @OnClick({R.id.btn_login, R.id.tv_forget_psd, R.id.tv_register})
+    @OnClick({R.id.btn_login, R.id.tv_forget_psd, R.id.tv_register, R.id.iv_psd_look})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
@@ -107,31 +111,58 @@ public class LoginActivity extends NXActivity {
                     ToastUtil.showToastShort("手机号不能为空");
                     return;
                 }
+                if (inputPhone.length() != 11) {
+                    ToastUtil.showToastShort("手机号格式不对");
+                    return;
+                }
                 if (TextUtils.isEmpty(inputPsd)) {
                     ToastUtil.showToastShort("密码不能为空");
+                    return;
+                }
+                if (inputPsd.length() < 6) {
+                    ToastUtil.showToastShort("密码长度不少于6位");
                     return;
                 }
                 loginAccount(inputPhone, inputPsd);
                 break;
             case R.id.tv_forget_psd:
-                Logger.i(initTag() + "--onViewClick");
                 ToastUtil.showToastShort("忘记密码");
                 break;
             case R.id.tv_register:
                 ToastUtil.showToastShort("注册");
+                break;
+            case R.id.iv_psd_look:
+                showPwd();
                 break;
             default:
                 break;
         }
     }
 
+    private void showPwd() {
+        if (!isShowPwd) {
+            iv_psd_look.setBackgroundResource(R.mipmap.register_password_show_ic);
+            et_input_psd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            et_input_psd.setSelection(et_input_psd.getText().toString().length());
+            isShowPwd = true;
+        } else {
+            iv_psd_look.setBackgroundResource(R.mipmap.register_password_hide_ic);
+            et_input_psd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            et_input_psd.setSelection(et_input_psd.getText().toString().length());
+            isShowPwd = false;
+        }
+    }
+
     private void loginAccount(String inputPhone, String inputPsd) {
-        OkHttpUtils.get().url(AccountHttp.testJson)
-                .addParams("", "")
-                .build().execute(new ModelCallBack<LoginResp>() {
+
+        AccountHttp.userLogin(inputPhone, inputPsd, new ModelCallBack<LoginResp>() {
             @Override
             public void onResponse(LoginResp response, int id) {
-
+                if (response.getCode() != 0) {
+                    ToastUtil.showToastShort(response.getMsg());
+                    return;
+                }
+                //save用户信息
             }
         });
     }

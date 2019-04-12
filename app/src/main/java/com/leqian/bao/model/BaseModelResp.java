@@ -9,26 +9,22 @@ import com.nxin.base.model.domain.BaseModel;
 public class BaseModelResp extends BaseModel {
 
 
-    private int r;
-    private String m;
+    private int code;
+    private String msg;
 
-    public int getR() {
-        return r;
+    public int getCode() {
+        return code;
     }
 
-    public void setR(int r) {
-        this.r = r;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getM() {
-        return m;
+    public String getMsg() {
+        return msg == null ? "" : msg;
     }
 
-    public void setM(String m) {
-        this.m = m;
-    }
-
-
-    public static class DBean {
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }
