@@ -9,7 +9,7 @@ import com.nxin.base.model.domain.BaseModel;
 public class BaseModelResp extends BaseModel {
 
 
-    private int code;
+    private int code;           //成功code=1,失败code=0
     private String msg;
 
     public int getCode() {

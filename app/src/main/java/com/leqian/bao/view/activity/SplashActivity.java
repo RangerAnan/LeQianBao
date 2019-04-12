@@ -1,10 +1,10 @@
 package com.leqian.bao.view.activity;
 
-import android.os.Bundle;
 import android.os.Handler;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.sp.ShareUtilMain;
+import com.leqian.bao.view.activity.account.LoginActivity;
 import com.nxin.base.widget.NXActivity;
 
 /**
@@ -27,7 +27,7 @@ public class SplashActivity extends NXActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                intent2Activity(loginState ? MainActivity.class : LoginActivity.class);
+                intent2Activity(loginState ? MainActivity.class : MainActivity.class);
                 finish();
             }
         }, 3000);

@@ -3,11 +3,177 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <com.leqian.bao.view.viewpager.TabContentViewPager
+        android:id="@id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
+    <View
+        android:id="@+id/divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/orientation_divider" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl1"
+            style="@style/ripple_fg"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="bottom">
+
+            <ImageView
+                android:id="@+id/iv_tab1"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_above="@id/tv_tab1"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/tab_selector_1" />
+
+            <TextView
+                android:id="@+id/tv_tab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:text="消息"
+                android:textColor="@color/color_gray_9"
+                android:textSize="11sp" />
+
+            <!-- <TextView
+                 android:id="@+id/txtMsgUnreadCount"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentRight="true"
+                 android:layout_marginTop="12dp"
+                 android:layout_marginRight="@dimen/dimens_10"
+                 android:background="@drawable/red_circle"
+                 android:gravity="center"
+                 android:padding="1dp"
+                 android:textColor="@android:color/white"
+                 android:textSize="@dimen/home_page_menu_tips_text_size"
+                 android:visibility="visible" />-->
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl2"
+            style="@style/ripple_fg"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="bottom">
+
+            <ImageView
+                android:id="@+id/iv_tab2"
+                android:layout_width="@dimen/dp_33"
+                android:layout_height="@dimen/dp_33"
+                android:layout_above="@+id/tv_tab2"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/tab_selector_2" />
+
+            <TextView
+                android:id="@+id/tv_tab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:text="圈子"
+                android:textColor="@color/color_gray_9"
+                android:textSize="11sp" />
+
+            <!--  <TextView
+                  android:id="@+id/txtCircleTrendsUnreadCount"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:layout_marginTop="12dp"
+                  android:layout_marginRight="@dimen/dimens_10"
+                  android:background="@drawable/red_circle"
+                  android:gravity="center"
+                  android:padding="1dp"
+                  android:text="1"
+                  android:textColor="@android:color/white"
+                  android:textSize="@dimen/home_page_menu_tips_text_size" />-->
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl3"
+            style="@style/ripple_fg"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="bottom">
+
+            <ImageView
+                android:id="@+id/iv_tab3"
+                android:layout_width="@dimen/dp_33"
+                android:layout_height="@dimen/dp_33"
+                android:layout_above="@id/tv_tab3"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/tab_selector_3" />
+
+            <TextView
+                android:id="@+id/tv_tab3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:text="服务"
+                android:textColor="@color/color_gray_9"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl4"
+            style="@style/ripple_fg"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="bottom">
+
+            <ImageView
+                android:id="@+id/iv_tab4"
+                android:layout_width="@dimen/dp_33"
+                android:layout_height="@dimen/dp_33"
+                android:layout_above="@id/tv_tab4"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/tab_selector_4" />
+
+            <TextView
+                android:id="@+id/tv_tab4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:text="我"
+                android:textColor="@color/color_gray_9"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 </LinearLayout>

@@ -43,7 +43,11 @@
 
 
         <activity
-            android:name=".view.activity.LoginActivity"
+            android:name=".view.activity.account.LoginActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.activity.account.RegisterActivity"
             android:screenOrientation="portrait" />
 
         <activity

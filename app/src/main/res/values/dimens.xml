@@ -46,6 +46,7 @@
     <dimen name="dp_30">30dp</dimen>
     <dimen name="dp_31">31dp</dimen>
     <dimen name="dp_32">32dp</dimen>
+    <dimen name="dp_33">33dp</dimen>
     <dimen name="dp_34">34dp</dimen>
     <dimen name="dp_35">35dp</dimen>
     <dimen name="dp_36">36dp</dimen>
@@ -144,5 +145,9 @@
     <dimen name="actionbar_size">50dp</dimen>
     <dimen name="actionbar_top_padding">0dp</dimen>
 
+    <!--ToolBar-->
+    <dimen name="toolbar_size">55dp</dimen>
+    <dimen name="toolbar_button_width">45dp</dimen>
+    <dimen name="title_icon_size">16dp</dimen>
 
 </resources>

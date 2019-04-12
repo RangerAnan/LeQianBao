@@ -1,18 +1,10 @@
 package com.leqian.bao.model;
 
-import android.text.TextUtils;
-
-import com.leqian.bao.view.activity.account.AccountHttp;
-import com.nxin.base.model.domain.BaseModel;
 import com.nxin.base.model.http.OkHttpUtils;
 import com.nxin.base.model.http.builder.GetBuilder;
 import com.nxin.base.model.http.callback.ModelCallBack;
-import com.nxin.base.model.http.callback.StringCallback;
 import com.nxin.base.utils.EncryptUtils;
 import com.nxin.base.utils.JsonUtils;
-import com.nxin.base.utils.ProHelper;
-
-import java.io.File;
 
 import okhttp3.MediaType;
 

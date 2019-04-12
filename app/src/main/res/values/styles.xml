@@ -13,7 +13,7 @@
         <!--不使用系统的toolbar-->
         <item name="android:windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-       <!-- <item name="android:windowAnimationStyle">@style/SugarWindowAnimationStyle</item>-->
+        <!-- <item name="android:windowAnimationStyle">@style/SugarWindowAnimationStyle</item>-->
         <!--test-->
         <item name="android:windowBackground">@color/color_white</item>
         <item name="android:windowIsTranslucent">true</item>
@@ -33,6 +33,37 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">0dp</item>
+    </style>
+
+    <!--View水波纹 android5.0+ -->
+    <style name="ripple_fg">
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="titlebar_btn" parent="ripple_fg">
+        <item name="android:layout_width">@dimen/toolbar_button_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <!--底部tab-->
+    <style name="func_tab">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/font_tab</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:singleLine">true</item>
+        <!--在text边设置图片-->
+        <item name="android:drawablePadding">@dimen/dp_3</item>
+        <item name="android:layout_weight">1.0</item>
     </style>
 
 </resources>

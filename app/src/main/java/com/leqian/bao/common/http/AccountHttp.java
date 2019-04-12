@@ -1,4 +1,4 @@
-package com.leqian.bao.view.activity.account;
+package com.leqian.bao.common.http;
 
 import com.leqian.bao.model.BaseHttp;
 import com.leqian.bao.model.BaseModelReq;
@@ -20,6 +20,14 @@ public class AccountHttp extends BaseHttp {
 
     public static void userLogin(String phone, String psd, ModelCallBack callBack) {
         executeGetHttp("login")
+                .addParams("username", phone)
+                .addParams("password", psd)
+                .build().execute(callBack);
+    }
+
+    public static void userRegister(String phone, String psd, String zfb, ModelCallBack callBack) {
+        executeGetHttp("reg")
+                .addParams(" zfb", zfb)
                 .addParams("username", phone)
                 .addParams("password", psd)
                 .build().execute(callBack);

@@ -1,4 +1,4 @@
-package com.leqian.bao.view.activity;
+package com.leqian.bao.view.activity.account;
 
 import android.text.Editable;
 import android.text.InputType;
@@ -12,14 +12,9 @@ import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.util.ToastUtil;
-import com.leqian.bao.model.BaseHttp;
 import com.leqian.bao.model.account.LoginResp;
-import com.leqian.bao.view.activity.account.AccountHttp;
-import com.nxin.base.model.http.OkHttpUtils;
+import com.leqian.bao.common.http.AccountHttp;
 import com.nxin.base.model.http.callback.ModelCallBack;
-import com.nxin.base.model.http.utils.L;
-import com.nxin.base.utils.JsonUtils;
-import com.nxin.base.utils.Logger;
 import com.nxin.base.widget.NXActivity;
 
 import butterknife.BindView;
@@ -129,7 +124,7 @@ public class LoginActivity extends NXActivity {
                 ToastUtil.showToastShort("忘记密码");
                 break;
             case R.id.tv_register:
-                ToastUtil.showToastShort("注册");
+                intent2Activity(RegisterActivity.class);
                 break;
             case R.id.iv_psd_look:
                 showPwd();
