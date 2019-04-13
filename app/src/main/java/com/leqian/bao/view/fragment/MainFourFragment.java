@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,8 +45,8 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
     @BindView(R.id.tv_name)
     TextView tv_name;
 
-    @BindView(R.id.tv_zfb)
-    TextView tv_zfb;
+    @BindView(R.id.ll_zfb)
+    LinearLayout ll_zfb;
 
     @BindView(R.id.tv_today_charge)
     TextView tv_today_charge;
@@ -78,10 +79,13 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
         content.removeAllViews();
         uiModels.clear();
         String[] stringArray = getResources().getStringArray(R.array.mine_ui_item);
+        int[] iconArray = {R.mipmap.team_management, R.mipmap.my_user_detailed, R.mipmap.my_user_password,
+                R.mipmap.my_user_message_n, R.mipmap.my_user_about_us, R.mipmap.my_user_exit};
         for (int i = 0; i < stringArray.length; i++) {
             CommonUIModel commonUIModel = new CommonUIModel();
             commonUIModel.name = stringArray[i];
             commonUIModel.code = i;
+            commonUIModel.img = iconArray[i];
             uiModels.add(commonUIModel);
         }
 
@@ -89,16 +93,18 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
             View inflate = View.inflate(mContext, R.layout.item_fragment_me_text, null);
             LinearLayout layout1 = inflate.findViewById(R.id.layout1);
             TextView tvTitle = inflate.findViewById(R.id.tv_title);
+            ImageView iv_image = inflate.findViewById(R.id.iv_image);
 
             CommonUIModel commonUIModel = uiModels.get(i);
             tvTitle.setText(commonUIModel.name);
+            iv_image.setImageResource(commonUIModel.img);
             layout1.setOnClickListener(new ItemClickListener(commonUIModel));
             content.addView(inflate);
         }
 
     }
 
-    @OnClick({R.id.me_user_photo, R.id.tv_zfb})
+    @OnClick({R.id.me_user_photo, R.id.ll_zfb})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.me_user_photo:
@@ -110,7 +116,7 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
                 listDialog.setOnBottomListItemListener(this);
                 listDialog.show();
                 break;
-            case R.id.tv_zfb:
+            case R.id.ll_zfb:
                 ToastUtil.showToastShort("支付宝");
                 break;
             default:

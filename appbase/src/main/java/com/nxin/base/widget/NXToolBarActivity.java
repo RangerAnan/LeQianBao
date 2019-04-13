@@ -63,7 +63,7 @@ public class NXToolBarActivity extends SwipeBackActivity {
 
         initLayout();
         ButterKnife.bind(this);
-//        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(mContext, R.color.theme));
+        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(mContext, R.color.theme));
         initView();
         initViewData();
     }

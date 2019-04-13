@@ -59,7 +59,6 @@ public class MainActivity extends NXActivity {
     @Override
     public void initView() {
         super.initView();
-        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(mContext, com.nxin.base.R.color.theme));
 
         tabImgList.clear();
         tabImgList.add(iv_tab1);

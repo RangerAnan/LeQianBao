@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?><!--actionBar-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/actionbar_size"
-    android:background="@color/color_white"
+    android:layout_height="@dimen/toolbar_size"
+    android:background="@color/theme"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -14,7 +14,7 @@
             android:layout_height="@dimen/title_icon_size"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_back" />
+            android:src="@mipmap/title_back" />
     </RelativeLayout>
 
     <TextView
@@ -26,14 +26,15 @@
         android:gravity="center"
         android:singleLine="true"
         android:text=""
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/color_white"
         android:textSize="@dimen/font_size_title" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_alignParentBottom="true"
-        android:background="@color/color_gray" />
+        android:background="@color/color_gray"
+        android:visibility="gone" />
 
 </RelativeLayout>
 

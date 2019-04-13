@@ -43,16 +43,30 @@
                     android:textColor="@color/color_white"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tv_zfb"
+                <LinearLayout
+                    android:id="@+id/ll_zfb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_name"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/dp_3"
-                    android:text="支付宝账号"
-                    android:textColor="@color/color_white"
-                    android:textSize="10sp" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="支付宝账号"
+                        android:textColor="@color/color_white"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginLeft="@dimen/dp_3"
+                        android:src="@mipmap/my_user_by" />
+                </LinearLayout>
+
 
             </RelativeLayout>
 

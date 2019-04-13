@@ -8,4 +8,5 @@
     <item name="viewpager" type="id" />
     <item name="btn_ok" type="id" />
     <item name="listView" type="id" />
+    <item name="iv_image" type="id" />
 </resources>
