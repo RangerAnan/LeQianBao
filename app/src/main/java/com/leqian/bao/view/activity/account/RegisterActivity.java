@@ -29,20 +29,20 @@ import butterknife.OnClick;
 public class RegisterActivity extends NXActivity {
 
 
-    @BindView(R.id.tv_register)
-    TextView tv_register;
-
     @BindView(R.id.btn_register)
     Button btn_register;
-
-    @BindView(R.id.tv_forget_psd)
-    TextView tv_forget_psd;
 
     @BindView(R.id.et_phone)
     EditText et_phone;
 
     @BindView(R.id.et_input_psd)
     EditText et_input_psd;
+
+    @BindView(R.id.et_zfb)
+    EditText et_zfb;
+
+    @BindView(R.id.et_realName)
+    EditText et_realName;
 
     @BindView(R.id.iv_psd_look)
     ImageView iv_psd_look;
@@ -74,7 +74,8 @@ public class RegisterActivity extends NXActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                setLoginButtonState(s.toString(), et_input_psd.getText().toString().trim());
+                setLoginButtonState(s.toString(), et_input_psd.getText().toString().trim(),
+                        et_zfb.getText().toString().trim(), et_realName.getText().toString().trim());
             }
         });
 
@@ -91,23 +92,62 @@ public class RegisterActivity extends NXActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                setLoginButtonState(et_phone.getText().toString().trim(), s.toString());
+                setLoginButtonState(et_phone.getText().toString().trim(), s.toString(),
+                        et_zfb.getText().toString().trim(), et_realName.getText().toString().trim());
+            }
+        });
+
+        et_zfb.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                setLoginButtonState(et_phone.getText().toString().trim(), et_input_psd.getText().toString().trim(),
+                        s.toString(), et_realName.getText().toString().trim());
+            }
+        });
+
+        et_realName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                setLoginButtonState(et_phone.getText().toString().trim(), et_input_psd.getText().toString().trim(),
+                        et_zfb.getText().toString().trim(), s.toString());
             }
         });
     }
 
 
-    private void setLoginButtonState(String phone, String psd) {
-        btn_register.setEnabled(!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(psd));
+    private void setLoginButtonState(String phone, String psd, String zfbName, String realName) {
+        btn_register.setEnabled(!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(psd) && !TextUtils.isEmpty(zfbName) && !TextUtils.isEmpty(realName));
     }
 
 
-    @OnClick({R.id.btn_register, R.id.tv_forget_psd, R.id.tv_register, R.id.iv_psd_look, R.id.bar_left})
+    @OnClick({R.id.btn_register, R.id.iv_psd_look, R.id.bar_left})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.btn_register:
                 String inputPhone = et_phone.getText().toString().trim();
                 String inputPsd = et_input_psd.getText().toString().trim();
+                String zfbName = et_zfb.getText().toString().trim();
+                String realName = et_realName.getText().toString().trim();
                 if (TextUtils.isEmpty(inputPhone)) {
                     ToastUtil.showToastShort("手机号不能为空");
                     return;
@@ -120,17 +160,19 @@ public class RegisterActivity extends NXActivity {
                     ToastUtil.showToastShort("密码不能为空");
                     return;
                 }
-                if (inputPsd.length() < 6) {
-                    ToastUtil.showToastShort("密码长度不少于6位");
+                if (inputPsd.length() < 6 || inputPsd.length() > 12) {
+                    ToastUtil.showToastShort("密码长度在6-12位之间");
                     return;
                 }
-                loginAccount(inputPhone, inputPsd);
-                break;
-            case R.id.tv_forget_psd:
-                ToastUtil.showToastShort("忘记密码");
-                break;
-            case R.id.tv_register:
-                ToastUtil.showToastShort("注册");
+                if (TextUtils.isEmpty(zfbName)) {
+                    ToastUtil.showToastShort("手机号不能为空");
+                    return;
+                }
+                if (TextUtils.isEmpty(realName) || realName.length() == 1 || realName.length() > 10) {
+                    ToastUtil.showToastShort("姓名填写不对");
+                    return;
+                }
+                loginAccount(inputPhone, inputPsd, zfbName, realName);
                 break;
             case R.id.iv_psd_look:
                 showPwd();
@@ -157,9 +199,9 @@ public class RegisterActivity extends NXActivity {
         }
     }
 
-    private void loginAccount(String inputPhone, String inputPsd) {
+    private void loginAccount(String inputPhone, String inputPsd, String zfbName, String realName) {
 
-        AccountHttp.userRegister(inputPhone, inputPsd, "", new ModelCallBack<LoginResp>() {
+        AccountHttp.userRegister(inputPhone, inputPsd, zfbName, realName, new ModelCallBack<LoginResp>() {
             @Override
             public void onResponse(LoginResp response, int id) {
                 ToastUtil.showToastShort(response.getMsg());

@@ -25,11 +25,12 @@ public class AccountHttp extends BaseHttp {
                 .build().execute(callBack);
     }
 
-    public static void userRegister(String phone, String psd, String zfb, ModelCallBack callBack) {
+    public static void userRegister(String phone, String psd, String zfb, String realName, ModelCallBack callBack) {
         executeGetHttp("reg")
                 .addParams(" zfb", zfb)
                 .addParams("username", phone)
                 .addParams("password", psd)
+                .addParams("realName", realName)
                 .build().execute(callBack);
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white"
@@ -73,7 +74,7 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="请输入密码"
+                android:hint="请输入6-12位密码"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:maxLines="1"
@@ -97,16 +98,45 @@
             android:layout_height="1px"
             android:background="@color/color_gray_c" />
 
-        <TextView
-            android:id="@+id/tv_forget_psd"
-            style="@style/small_text"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="end"
-            android:layout_marginTop="@dimen/dp_10"
-            android:text="忘记密码"
-            android:textColor="@color/color_576b95"
-            android:visibility="gone" />
+        <EditText
+            android:id="@+id/et_zfb"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:hint="请输入支付宝账号"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/color_gray"
+            android:textSize="16sp" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_gray_c" />
+
+        <EditText
+            android:id="@+id/et_realName"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:hint="请输入真实姓名"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/color_gray"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_gray_c" />
 
         <Button
             android:id="@+id/btn_register"
@@ -122,16 +152,6 @@
             android:textColor="@color/color_white"
             android:textSize="16sp" />
 
-
-        <TextView
-            android:id="@+id/tv_register"
-            style="@style/small_text"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_20"
-            android:text="新用户注册"
-            android:textColor="@color/color_gray_6"
-            android:textSize="16sp"
-            android:visibility="gone" />
 
     </LinearLayout>
 
