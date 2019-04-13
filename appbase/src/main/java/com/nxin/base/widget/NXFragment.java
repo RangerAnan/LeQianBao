@@ -1,5 +1,6 @@
 package com.nxin.base.widget;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ViewAnimator;
 
 import com.nxin.base.R;
+import com.nxin.base.view.dialog.LoadingDialog;
 import com.nxin.base.view.loading.CommonEmptyView;
 
 import butterknife.ButterKnife;
@@ -304,6 +306,39 @@ public abstract class NXFragment extends Fragment {
      */
     protected boolean isDelayLoad() {
         return false;
+    }
+
+
+    private LoadingDialog loadingDialog;
+
+    /**
+     * 展示加载进度条
+     *
+     * @param cancel 击外部是否可取消
+     */
+    public void showProgressBar(int content, boolean cancel) {
+        loadingDialog = new LoadingDialog(mContext, cancel, getString(content));
+        loadingDialog.show();
+    }
+
+    public void showProgressBar(boolean cancel) {
+        showProgressBar(R.string.loading_public, cancel);
+    }
+
+    /**
+     * 关闭进度条
+     */
+    public void dismissProgressBar() {
+        disDialog(loadingDialog);
+    }
+
+    /**
+     * 关闭 dialog
+     */
+    public void disDialog(Dialog dialog) {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 <resources>
     <string name="loading">全力加载中...</string>
+    <string name="loading_public">正在加载...</string>
     <string name="click_to_refresh">网络不给力,点击屏幕刷新吧~</string>
 
     <string name="close">关闭</string>
@@ -34,4 +35,6 @@
     <string name="Permissons_Not_Contacts">无法获得通讯录权限 </string>
     <string name="Permissons_Not_Phone">无法获得拨打电话权限 </string>
     <string name="Permissons_Not_Video">无法获得视频权限 </string>
+
+    <string name="device_nonsupport_dial">对不起，该设备不支持电话功能</string>
 </resources>

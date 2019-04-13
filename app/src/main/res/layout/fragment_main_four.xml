@@ -19,7 +19,7 @@
                 android:id="@+id/me_user_layout"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="@color/btn_orange1"
+                android:background="@color/theme"
                 android:descendantFocusability="blocksDescendants">
 
                 <com.leqian.bao.view.imageview.CircleImageView
@@ -139,7 +139,7 @@
         <LinearLayout
             android:id="@id/content"
             style="@style/roundconor"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_20"
             android:orientation="vertical" />
     </LinearLayout>
 

@@ -1,10 +1,12 @@
 package com.nxin.base.widget;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,9 +22,11 @@ import com.nxin.base.common.ScreenManager;
 import com.nxin.base.utils.KeyboardUtils;
 import com.nxin.base.utils.ProHelper;
 import com.nxin.base.utils.SystemUtil;
+import com.nxin.base.view.dialog.LoadingDialog;
 import com.nxin.base.view.loading.CommonEmptyView;
 import com.nxin.base.view.swipeback.SwipeBackLayout;
 import com.nxin.base.view.swipeback.app.SwipeBackActivity;
+import com.nxin.base.widget.statusbar.StatusBarUtil;
 
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
@@ -59,6 +63,7 @@ public class NXToolBarActivity extends SwipeBackActivity {
 
         initLayout();
         ButterKnife.bind(this);
+//        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(mContext, R.color.theme));
         initView();
         initViewData();
     }
@@ -365,5 +370,38 @@ public class NXToolBarActivity extends SwipeBackActivity {
             }
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+
+    private LoadingDialog loadingDialog;
+
+    /**
+     * 展示加载进度条
+     *
+     * @param cancel 击外部是否可取消
+     */
+    public void showProgressBar(int content, boolean cancel) {
+        loadingDialog = new LoadingDialog(mContext, cancel, getString(content));
+        loadingDialog.show();
+    }
+
+    public void showProgressBar(boolean cancel) {
+        showProgressBar(R.string.loading_public, cancel);
+    }
+
+    /**
+     * 关闭进度条
+     */
+    public void dismissProgressBar() {
+        disDialog(loadingDialog);
+    }
+
+    /**
+     * 关闭 dialog
+     */
+    public void disDialog(Dialog dialog) {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 }

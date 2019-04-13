@@ -7,4 +7,5 @@
     <item name="content" type="id" />
     <item name="viewpager" type="id" />
     <item name="btn_ok" type="id" />
+    <item name="listView" type="id" />
 </resources>

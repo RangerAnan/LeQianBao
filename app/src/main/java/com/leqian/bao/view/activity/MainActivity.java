@@ -14,6 +14,7 @@ import com.leqian.bao.model.Constants;
 import com.leqian.bao.view.viewpager.TabContentViewPager;
 import com.nxin.base.widget.NXActivity;
 import com.nxin.base.widget.NXToolBarActivity;
+import com.nxin.base.widget.statusbar.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,7 @@ public class MainActivity extends NXActivity {
     @Override
     public void initView() {
         super.initView();
+        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(mContext, com.nxin.base.R.color.theme));
 
         tabImgList.clear();
         tabImgList.add(iv_tab1);

@@ -37,4 +37,8 @@
 
     <color name="spannable_click_bg">#E4E4E4</color>
 
+    <color name="gray_dedfe0">#dedfe0</color>
+
+    <color name="gray_cfcfcf">#cfcfcf</color>
+
 </resources>

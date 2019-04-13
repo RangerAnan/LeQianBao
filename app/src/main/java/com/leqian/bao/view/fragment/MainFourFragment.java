@@ -1,18 +1,33 @@
 package com.leqian.bao.view.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.leqian.bao.R;
+import com.leqian.bao.common.permissions.PermissionsResultAction;
+import com.leqian.bao.common.permissions.PermissonsUtil;
+import com.leqian.bao.common.util.DeviceUtil;
+import com.leqian.bao.common.util.ImageUtil;
 import com.leqian.bao.common.util.ToastUtil;
+import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.model.ui.CommonUIModel;
 import com.leqian.bao.view.activity.account.ModifyLoginPsdActivity;
+import com.leqian.bao.view.dialog.listDilog.BottomListDialog;
 import com.leqian.bao.view.imageview.CircleImageView;
+import com.nxin.base.utils.Logger;
+import com.nxin.base.utils.ProHelper;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,7 +36,7 @@ import butterknife.OnClick;
  * Created by fcl on 19.4.12
  * desc:我的模块
  */
-public class MainFourFragment extends ViewpagerFragment {
+public class MainFourFragment extends ViewpagerFragment implements BottomListDialog.IBottomListItemListener {
 
     @BindView(R.id.me_user_photo)
     CircleImageView me_user_photo;
@@ -46,6 +61,8 @@ public class MainFourFragment extends ViewpagerFragment {
 
 
     ArrayList<CommonUIModel> uiModels = new ArrayList<>();
+
+    private BottomListDialog listDialog;
 
     @Override
     public int getLayoutId() {
@@ -85,7 +102,13 @@ public class MainFourFragment extends ViewpagerFragment {
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.me_user_photo:
-                ToastUtil.showToastShort("头像");
+                String[] stringArray = getResources().getStringArray(R.array.dialog_list_item);
+                ArrayList<String> nameList = new ArrayList<>();
+                Collections.addAll(nameList, stringArray);
+
+                listDialog = new BottomListDialog(mContext, R.style.PhotoSelectDialog, nameList);
+                listDialog.setOnBottomListItemListener(this);
+                listDialog.show();
                 break;
             case R.id.tv_zfb:
                 ToastUtil.showToastShort("支付宝");
@@ -93,6 +116,75 @@ public class MainFourFragment extends ViewpagerFragment {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RequestCode.CHOICE_CMARE: {
+                    File temp = new File(Constants.PHOTOFILEPATH);
+                    Uri cameraUri = Uri.fromFile(temp);
+                    if (cameraUri != null) {
+                        String path = ImageUtil.getImageAbsolutePath(mContext, cameraUri);
+                        if (TextUtils.isEmpty(path)) {
+                            Logger.e(initTag() + "   图片为空");
+                            return;
+                        }
+                        //TODO 上报服务器
+                        ToastUtil.showToastShort(path);
+                    }
+                }
+                break;
+                case RequestCode.CHOICE_PHOTO: {
+                    File temp = new File(Constants.PHOTOFILEPATH);
+                    Uri cameraUri = Uri.fromFile(temp);
+                    if (cameraUri != null) {
+                        String path = ImageUtil.getImageAbsolutePath(mContext, cameraUri);
+                        if (TextUtils.isEmpty(path)) {
+                            Logger.e(initTag() + "   图片为空");
+                            return;
+                        }
+                        //TODO 上报服务器
+                        ToastUtil.showToastShort(path);
+                    }
+                }
+                break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onBottomListItemListener(int position) {
+        if (position == 0) {
+            requestCameraPermission(0);
+        } else if (position == 1) {
+            requestCameraPermission(1);
+        }
+        if (listDialog != null && listDialog.isShowing()) {
+            listDialog.dismiss();
+        }
+    }
+
+    private void requestCameraPermission(final int type) {
+        PermissonsUtil.getCamraPermisson(ProHelper.getScreenHelper().currentActivity(), new PermissionsResultAction() {
+            @Override
+            public void onGranted() {
+                if (type == 0) {
+                    DeviceUtil.openCamera(MainFourFragment.this);
+                } else if (type == 1) {
+                    DeviceUtil.openPhotos(MainFourFragment.this);
+                }
+            }
+
+            @Override
+            public void onDenied(String permission) {
+                ToastUtil.showToastLong(getString(R.string.Permissons_Not_Camra));
+            }
+        });
     }
 
     private class ItemClickListener implements View.OnClickListener {
