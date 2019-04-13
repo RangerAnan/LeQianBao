@@ -27,7 +27,7 @@ public class SplashActivity extends NXActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                intent2Activity(loginState ? MainActivity.class : LoginActivity.class);
+                intent2Activity(loginState ? MainActivity.class : MainActivity.class);
                 finish();
             }
         }, 3000);

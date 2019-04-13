@@ -66,4 +66,13 @@
         <item name="android:layout_weight">1.0</item>
     </style>
 
+
+    <style name="roundconor">
+        <item name="android:background">@drawable/shape_pulltoscroll</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/dp_12</item>
+        <item name="android:layout_marginRight">@dimen/dp_12</item>
+    </style>
+
 </resources>

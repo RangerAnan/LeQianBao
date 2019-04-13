@@ -30,7 +30,7 @@ public class AccountHttp extends BaseHttp {
                 .addParams(" zfb", zfb)
                 .addParams("username", phone)
                 .addParams("password", psd)
-                .addParams("realName", realName)
+                .addParams("name", realName)
                 .build().execute(callBack);
     }
 

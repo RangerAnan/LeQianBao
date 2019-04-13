@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leqian.bao.R;
+import com.leqian.bao.common.sp.ShareUtilMain;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.account.LoginResp;
 import com.leqian.bao.common.http.AccountHttp;
@@ -121,7 +122,7 @@ public class LoginActivity extends NXActivity {
                 loginAccount(inputPhone, inputPsd);
                 break;
             case R.id.tv_forget_psd:
-                ToastUtil.showToastShort("忘记密码");
+                intent2Activity(ModifyLoginPsdActivity.class);
                 break;
             case R.id.tv_register:
                 intent2Activity(RegisterActivity.class);
@@ -153,11 +154,12 @@ public class LoginActivity extends NXActivity {
         AccountHttp.userLogin(inputPhone, inputPsd, new ModelCallBack<LoginResp>() {
             @Override
             public void onResponse(LoginResp response, int id) {
-                if (response.getCode() != 0) {
+                if (response.getCode() != 1) {
                     ToastUtil.showToastShort(response.getMsg());
                     return;
                 }
                 //save用户信息
+                ShareUtilMain.setBoolean(ShareUtilMain.LOGIN_STATE, true);
             }
         });
     }

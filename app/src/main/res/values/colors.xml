@@ -19,6 +19,8 @@
     <color name="color_gray_e">#EEEFEF</color>
     <color name="color_gray_f">#F1F1F1</color>
     <color name="color_gray_9">#999999</color>
+    <color name="color_gray_4">#4a000000</color>
+    <color name="bg_common">#f8f8f8</color>
 
 
     <color name="color_576b95">#576b95</color>
@@ -32,5 +34,7 @@
     <color name="orientation_divider">#bbbbbb</color>
 
     <color name="font_tab">#d8302f</color>
+
+    <color name="spannable_click_bg">#E4E4E4</color>
 
 </resources>

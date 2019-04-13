@@ -169,7 +169,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/dp_4"
-                android:text="我"
+                android:text="我的"
                 android:textColor="@color/color_gray_9"
                 android:textSize="11sp" />
 

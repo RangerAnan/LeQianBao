@@ -88,6 +88,9 @@ public class MainActivity extends NXActivity {
         vpAdapter = new FragmentAdapter(getSupportFragmentManager());
         viewpager.setAdapter(vpAdapter);
         viewpager.setPageTransformer(false, null);
+
+        //设置邀请码
+
     }
 
     public void setTabStyleChange(int position) {

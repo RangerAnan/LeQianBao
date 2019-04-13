@@ -3,6 +3,8 @@
 
     <item name="bar_left" type="id" />
     <item name="tv_title" type="id" />
+    <item name="tv_name" type="id" />
     <item name="content" type="id" />
     <item name="viewpager" type="id" />
+    <item name="btn_ok" type="id" />
 </resources>
