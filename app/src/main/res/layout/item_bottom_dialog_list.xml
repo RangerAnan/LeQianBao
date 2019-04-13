@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <View
+        android:id="@+id/lv_item_margin"
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:background="@color/gray_dedfe0"
+        android:visibility="gone" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/bottom_list_tv"
+            style="@style/small_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text=""
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bottom_list_tv_desc"
+            style="@style/small_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/bottom_list_tv"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/bottom_list_tv"
+            android:text=""
+            android:textColor="@color/gray_cfcfcf"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+</LinearLayout>

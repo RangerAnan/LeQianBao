@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mine_ui_item">
+        <item>团队管理</item>
+        <item>点击明细</item>
+        <item>修改密码</item>
+        <item>联系客服</item>
+        <item>关于我们</item>
+        <item>退出登录</item>
+
+    </string-array>
+
+    <string-array name="user_card_item">
+        <item>基本信息</item>
+        <item>公司</item>
+        <item>部门</item>
+        <item>职位</item>
+        <item>电话</item>
+        <item>邮箱</item>
+    </string-array>
+
+
+    <string-array name="dialog_list_item">
+        <item>立即拍照</item>
+        <item>从本地相册选取</item>
+        <item>取消</item>
+    </string-array>
+
+</resources>

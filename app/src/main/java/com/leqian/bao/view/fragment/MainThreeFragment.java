@@ -8,6 +8,8 @@ import com.leqian.bao.R;
  */
 public class MainThreeFragment extends ViewpagerFragment {
 
+
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_main_three;
