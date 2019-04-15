@@ -7,9 +7,9 @@ import com.nxin.base.model.domain.BaseModel;
  * Created by fcl on 19.4.11
  * desc:
  */
-public class LoginRep extends BaseModel {
+public class LoginRep extends BaseModelReq {
 
-    public String phone;
-    public String psd;
+    public String  username;
+    public String  password ;
 
 }

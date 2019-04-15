@@ -31,13 +31,17 @@ public class BaseHttp {
         String param = content.getClass() == String.class ? (String) content : JsonUtils.object2Json(content);
 
         OkHttpUtils.postString()
-                .url(hostUrl)
-                .content(EncryptUtils.EncodeBase64String(param))
+                .url(commonUrl)
+                .content(param)
                 .tag(tag)
 //                .addHeader("User-Agent", StringUtil.getAppVersion())
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .build()
                 .execute(callback);
+    }
+
+    public static <T> void executePostHttp(T content, ModelCallBack callback){
+        executePostHttp(content,ProHelper.getScreenHelper().currentActivity(),callback);
     }
 
     /**
@@ -48,4 +52,6 @@ public class BaseHttp {
                 .addParams("token", token)
                 .addParams("method", method);
     }
+
+
 }

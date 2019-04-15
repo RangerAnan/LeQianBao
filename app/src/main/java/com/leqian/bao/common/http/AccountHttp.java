@@ -19,10 +19,15 @@ public class AccountHttp extends BaseHttp {
     public static final String testJson = hostUrl + "/wxarticle/chapters/json";
 
     public static void userLogin(String phone, String psd, ModelCallBack callBack) {
-        executeGetHttp("login")
-                .addParams("username", phone)
-                .addParams("password", psd)
-                .build().execute(callBack);
+//        executeGetHttp("login")
+//                .addParams("username", phone)
+//                .addParams("password", psd)
+//                .build().execute(callBack);
+        LoginRep loginRep = new LoginRep();
+        loginRep.username = phone;
+        loginRep.password = psd;
+        executePostHttp(loginRep, callBack);
+
     }
 
     public static void userRegister(String phone, String psd, String zfb, String realName, ModelCallBack callBack) {
