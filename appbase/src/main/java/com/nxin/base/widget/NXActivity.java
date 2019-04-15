@@ -401,6 +401,10 @@ public class NXActivity extends SwipeBackActivity {
         showProgressBar(R.string.loading_public, cancel);
     }
 
+    public void showProgressBar(){
+        showProgressBar(R.string.loading_public, true);
+    }
+
     /**
      * 关闭进度条
      */

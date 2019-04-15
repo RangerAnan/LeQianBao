@@ -12,6 +12,7 @@ import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.FragmentAdapter;
 import com.leqian.bao.model.Constants;
 import com.leqian.bao.view.viewpager.TabContentViewPager;
+import com.nxin.base.utils.JsonUtils;
 import com.nxin.base.widget.NXActivity;
 import com.nxin.base.widget.NXToolBarActivity;
 import com.nxin.base.widget.statusbar.StatusBarUtil;
@@ -59,6 +60,7 @@ public class MainActivity extends NXActivity {
     @Override
     public void initView() {
         super.initView();
+
 
         tabImgList.clear();
         tabImgList.add(iv_tab1);

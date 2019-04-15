@@ -3,26 +3,33 @@ package com.leqian.bao.view.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.leqian.bao.R;
 import com.leqian.bao.common.permissions.PermissionsResultAction;
 import com.leqian.bao.common.permissions.PermissonsUtil;
+import com.leqian.bao.common.sp.ShareUtilMain;
+import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ImageUtil;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.Constants;
 import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.model.ui.CommonUIModel;
+import com.leqian.bao.view.activity.account.LoginActivity;
 import com.leqian.bao.view.activity.account.ModifyLoginPsdActivity;
 import com.leqian.bao.view.dialog.listDilog.BottomListDialog;
 import com.leqian.bao.view.imageview.CircleImageView;
 import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
+import com.nxin.base.view.dialog.MaterialDialogUtil;
 
 import java.io.File;
 import java.lang.reflect.Array;
@@ -219,7 +226,15 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
                     ToastUtil.showToastShort("关于我们");
                     break;
                 case 5:
-                    ToastUtil.showToastShort("退出登录");
+                    MaterialDialogUtil.showAlert(mContext, "确定退出登录吗？", "确定", "取消",
+                            new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    ShareUtilMain.setBoolean(ShareUtilMain.LOGIN_STATE, false);
+                                    ShareUtilUser.remove(ShareUtilUser.USER_INFO);
+                                    intent2Activity(LoginActivity.class);
+                                }
+                            });
                     break;
                 default:
                     break;

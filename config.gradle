@@ -1,0 +1,27 @@
+/*
+ * 全局配置文件
+ */
+
+ext {
+
+    /**
+     * 版本统一配置
+     */
+    compileSdkVersion = 27
+    minSdkVersion = 17
+    targetSdkVersion = 27
+    supportVersion = '27.1.1'
+
+    okHttpVersion = '3.11.0'
+    butterknifeVersion = '8.8.1'
+
+    /**
+     * 圈子是否为module
+     */
+    circleIsModule = false
+
+    /**
+     * 是否包含云知声
+     */
+    containYZS = false
+}

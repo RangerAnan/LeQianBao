@@ -1,6 +1,7 @@
 package com.nxin.base.widget;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -339,6 +340,10 @@ public abstract class NXFragment extends Fragment {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
+    }
+
+    public void intent2Activity(Class clazz) {
+        startActivity(new Intent(mContext, clazz));
     }
 
 }
