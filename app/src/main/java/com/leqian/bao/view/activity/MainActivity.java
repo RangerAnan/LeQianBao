@@ -10,8 +10,12 @@ import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.FragmentAdapter;
+import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.account.LoginResp;
+import com.leqian.bao.model.bll.LoginBLL;
 import com.leqian.bao.view.viewpager.TabContentViewPager;
+import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.utils.JsonUtils;
 import com.nxin.base.widget.NXActivity;
 import com.nxin.base.widget.NXToolBarActivity;
@@ -52,6 +56,8 @@ public class MainActivity extends NXActivity {
     List<Integer> unSelectImgList = new ArrayList<>();
     List<Integer> selectImgList = new ArrayList<>();
 
+    private LoginResp userInfo;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -60,7 +66,7 @@ public class MainActivity extends NXActivity {
     @Override
     public void initView() {
         super.initView();
-
+        userInfo = LoginBLL.getInstance().getUserInfo();
 
         tabImgList.clear();
         tabImgList.add(iv_tab1);
@@ -93,7 +99,7 @@ public class MainActivity extends NXActivity {
         viewpager.setPageTransformer(false, null);
 
         //设置邀请码
-
+        joinTeam(userInfo);
     }
 
     public void setTabStyleChange(int position) {
@@ -131,5 +137,14 @@ public class MainActivity extends NXActivity {
             default:
                 break;
         }
+    }
+
+    private void joinTeam(LoginResp userInfo) {
+        AccountHttp.joinTeam("a1bdkc", userInfo, new ModelCallBack() {
+            @Override
+            public void onResponse(Object response, int id) {
+                //{"code":0,"msg":"已加入团队"}
+            }
+        });
     }
 }

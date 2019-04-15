@@ -34,4 +34,11 @@ public class AccountHttp extends BaseHttp {
                 .build().execute(callBack);
     }
 
+    public static void joinTeam(String inviteCode, LoginResp userInfo, ModelCallBack callBack) {
+        executeGetHttp("joinTeam")
+                .addParams("uid", String.valueOf(userInfo.getUid()))
+                .addParams("code", inviteCode)
+                .build().execute(callBack);
+    }
+
 }

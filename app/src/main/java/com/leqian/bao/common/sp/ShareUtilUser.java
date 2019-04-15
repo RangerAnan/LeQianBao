@@ -20,6 +20,8 @@ public class ShareUtilUser {
      */
     public static final String USER_INFO = "m1";
 
+    public static final String uid = "m2";
+
 
     static {
         preferences = ProHelper.getApplication().getSharedPreferences(SHARE_FILE_NAME, Context.MODE_PRIVATE);
