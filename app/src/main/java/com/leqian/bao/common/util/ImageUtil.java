@@ -1,8 +1,10 @@
 package com.leqian.bao.common.util;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,6 +27,7 @@ import android.widget.ImageView;
 import com.leqian.bao.GlobalApplication;
 import com.leqian.bao.common.sp.ShareUtilMain;
 import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.code.RequestCode;
 import com.nxin.base.utils.FileUtil;
 import com.nxin.base.utils.ProHelper;
 
@@ -313,6 +316,43 @@ public class ImageUtil {
             BufferedOutputStream outputStream = new BufferedOutputStream(out);
             outputStream.write(buffer);
             outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static final String CROP_TEMP_IMAGE_NAME = "crop_image.jpg";
+    public static void cropImage(Context context, Uri uri) {
+        try {
+            if (uri != null) {
+                Intent intent = new Intent("com.android.camera.action.CROP");
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+                    intent.setDataAndType(uri, "image/*");
+                } else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT && android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+                    String path = ImageUtil.getImageAbsolutePath(context, uri);
+                    if (!TextUtils.isEmpty(path)) {
+                        File file = new File(path);
+                        if (file.isFile() && file.exists()) {
+                            intent.setDataAndType(Uri.fromFile(new File(path)), "image/*");
+                        }
+                    }
+                } else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    String path = ImageUtil.getImageAbsolutePath(context, uri);
+                    intent.setDataAndType(DeviceUtil.getUriForFile(context, new File(path)), "image/*");
+                }
+                intent.putExtra("crop", "true");
+                intent.putExtra("aspectX", 1);
+                intent.putExtra("aspectY", 1);
+                intent.putExtra("outputX", 600);
+                intent.putExtra("outputY", 600);
+                intent.putExtra("scale", true);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Constants.SAVE_IMAGE_TEMP_PATH + CROP_TEMP_IMAGE_NAME)));
+                intent.putExtra("return-data", false);
+                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                intent.putExtra("noFaceDetection", true); // no face detection
+                ((Activity) context).startActivityForResult(intent, RequestCode.CHOICE_MEDIA);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

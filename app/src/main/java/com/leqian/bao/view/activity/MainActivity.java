@@ -23,6 +23,7 @@ import com.leqian.bao.view.dialog.listDilog.JoinTeamDialog;
 import com.leqian.bao.view.viewpager.TabContentViewPager;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.utils.JsonUtils;
+import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
 import com.nxin.base.view.dialog.MaterialDialogUtil;
 import com.nxin.base.widget.NXActivity;
@@ -161,6 +162,11 @@ public class MainActivity extends NXActivity {
      * 检查用户状态
      */
     private void checkAccountState() {
+        if (userInfo.getType().equals("1")) {
+            Logger.i(initTag() + " 团长号");
+            return;
+        }
+
         AccountHttp.checkAccountState(new ModelCallBack<BaseModelResp>() {
             @Override
             public void onResponse(BaseModelResp response, int id) {

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.leqian.bao.R;
+import com.leqian.bao.common.http.UploadHttp;
 import com.leqian.bao.common.permissions.PermissionsResultAction;
 import com.leqian.bao.common.permissions.PermissonsUtil;
 import com.leqian.bao.common.sp.ShareUtilMain;
@@ -21,6 +22,7 @@ import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ImageUtil;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.account.UploadImageResp;
 import com.leqian.bao.model.bll.LoginBLL;
 import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.model.ui.CommonUIModel;
@@ -28,6 +30,9 @@ import com.leqian.bao.view.activity.account.LoginActivity;
 import com.leqian.bao.view.activity.account.ModifyLoginPsdActivity;
 import com.leqian.bao.view.dialog.listDilog.BottomListDialog;
 import com.leqian.bao.view.imageview.CircleImageView;
+import com.nxin.base.model.http.OkHttpUtils;
+import com.nxin.base.model.http.callback.ModelCallBack;
+import com.nxin.base.model.http.utils.ImageUtils;
 import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
 import com.nxin.base.view.dialog.MaterialDialogUtil;
@@ -139,20 +144,11 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
             switch (requestCode) {
                 case RequestCode.CHOICE_CMARE: {
                     File temp = new File(Constants.PHOTOFILEPATH);
-                    Uri cameraUri = Uri.fromFile(temp);
-                    if (cameraUri != null) {
-                        String path = ImageUtil.getImageAbsolutePath(mContext, cameraUri);
-                        if (TextUtils.isEmpty(path)) {
-                            Logger.e(initTag() + "   图片为空");
-                            return;
-                        }
-                        //TODO 上报服务器
-                        ToastUtil.showToastShort(path);
-                    }
+                    ImageUtil.cropImage(mContext, Uri.fromFile(temp));
                 }
                 break;
                 case RequestCode.CHOICE_PHOTO: {
-                    File temp = new File(Constants.PHOTOFILEPATH);
+                   /* File temp = new File(Constants.PHOTOFILEPATH);
                     Uri cameraUri = Uri.fromFile(temp);
                     if (cameraUri != null) {
                         String path = ImageUtil.getImageAbsolutePath(mContext, cameraUri);
@@ -160,15 +156,36 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
                             Logger.e(initTag() + "   图片为空");
                             return;
                         }
-                        //TODO 上报服务器
-                        ToastUtil.showToastShort(path);
-                    }
+                        uploadImage(path);
+                    }*/
+                    uploadImage(Constants.PHOTOFILEPATH);
                 }
                 break;
+                case RequestCode.CHOICE_MEDIA:       //取得裁剪后的图片
+                    File file = new File(Constants.SAVE_IMAGE_TEMP_PATH + ImageUtil.CROP_TEMP_IMAGE_NAME);
+                    if (file.exists() && file.length() > 0) {
+                        uploadImage(file.getAbsolutePath());
+                    }
+                    break;
                 default:
                     break;
             }
         }
+    }
+
+    /**
+     * 上传图片
+     *
+     * @param path
+     */
+    private void uploadImage(String path) {
+        Logger.i(initTag() + "---uploadImage--path:" + path);
+        UploadHttp.uploadImage(new File(path), new ModelCallBack<UploadImageResp>() {
+            @Override
+            public void onResponse(UploadImageResp response, int id) {
+
+            }
+        });
     }
 
     @Override

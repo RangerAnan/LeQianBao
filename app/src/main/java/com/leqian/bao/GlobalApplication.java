@@ -1,5 +1,6 @@
 package com.leqian.bao;
 
+import com.leqian.bao.common.util.FileUtil;
 import com.leqian.bao.model.AppConstants;
 import com.nxin.base.BaseApplication;
 import com.nxin.base.model.http.OkHttpUtils;
@@ -25,6 +26,7 @@ public class GlobalApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         initOkHttp();
+        FileUtil.createProjectSdcardFile();
     }
 
     @Override

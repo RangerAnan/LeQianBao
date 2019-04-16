@@ -19,9 +19,9 @@ public class BaseHttp {
 
     public static final String commonUrl = hostUrl + "/public/api.php";
 
-    private static final String token = "a84d81aa54523bcab9d88c32d9e751ac";
+    public static final String token = "a84d81aa54523bcab9d88c32d9e751ac";
 
-    private static final String method = "method";
+    protected static final String method = "method";
 
 
     /**

@@ -40,7 +40,7 @@ public class LoginBLL extends BaseManager {
 
     public void exitAccount(Context context) {
         ShareUtilMain.setBoolean(ShareUtilMain.LOGIN_STATE, false);
-        ShareUtilUser.remove(ShareUtilUser.USER_INFO);
+        ShareUtilUser.clear();
         context.startActivity(new Intent(context, LoginActivity.class));
     }
 }

@@ -15,7 +15,7 @@ public class Constants {
 
     //配置目录
     public static File mExternalStorage = Environment.getExternalStorageDirectory();
-    public static final String DIR_PROJECT = "/myb/" + ProHelper.getApplication().getAppFlavor() + "/";
+    public static final String DIR_PROJECT = "/" + ProHelper.getApplication().getAppFlavor() + "/";
 
     public static final String SAVE_GLIDE_IMAGE = mExternalStorage + DIR_PROJECT;         //Glide图片缓存路径
     public static final String SAVE_EXCEPTION_PATH = mExternalStorage + DIR_PROJECT + "exception/"; //异常文件保存路径
@@ -39,6 +39,7 @@ public class Constants {
     public static final String DIR_FILE = DIR_PROJECT + "file/";   //文件
     public static final String DIR_LOG = DIR_PROJECT + "log/";     //日志
     public static final String DIR_IMAGE_TEMP = DIR_PROJECT + "temp/"; //临时目录
+    public static final String DIR_IMAGE_TEMP_NOMEDIA = DIR_PROJECT + "temp/.nomedia";
 
     public static final String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".fileprovider";
 

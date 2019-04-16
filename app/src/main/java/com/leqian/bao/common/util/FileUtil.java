@@ -3,9 +3,14 @@ package com.leqian.bao.common.util;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 
 import com.leqian.bao.GlobalApplication;
+import com.leqian.bao.model.Constants;
+import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
+
+import java.io.File;
 
 /**
  * Created by fcl on 19.4.13
@@ -36,5 +41,93 @@ public class FileUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * 创建所需要的文件夹；创建隐藏文件，不显示媒体文件;
+     */
+    public static void createProjectSdcardFile() {
+        try {
+            Logger.d("createProjectSdcardFile============================");
+            if (!checkCard()) {
+                return;
+            }
+            File mExternalStorage = Environment.getExternalStorageDirectory();
+            Logger.d("mExternalStorage = " + mExternalStorage);
+            File file = new File(mExternalStorage + Constants.DIR_PROJECT);
+            Logger.d("file.exists() " + file.exists());
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+
+            file = new File(mExternalStorage + Constants.DIR_DOWNLOAD);
+            Logger.d("file.exists() " + file.exists());
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+
+            file = new File(mExternalStorage + Constants.DIR_MEDIA);
+            Logger.d("file.exists() " + file.exists());
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+
+            file = new File(mExternalStorage + Constants.DIR_VOICE);
+            Logger.d("file.exists() " + file.exists());
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+
+            file = new File(mExternalStorage + Constants.DIR_IMAGE);
+            Logger.d("file.exists() " + file.exists());
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+
+            file = new File(mExternalStorage + Constants.DIR_VIDEO);
+            Logger.d("file.exists() " + file.exists());
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+
+            file = new File(mExternalStorage + Constants.DIR_FILE);
+            Logger.d("file.exists() " + file.exists());
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+
+            file = new File(mExternalStorage + Constants.DIR_LOG);
+            Logger.d("file.exists() " + file.exists());
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+
+            file = new File(mExternalStorage + Constants.DIR_IMAGE_TEMP);
+            Logger.d("file.exists() " + file.exists());
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+
+            // 临时图片禁止系统读取
+            file = new File(mExternalStorage + Constants.DIR_IMAGE_TEMP_NOMEDIA);
+            Logger.d("file.exists() " + file.exists());
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 检查SD卡是否插入
+     *
+     * @return
+     */
+    public static boolean checkCard() {
+        String status = Environment.getExternalStorageState();
+        return status.equals(Environment.MEDIA_MOUNTED);
     }
 }

@@ -109,4 +109,11 @@ public class ShareUtilUser {
         editor.remove(key);
         editor.commit();
     }
+
+
+    public static void clear() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+    }
 }
