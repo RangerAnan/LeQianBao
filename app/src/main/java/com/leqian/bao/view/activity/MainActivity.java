@@ -19,6 +19,7 @@ import com.leqian.bao.model.BaseModelResp;
 import com.leqian.bao.model.Constants;
 import com.leqian.bao.model.account.LoginResp;
 import com.leqian.bao.model.bll.LoginBLL;
+import com.leqian.bao.view.dialog.listDilog.JoinTeamDialog;
 import com.leqian.bao.view.viewpager.TabContentViewPager;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.utils.JsonUtils;
@@ -156,6 +157,9 @@ public class MainActivity extends NXActivity {
     }
 
 
+    /**
+     * 检查用户状态
+     */
     private void checkAccountState() {
         AccountHttp.checkAccountState(new ModelCallBack<BaseModelResp>() {
             @Override
@@ -165,6 +169,8 @@ public class MainActivity extends NXActivity {
                     LoginBLL.getInstance().exitAccount(mContext);
                 } else if (response.getCode() == 2) {
                     //弹出邀请码
+                    JoinTeamDialog joinTeamDialog = new JoinTeamDialog(mContext, userInfo);
+                    joinTeamDialog.show();
                 } else if (response.getCode() == 0) {
                     MaterialDialogUtil.showAlert(mContext, response.getMsg() + "，" + getString(R.string.repeat_request),
                             R.string.repeat_again, R.string.exit_app,
@@ -185,17 +191,5 @@ public class MainActivity extends NXActivity {
         });
     }
 
-    private void joinTeam(LoginResp userInfo) {
-        AccountHttp.joinTeam("a1bdkc", userInfo, new ModelCallBack<BaseModelResp>() {
-            @Override
-            public void onResponse(BaseModelResp response, int id) {
-                //{"code":0,"msg":"已加入团队"}
-                if (response.getCode() == 0) {
-                    ToastUtil.showToastLong(response.getMsg());
-                    return;
-                }
-                ToastUtil.showToastShort("成功加入团队");
-            }
-        });
-    }
+
 }

@@ -37,6 +37,6 @@ public class BaseModelReq extends BaseModel {
      */
     public String method = "";
 
-    public int uid = LoginBLL.getInstance().getUserInfo().getUid();
+    public String uid = LoginBLL.getInstance().getUserInfo().getUid();
 
 }

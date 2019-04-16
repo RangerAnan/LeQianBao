@@ -22,6 +22,8 @@ public class ShareUtilUser {
 
     public static final String uid = "m2";
 
+    public static final String TEAMID = "m3";
+
 
     static {
         preferences = ProHelper.getApplication().getSharedPreferences(SHARE_FILE_NAME, Context.MODE_PRIVATE);

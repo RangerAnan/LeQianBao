@@ -14,14 +14,14 @@ public class LoginResp extends BaseModelResp {
      * type : 2
      */
 
-    private int uid;
+    private String uid;
     private String type;    //type=1表示团长，2表示团员
 
-    public int getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(int String) {
         this.uid = uid;
     }
 
