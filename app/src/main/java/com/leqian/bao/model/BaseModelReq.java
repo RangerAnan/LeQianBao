@@ -1,6 +1,7 @@
 package com.leqian.bao.model;
 
 import com.leqian.bao.common.util.NetworkUtils;
+import com.leqian.bao.model.bll.LoginBLL;
 import com.nxin.base.model.domain.BaseModel;
 
 /**
@@ -29,6 +30,13 @@ public class BaseModelReq extends BaseModel {
 //    public String os = AppConstants.APP_OS;//客户端系统(android/ios)
 //    public String type = "0";//APP(“0”,"移动终端")WEB(“1”,"PC终端")
 
-    public String token = "a84d81aa54523bcab9d88c32d9e751ac"
+    public String token = "a84d81aa54523bcab9d88c32d9e751ac";
+
+    /**
+     * 子类赋值
+     */
+    public String method = "";
+
+    public int uid = LoginBLL.getInstance().getUserInfo().getUid();
 
 }

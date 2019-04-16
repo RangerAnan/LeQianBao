@@ -65,9 +65,9 @@ public class LoggerInterceptor implements Interceptor {
                         if (isText(mediaType)) {
                             String resp = body.string();
 
-                            if (EncryptUtils.isBase64Data(resp)) {
-                                resp = EncryptUtils.DeCodeBase64String(resp);
-                            }
+//                            if (EncryptUtils.isBase64Data(resp)) {
+//                                resp = EncryptUtils.DeCodeBase64String(resp);
+//                            }
                             Logger.i("responseBody's content : " + resp);
 
                             body = ResponseBody.create(mediaType, resp);
@@ -125,7 +125,7 @@ public class LoggerInterceptor implements Interceptor {
                     mediaType.subtype().equals("xml") ||
                     mediaType.subtype().equals("html") ||
                     mediaType.subtype().equals("webviewhtml")
-                    )
+            )
                 return true;
         }
         return false;
@@ -136,7 +136,7 @@ public class LoggerInterceptor implements Interceptor {
             final Request copy = request.newBuilder().build();
             final Buffer buffer = new Buffer();
             copy.body().writeTo(buffer);
-            return EncryptUtils.DeCodeBase64String(buffer.readUtf8());
+            return buffer.readUtf8();
         } catch (final IOException e) {
             return "something error when show requestBody.";
         }

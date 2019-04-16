@@ -39,7 +39,7 @@ public class GlobalApplication extends BaseApplication {
 
     @Override
     public String getAppFlavor() {
-        return "lqb";
+        return "myb";
     }
 
     @Override

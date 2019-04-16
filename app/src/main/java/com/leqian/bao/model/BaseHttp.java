@@ -5,6 +5,7 @@ import com.nxin.base.model.http.builder.GetBuilder;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.utils.EncryptUtils;
 import com.nxin.base.utils.JsonUtils;
+import com.nxin.base.utils.ProHelper;
 
 import okhttp3.MediaType;
 
@@ -41,7 +42,7 @@ public class BaseHttp {
     }
 
     public static <T> void executePostHttp(T content, ModelCallBack callback){
-        executePostHttp(content,ProHelper.getScreenHelper().currentActivity(),callback);
+        executePostHttp(content, ProHelper.getScreenHelper().currentActivity(),callback);
     }
 
     /**

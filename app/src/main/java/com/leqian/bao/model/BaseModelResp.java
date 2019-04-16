@@ -8,8 +8,16 @@ import com.nxin.base.model.domain.BaseModel;
  */
 public class BaseModelResp extends BaseModel {
 
-
-    private int code;           //成功code=1,失败code=0
+    /**
+     * 成功code=1,失败code=0
+     * <p>
+     * 账户状态
+     * code=1账户已经停用，执行退出程序
+     * code=2还未加入战队，执行到首页弹出加入战队窗口
+     * code=101正常的团长号
+     * code=102正常的团员号
+     */
+    private int code;
     private String msg;
 
     public int getCode() {

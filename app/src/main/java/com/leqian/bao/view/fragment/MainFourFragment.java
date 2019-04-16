@@ -21,6 +21,7 @@ import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ImageUtil;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.bll.LoginBLL;
 import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.model.ui.CommonUIModel;
 import com.leqian.bao.view.activity.account.LoginActivity;
@@ -230,9 +231,7 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
                             new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    ShareUtilMain.setBoolean(ShareUtilMain.LOGIN_STATE, false);
-                                    ShareUtilUser.remove(ShareUtilUser.USER_INFO);
-                                    intent2Activity(LoginActivity.class);
+                                    LoginBLL.getInstance().exitAccount(mContext);
                                 }
                             });
                     break;

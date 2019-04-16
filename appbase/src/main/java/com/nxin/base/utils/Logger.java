@@ -11,7 +11,7 @@ public class Logger {
 
 
     public static String getTag() {
-        return "znt";
+        return "myb";
     }
 
     /**

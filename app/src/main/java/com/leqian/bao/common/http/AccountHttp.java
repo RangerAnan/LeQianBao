@@ -2,8 +2,10 @@ package com.leqian.bao.common.http;
 
 import com.leqian.bao.model.BaseHttp;
 import com.leqian.bao.model.BaseModelReq;
+import com.leqian.bao.model.account.JoinTeamReq;
+import com.leqian.bao.model.account.LoginReq;
 import com.leqian.bao.model.account.LoginResp;
-import com.nxin.base.model.http.OkHttpUtils;
+import com.leqian.bao.model.account.RegisterReq;
 import com.nxin.base.model.http.callback.ModelCallBack;
 
 
@@ -19,31 +21,37 @@ public class AccountHttp extends BaseHttp {
     public static final String testJson = hostUrl + "/wxarticle/chapters/json";
 
     public static void userLogin(String phone, String psd, ModelCallBack callBack) {
-//        executeGetHttp("login")
-//                .addParams("username", phone)
-//                .addParams("password", psd)
-//                .build().execute(callBack);
-        LoginRep loginRep = new LoginRep();
+        LoginReq loginRep = new LoginReq();
         loginRep.username = phone;
         loginRep.password = psd;
+        loginRep.method = "login";
         executePostHttp(loginRep, callBack);
 
     }
 
     public static void userRegister(String phone, String psd, String zfb, String realName, ModelCallBack callBack) {
-        executeGetHttp("reg")
-                .addParams(" zfb", zfb)
-                .addParams("username", phone)
-                .addParams("password", psd)
-                .addParams("name", realName)
-                .build().execute(callBack);
+        RegisterReq registerReq = new RegisterReq();
+        registerReq.method = "reg";
+        registerReq.username = phone;
+        registerReq.password = psd;
+        registerReq.zfb = zfb;
+        registerReq.name = realName;
+        executePostHttp(registerReq, callBack);
     }
 
     public static void joinTeam(String inviteCode, LoginResp userInfo, ModelCallBack callBack) {
-        executeGetHttp("joinTeam")
-                .addParams("uid", String.valueOf(userInfo.getUid()))
-                .addParams("code", inviteCode)
-                .build().execute(callBack);
+
+        JoinTeamReq joinTeamReq = new JoinTeamReq();
+        joinTeamReq.method = "joinTeam";
+        joinTeamReq.code = inviteCode;
+        joinTeamReq.uid = userInfo.getUid();
+        executePostHttp(joinTeamReq, callBack);
+    }
+
+    public static void checkAccountState(ModelCallBack callBack) {
+        BaseModelReq baseModelReq = new BaseModelReq();
+        baseModelReq.method = "getUserState";
+        executePostHttp(baseModelReq, callBack);
     }
 
 }
