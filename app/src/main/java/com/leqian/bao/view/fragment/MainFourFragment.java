@@ -2,7 +2,12 @@ package com.leqian.bao.view.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
@@ -28,6 +33,7 @@ import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.model.ui.CommonUIModel;
 import com.leqian.bao.view.activity.account.LoginActivity;
 import com.leqian.bao.view.activity.account.ModifyLoginPsdActivity;
+import com.leqian.bao.view.activity.image.CropImageActivity;
 import com.leqian.bao.view.dialog.listDilog.BottomListDialog;
 import com.leqian.bao.view.imageview.CircleImageView;
 import com.nxin.base.model.http.OkHttpUtils;
@@ -35,6 +41,7 @@ import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.model.http.utils.ImageUtils;
 import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
+import com.nxin.base.view.dialog.LoadingDialog;
 import com.nxin.base.view.dialog.MaterialDialogUtil;
 
 import java.io.File;
@@ -77,6 +84,7 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
     ArrayList<CommonUIModel> uiModels = new ArrayList<>();
 
     private BottomListDialog listDialog;
+
 
     @Override
     public int getLayoutId() {
@@ -148,24 +156,14 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
                 }
                 break;
                 case RequestCode.CHOICE_PHOTO: {
-                   /* File temp = new File(Constants.PHOTOFILEPATH);
-                    Uri cameraUri = Uri.fromFile(temp);
-                    if (cameraUri != null) {
-                        String path = ImageUtil.getImageAbsolutePath(mContext, cameraUri);
-                        if (TextUtils.isEmpty(path)) {
-                            Logger.e(initTag() + "   图片为空");
-                            return;
-                        }
-                        uploadImage(path);
-                    }*/
-                    uploadImage(Constants.PHOTOFILEPATH);
+                    File temp = new File(Constants.PHOTOFILEPATH);
+                    ImageUtil.cropImage(mContext, Uri.fromFile(temp));
                 }
                 break;
-                case RequestCode.CHOICE_MEDIA:       //取得裁剪后的图片
-                    File file = new File(Constants.SAVE_IMAGE_TEMP_PATH + ImageUtil.CROP_TEMP_IMAGE_NAME);
-                    if (file.exists() && file.length() > 0) {
-                        uploadImage(file.getAbsolutePath());
-                    }
+                case RequestCode.CHOICE_MEDIA:
+                    //取得裁剪后的图片
+                    Logger.i(initTag() + "---uploadImage--CHOICE_MEDIA");
+                    uploadImage(Constants.SAVE_IMAGE_TEMP_PATH + ImageUtil.CROP_TEMP_IMAGE_NAME);
                     break;
                 default:
                     break;
@@ -178,12 +176,20 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
      *
      * @param path
      */
-    private void uploadImage(String path) {
-        Logger.i(initTag() + "---uploadImage--path:" + path);
-        UploadHttp.uploadImage(new File(path), new ModelCallBack<UploadImageResp>() {
+    public void uploadImage(String path) {
+        File file = new File(path);
+        if (!file.exists() || file.length() == 0) {
+            Logger.i(initTag() + "----uploadImage---file is null");
+            return;
+        }
+        UploadHttp.uploadImage(file, new ModelCallBack<UploadImageResp>() {
             @Override
             public void onResponse(UploadImageResp response, int id) {
-
+                if (response.getCode() != 1) {
+                    ToastUtil.showToastShort(response.getMsg());
+                    return;
+                }
+                //TODO
             }
         });
     }
@@ -201,7 +207,7 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
     }
 
     private void requestCameraPermission(final int type) {
-        PermissonsUtil.getCamraPermisson(ProHelper.getScreenHelper().currentActivity(), new PermissionsResultAction() {
+        PermissonsUtil.getFragmentCameraPermission(this, new PermissionsResultAction() {
             @Override
             public void onGranted() {
                 if (type == 0) {

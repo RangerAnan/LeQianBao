@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -326,6 +327,10 @@ public abstract class NXFragment extends Fragment {
         showProgressBar(R.string.loading_public, cancel);
     }
 
+    public void showProgressBar(){
+        showProgressBar(R.string.loading_public, true);
+    }
+
     /**
      * 关闭进度条
      */
@@ -344,6 +349,31 @@ public abstract class NXFragment extends Fragment {
 
     public void intent2Activity(Class clazz) {
         startActivity(new Intent(mContext, clazz));
+    }
+
+    public void intent2Activity(Class clazz, Bundle bundle) {
+        Intent intent = new Intent(mContext, clazz);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public void openFragment(Bundle bundle, Fragment fragment) {
+        openFragment(bundle, FragmentTransaction.TRANSIT_NONE, FragmentTransaction.TRANSIT_NONE, fragment);
+    }
+
+    public void openFragment(int enterAnimation, int exitAnimation, Fragment fragment) {
+        openFragment(null, enterAnimation, exitAnimation, fragment);
+    }
+
+    public void openFragment(Bundle bundle, int enterAnimation, int exitAnimation, Fragment fragment) {
+        FragmentTransaction transaction = mContext.getSupportFragmentManager().beginTransaction();
+        if (bundle != null) {
+            fragment.setArguments(bundle);
+        }
+        transaction.setCustomAnimations(enterAnimation, exitAnimation);
+        transaction.add(R.id.content_frame, fragment, fragment.getClass().getSimpleName());
+        transaction.addToBackStack(null);
+        transaction.commitAllowingStateLoss();
     }
 
 }

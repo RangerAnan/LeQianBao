@@ -1,5 +1,7 @@
 package com.leqian.bao.view.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +16,16 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.FragmentAdapter;
 import com.leqian.bao.common.http.AccountHttp;
+import com.leqian.bao.common.util.ImageUtil;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.BaseModelResp;
 import com.leqian.bao.model.Constants;
 import com.leqian.bao.model.account.LoginResp;
 import com.leqian.bao.model.bll.LoginBLL;
+import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.view.dialog.listDilog.JoinTeamDialog;
+import com.leqian.bao.view.fragment.MainFourFragment;
+import com.leqian.bao.view.fragment.ViewpagerFragment;
 import com.leqian.bao.view.viewpager.TabContentViewPager;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.utils.JsonUtils;
@@ -30,6 +36,7 @@ import com.nxin.base.widget.NXActivity;
 import com.nxin.base.widget.NXToolBarActivity;
 import com.nxin.base.widget.statusbar.StatusBarUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,5 +204,21 @@ public class MainActivity extends NXActivity {
         });
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RequestCode.CHOICE_MEDIA:
+                    //取得裁剪后的图片
+                    if (currentPosition == 3) {
+                        MainFourFragment item = (MainFourFragment) vpAdapter.getItem(currentPosition);
+                        item.uploadImage(Constants.SAVE_IMAGE_TEMP_PATH + ImageUtil.CROP_TEMP_IMAGE_NAME);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }

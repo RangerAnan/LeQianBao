@@ -6,6 +6,8 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -403,5 +405,24 @@ public class NXToolBarActivity extends SwipeBackActivity {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
+    }
+
+    public void openFragment(Bundle bundle, Fragment fragment) {
+        openFragment(bundle, FragmentTransaction.TRANSIT_NONE, FragmentTransaction.TRANSIT_NONE, fragment);
+    }
+
+    public void openFragment(int enterAnimation, int exitAnimation, Fragment fragment) {
+        openFragment(null, enterAnimation, exitAnimation, fragment);
+    }
+
+    public void openFragment(Bundle bundle, int enterAnimation, int exitAnimation, Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (bundle != null) {
+            fragment.setArguments(bundle);
+        }
+        transaction.setCustomAnimations(enterAnimation, exitAnimation);
+        transaction.add(R.id.content_frame, fragment, fragment.getClass().getSimpleName());
+        transaction.addToBackStack(null);
+        transaction.commitAllowingStateLoss();
     }
 }

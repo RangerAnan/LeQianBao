@@ -9,4 +9,5 @@
     <item name="btn_ok" type="id" />
     <item name="listView" type="id" />
     <item name="iv_image" type="id" />
+    <item name="bar_right" type="id" />
 </resources>

@@ -37,4 +37,11 @@
         <attr name="border_color" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="ClipImageView">
+        <attr name="ClipIV_BorderDistance" format="dimension" />
+        <attr name="ClipIV_BorderWidth" format="dimension" />
+        <attr name="ClipIV_BorderColor" format="color" />
+        <attr name="ClipIV_OutsideColor" format="color" />
+    </declare-styleable>
+
 </resources>

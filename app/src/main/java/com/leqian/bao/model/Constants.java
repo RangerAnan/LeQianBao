@@ -15,7 +15,7 @@ public class Constants {
 
     //配置目录
     public static File mExternalStorage = Environment.getExternalStorageDirectory();
-    public static final String DIR_PROJECT = "/" + ProHelper.getApplication().getAppFlavor() + "/";
+    public static final String DIR_PROJECT = "/myb/";
 
     public static final String SAVE_GLIDE_IMAGE = mExternalStorage + DIR_PROJECT;         //Glide图片缓存路径
     public static final String SAVE_EXCEPTION_PATH = mExternalStorage + DIR_PROJECT + "exception/"; //异常文件保存路径
@@ -51,4 +51,7 @@ public class Constants {
 
     //相机路径
     public static String PHOTOFILEPATH = "";
+
+    //裁剪图片
+    public static final int CROP_LOCAL = 10;
 }

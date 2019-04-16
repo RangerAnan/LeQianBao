@@ -13,6 +13,7 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -29,6 +30,7 @@ import com.leqian.bao.common.sp.ShareUtilMain;
 import com.leqian.bao.model.Constants;
 import com.leqian.bao.model.code.RequestCode;
 import com.nxin.base.utils.FileUtil;
+import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
 
 import java.io.BufferedOutputStream;
@@ -356,5 +358,83 @@ public class ImageUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    //以屏幕宽高适配图片
+    public static Bitmap scaleImage(String imagePath) {
+        BitmapFactory.Options factory = new BitmapFactory.Options();
+        factory.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(imagePath, factory);
+
+        float wRatio = (float) factory.outWidth / DeviceUtil.getScreenWidth();
+        float hRatio = (float) factory.outHeight / DeviceUtil.getScreenHeight();
+        if (wRatio > 1.0000f || hRatio > 1.0000f) {
+            if (hRatio > wRatio) {
+                factory.inSampleSize = (int) hRatio;
+            } else {
+                factory.inSampleSize = (int) wRatio;
+            }
+        }
+
+        factory.inJustDecodeBounds = false;
+        try {
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath, factory);
+            return rotateBitmap(readPictureDegree(imagePath), bitmap);
+        } catch (OutOfMemoryError e) {
+            e.printStackTrace();
+            System.gc();
+            Runtime.getRuntime().gc();
+        }
+        return rotateBitmap(readPictureDegree(imagePath), BitmapFactory.decodeFile(imagePath));
+    }
+
+    /**
+     * 将图片纠正到正确方向
+     *
+     * @param degree ： 图片被系统旋转的角度
+     * @param bitmap ： 需纠正方向的图片
+     * @return 纠向后的图片
+     */
+    public static Bitmap rotateBitmap(int degree, Bitmap bitmap) {
+        if (bitmap == null || degree == 0) return bitmap;
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        try {
+            Bitmap bm = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            if (bm != bitmap && !bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
+            return bm;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return bitmap;
+        }
+    }
+
+    /**
+     * degree
+     */
+    public static int readPictureDegree(String imgPath) {
+        int degree = 0;
+        try {
+            ExifInterface exifInterface = new ExifInterface(imgPath);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    degree = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    degree = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    degree = 270;
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Logger.i("ImageCutUtil---readPictureDegree--degree:" + degree);
+        return degree;
     }
 }

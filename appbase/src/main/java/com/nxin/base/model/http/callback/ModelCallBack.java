@@ -45,9 +45,9 @@ public abstract class ModelCallBack<T extends BaseModel> extends Callback<T> {
         String result = response.body().string();
         Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
-        if (EncryptUtils.isBase64Data(result)) {
-            result = EncryptUtils.DeCodeBase64String(result);
-        }
+//        if (EncryptUtils.isBase64Data(result)) {
+//            result = EncryptUtils.DeCodeBase64String(result);
+//        }
         return JsonUtils.parserJSONObject(result, entityClass);
     }
 

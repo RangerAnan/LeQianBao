@@ -41,4 +41,9 @@
 
     <color name="gray_cfcfcf">#cfcfcf</color>
 
+    <color name="crop_image_bg">#414141</color>
+    <color name="transparent_half">#aa000000</color>
+
+
+
 </resources>
