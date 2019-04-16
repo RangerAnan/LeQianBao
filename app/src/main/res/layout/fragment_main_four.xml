@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_18"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -154,7 +155,6 @@
             android:id="@id/content"
             style="@style/roundconor"
             android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginBottom="@dimen/dp_18"
             android:orientation="vertical" />
     </LinearLayout>
 

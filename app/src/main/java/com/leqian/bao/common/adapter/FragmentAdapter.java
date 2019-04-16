@@ -7,6 +7,7 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.account.LoginResp;
 import com.leqian.bao.view.fragment.MainFirstFragment;
 import com.leqian.bao.view.fragment.MainFourFragment;
 import com.leqian.bao.view.fragment.MainThreeFragment;
@@ -23,8 +24,12 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     //模块的个数
     public int TAB_COUNT = 4;
 
-    public FragmentAdapter(FragmentManager fm) {
+    boolean isLeader;
+
+    public FragmentAdapter(FragmentManager fm, boolean isLeader) {
         super(fm);
+        this.isLeader = isLeader;
+        TAB_COUNT = isLeader ? 4 : 3;
     }
 
     /**
@@ -47,11 +52,12 @@ public class FragmentAdapter extends FragmentPagerAdapter {
                     break;
                 case Constants.TAB_MONEY:
 
-                    vpFragment = new MainTwoFragment();
+                    vpFragment = isLeader ? new MainTwoFragment() : new MainThreeFragment();
                     break;
+
                 case Constants.TAB_FIND:
 
-                    vpFragment = new MainThreeFragment();
+                    vpFragment = isLeader ? new MainThreeFragment() : new MainFourFragment();
                     break;
 
                 case Constants.TAB_MINE:

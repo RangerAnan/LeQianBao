@@ -156,8 +156,7 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
                 }
                 break;
                 case RequestCode.CHOICE_PHOTO: {
-                    File temp = new File(Constants.PHOTOFILEPATH);
-                    ImageUtil.cropImage(mContext, Uri.fromFile(temp));
+                    ImageUtil.cropImage(mContext, data.getData());
                 }
                 break;
                 case RequestCode.CHOICE_MEDIA:

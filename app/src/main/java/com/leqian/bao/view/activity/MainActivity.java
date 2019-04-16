@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -65,6 +66,10 @@ public class MainActivity extends NXActivity {
 
     @BindView(R.id.viewpager)
     TabContentViewPager viewpager;
+
+    @BindView(R.id.rl2)
+    RelativeLayout rl2;
+
     FragmentAdapter vpAdapter;
 
     ArrayList<ImageView> tabImgList = new ArrayList<>();
@@ -76,6 +81,8 @@ public class MainActivity extends NXActivity {
 
     private int currentPosition = 0;
 
+    private boolean isLeader;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -85,34 +92,44 @@ public class MainActivity extends NXActivity {
     public void initView() {
         super.initView();
         userInfo = LoginBLL.getInstance().getUserInfo();
+        isLeader = userInfo.getType().equals("1");
 
+        rl2.setVisibility(isLeader ? View.VISIBLE : View.GONE);
         tabImgList.clear();
         tabImgList.add(iv_tab1);
-        tabImgList.add(iv_tab2);
+        if (isLeader) {
+            tabImgList.add(iv_tab2);
+        }
         tabImgList.add(iv_tab3);
         tabImgList.add(iv_tab4);
 
         tabTextList.clear();
         tabTextList.add(tv_tab1);
-        tabTextList.add(tv_tab2);
+        if (isLeader) {
+            tabTextList.add(tv_tab2);
+        }
         tabTextList.add(tv_tab3);
         tabTextList.add(tv_tab4);
 
         unSelectImgList.add(R.drawable.tab_msg1);
         unSelectImgList.add(R.drawable.tab_circle1);
-        unSelectImgList.add(R.drawable.tab_service1);
+        if (isLeader) {
+            unSelectImgList.add(R.drawable.tab_service1);
+        }
         unSelectImgList.add(R.drawable.tab_me1);
 
         selectImgList.add(R.drawable.tab_msg2);
         selectImgList.add(R.drawable.tab_circle2);
-        selectImgList.add(R.drawable.tab_service2);
+        if (isLeader) {
+            selectImgList.add(R.drawable.tab_service2);
+        }
         selectImgList.add(R.drawable.tab_me2);
 
         setTabStyleChange(currentPosition);
 
         //set viewpager
-        viewpager.setOffscreenPageLimit(3);
-        vpAdapter = new FragmentAdapter(getSupportFragmentManager());
+        vpAdapter = new FragmentAdapter(getSupportFragmentManager(), isLeader);
+        viewpager.setOffscreenPageLimit(vpAdapter.getCount() - 1);
         viewpager.setAdapter(vpAdapter);
         viewpager.setPageTransformer(false, null);
 
@@ -140,23 +157,23 @@ public class MainActivity extends NXActivity {
             case R.id.rl1:
                 currentPosition = 0;
                 setTabStyleChange(0);
-                viewpager.setCurrentItem(Constants.TAB_FIRST, false);
+                viewpager.setCurrentItem(0, false);
                 checkAccountState();
                 break;
             case R.id.rl2:
                 currentPosition = 1;
                 setTabStyleChange(1);
-                viewpager.setCurrentItem(Constants.TAB_MONEY, false);
+                viewpager.setCurrentItem(1, false);
                 break;
             case R.id.rl3:
-                currentPosition = 2;
-                setTabStyleChange(2);
-                viewpager.setCurrentItem(Constants.TAB_FIND, false);
+                currentPosition = isLeader ? 2 : 1;
+                setTabStyleChange(isLeader ? 2 : 1);
+                viewpager.setCurrentItem(isLeader ? 2 : 1, false);
                 break;
             case R.id.rl4:
-                currentPosition = 3;
-                setTabStyleChange(3);
-                viewpager.setCurrentItem(Constants.TAB_MINE, false);
+                currentPosition = isLeader ? 3 : 2;
+                setTabStyleChange(isLeader ? 3 : 2);
+                viewpager.setCurrentItem(isLeader ? 3 : 2, false);
                 checkAccountState();
                 break;
             default:
@@ -211,7 +228,7 @@ public class MainActivity extends NXActivity {
             switch (requestCode) {
                 case RequestCode.CHOICE_MEDIA:
                     //取得裁剪后的图片
-                    if (currentPosition == 3) {
+                    if (currentPosition == (isLeader ? 3 : 2)) {
                         MainFourFragment item = (MainFourFragment) vpAdapter.getItem(currentPosition);
                         item.uploadImage(Constants.SAVE_IMAGE_TEMP_PATH + ImageUtil.CROP_TEMP_IMAGE_NAME);
                     }
