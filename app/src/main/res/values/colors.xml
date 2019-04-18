@@ -32,6 +32,7 @@
 
     <!-- 统一上下分割线-->
     <color name="orientation_divider">#bbbbbb</color>
+    <color name="content_divider">#dfdfdf</color>
 
     <color name="font_tab">#d8302f</color>
 

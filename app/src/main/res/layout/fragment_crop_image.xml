@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:ClipImageView="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/crop_image_bg"
+    android:clickable="true"
+    android:orientation="vertical">
+
+
+    <com.leqian.bao.view.imageview.ClipImageView
+        android:id="@+id/iv_clip_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        ClipImageView:ClipIV_BorderColor="@color/transparent"
+        ClipImageView:ClipIV_OutsideColor="@color/transparent_half"/>
+
+</LinearLayout>
