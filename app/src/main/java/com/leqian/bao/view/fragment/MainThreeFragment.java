@@ -4,6 +4,7 @@ import android.widget.ListView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.RankingAdapter;
+import com.leqian.bao.common.base.BaseListFragment;
 import com.leqian.bao.model.ui.RankingUIModel;
 import com.nxin.base.utils.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -16,14 +17,8 @@ import butterknife.BindView;
  * Created by fcl on 19.4.12
  * desc:
  */
-public class MainThreeFragment extends ViewpagerFragment {
+public class MainThreeFragment extends BaseListFragment {
 
-
-    @BindView(R.id.listView)
-    ListView listView;
-
-    @BindView(R.id.refreshView)
-    SmartRefreshLayout refreshView;
 
     ArrayList<RankingUIModel> mListData = new ArrayList<>();
     private RankingAdapter mAdapter;
@@ -36,14 +31,13 @@ public class MainThreeFragment extends ViewpagerFragment {
     @Override
     public void initView() {
         super.initView();
-        refreshView.setEnableLoadMore(false);
 
         mListData = getData();
 
         mAdapter = new RankingAdapter(mListData);
         listView.setAdapter(mAdapter);
 
-        Logger.i(initTag() + "---mListData:" + mListData.size());
+        getRefreshLayout().setEnableLoadMore(false);
     }
 
     private ArrayList<RankingUIModel> getData() {

@@ -13,13 +13,14 @@ import com.leqian.bao.view.fragment.MainFourFragment;
 import com.leqian.bao.view.fragment.MainThreeFragment;
 import com.leqian.bao.view.fragment.MainTwoFragment;
 import com.leqian.bao.view.fragment.ViewpagerFragment;
+import com.nxin.base.widget.NXFragment;
 
 
 public class FragmentAdapter extends FragmentPagerAdapter {
 
-    SparseArray<ViewpagerFragment> fragments = new SparseArray<>();
+    SparseArray<NXFragment> fragments = new SparseArray<>();
 
-    ViewpagerFragment vpFragment;
+    NXFragment vpFragment;
 
     //模块的个数
     public int TAB_COUNT = 4;
@@ -39,7 +40,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
      * @return
      */
     @Override
-    public ViewpagerFragment getItem(int position) {
+    public NXFragment getItem(int position) {
         vpFragment = fragments.get(position);
 
         if (vpFragment == null) {
