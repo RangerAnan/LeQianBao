@@ -1,11 +1,30 @@
 package com.leqian.bao.view.fragment;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.leqian.bao.R;
+import com.leqian.bao.common.adapter.LinkResourceAdapter;
+import com.leqian.bao.common.adapter.RankingAdapter;
+import com.leqian.bao.common.base.BaseListFragment;
+import com.leqian.bao.common.http.ResourceHttp;
+import com.leqian.bao.model.resource.LinkResourceResp;
+import com.leqian.bao.model.ui.RankingUIModel;
+import com.nxin.base.model.http.OkHttpUtils;
+import com.nxin.base.model.http.callback.ModelCallBack;
+import com.nxin.base.utils.Logger;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 
@@ -13,7 +32,7 @@ import butterknife.BindView;
  * Created by fcl on 19.4.12
  * desc:
  */
-public class MainFirstFragment extends ViewpagerFragment {
+public class MainFirstFragment extends BaseListFragment {
 
     @BindView(R.id.tv_title)
     TextView tv_title;
@@ -21,6 +40,9 @@ public class MainFirstFragment extends ViewpagerFragment {
     @BindView(R.id.bar_left)
     RelativeLayout bar_left;
 
+    ArrayList<LinkResourceResp> mListData = new ArrayList<>();
+
+    LinkResourceAdapter mAdapter;
 
     @Override
     public int getLayoutId() {
@@ -32,5 +54,54 @@ public class MainFirstFragment extends ViewpagerFragment {
         super.initView();
         tv_title.setText("马上赚钱");
         bar_left.setVisibility(View.INVISIBLE);
+
+        getRefreshLayout().setEnableLoadMore(false);
+
+        mListData = getData();
+
+        mAdapter = new LinkResourceAdapter(mListData);
+        listView.setAdapter(mAdapter);
     }
+
+    @Override
+    public void initData() {
+        super.initData();
+
+        requestLinkResource();
+    }
+
+    private void requestLinkResource() {
+        ResourceHttp.getLink(new ModelCallBack<LinkResourceResp>() {
+            @Override
+            public void onResponse(LinkResourceResp response, int id) {
+                Logger.i(initTag() + "---" + response.get_$0());
+            }
+        });
+    }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        super.onRefresh(refreshLayout);
+        requestLinkResource();
+    }
+
+    private ArrayList<LinkResourceResp> getData() {
+        for (int i = 0; i < 20; i++) {
+            LinkResourceResp model = new LinkResourceResp();
+            model.title = "title" + i;
+            mListData.add(model);
+        }
+        return mListData;
+    }
+
+    public String encodeUrl(String str) {
+        String dest = str;
+        if (str != null) {
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Matcher m = p.matcher(str);
+            dest = m.replaceAll("");
+        }
+        return dest;
+    }
+
 }

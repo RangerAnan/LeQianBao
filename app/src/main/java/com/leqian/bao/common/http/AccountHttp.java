@@ -18,7 +18,6 @@ import com.nxin.base.model.http.callback.ModelCallBack;
 public class AccountHttp extends BaseHttp {
 
 
-    public static final String testJson = hostUrl + "/wxarticle/chapters/json";
 
     public static void userLogin(String phone, String psd, ModelCallBack callBack) {
         LoginReq loginRep = new LoginReq();

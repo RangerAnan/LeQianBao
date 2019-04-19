@@ -258,7 +258,7 @@ public class MybBezierCircleHeader extends InternalAbstract implements RefreshHe
     public void onReleased(@NonNull RefreshLayout refreshLayout, int height, int maxDragHeight) {
         mWavePulling = false;
         mHeadHeight = height;
-        mBollRadius = height / 6;
+        mBollRadius = height / 10;
         DecelerateInterpolator interpolator = new DecelerateInterpolator();
         final float reboundHeight = Math.min(mWaveHeight * 0.8f, mHeadHeight / 2);
         ValueAnimator waveAnimator = ValueAnimator.ofFloat(
