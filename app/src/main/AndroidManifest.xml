@@ -74,6 +74,10 @@
         <activity
             android:name=".view.activity.image.CropImageActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.activity.resource.VideoListActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

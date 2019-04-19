@@ -1,5 +1,8 @@
 package com.leqian.bao.common.adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -7,12 +10,16 @@ import android.widget.TextView;
 import com.leqian.bao.R;
 import com.leqian.bao.common.http.ResourceHttp;
 import com.leqian.bao.common.util.ToastUtil;
+import com.leqian.bao.model.bll.LoginBLL;
 import com.leqian.bao.model.resource.LinkResourceResp;
 import com.leqian.bao.model.ui.RankingUIModel;
+import com.leqian.bao.view.activity.resource.VideoListActivity;
 import com.nxin.base.common.adapter.BaseListAdapter;
 import com.nxin.base.common.adapter.BaseViewHolder;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.utils.Logger;
+import com.nxin.base.utils.ProHelper;
+import com.nxin.base.utils.system.ClipboardUtils;
 
 import java.util.List;
 
@@ -45,10 +52,11 @@ public class LinkResourceAdapter extends BaseListAdapter<LinkResourceResp> imple
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_copy_link:
-                ToastUtil.showToastShort("复制资源");
+                requestLinkResource();
                 break;
             case R.id.iv_add_link:
-                ToastUtil.showToastShort("新增资源");
+                FragmentActivity currentActivity = ProHelper.getScreenHelper().currentActivity();
+                currentActivity.startActivity(new Intent(currentActivity, VideoListActivity.class));
                 break;
             default:
                 break;
@@ -60,7 +68,19 @@ public class LinkResourceAdapter extends BaseListAdapter<LinkResourceResp> imple
             @Override
             public void onResponse(LinkResourceResp response, int id) {
 
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("视频（").append(LoginBLL.getInstance().getUserInfo().getUserName()).append(")：");
+
+                for (String link : response.getData()) {
+                    stringBuilder.append("\n" + link);
+                }
+
+                ClipboardUtils.setTextToClipboard(ProHelper.getScreenHelper().currentActivity(), stringBuilder.toString(), stringBuilder.toString());
+                ToastUtil.showToastShort("复制成功");
+
             }
         });
+
     }
+
 }

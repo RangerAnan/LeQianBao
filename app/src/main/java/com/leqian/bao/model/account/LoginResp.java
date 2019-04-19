@@ -17,6 +17,8 @@ public class LoginResp extends BaseModelResp {
     private String uid;
     private String type;    //type=1表示团长，2表示团员
 
+    private String userName;
+
     public String getUid() {
         return uid;
     }
@@ -31,5 +33,13 @@ public class LoginResp extends BaseModelResp {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getUserName() {
+        return userName == null ? "" : userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

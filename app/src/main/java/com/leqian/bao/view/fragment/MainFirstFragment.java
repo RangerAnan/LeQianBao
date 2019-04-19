@@ -68,17 +68,9 @@ public class MainFirstFragment extends BaseListFragment {
     public void initData() {
         super.initData();
 
-        requestLinkResource();
     }
 
-    private void requestLinkResource() {
-        ResourceHttp.getLink(new ModelCallBack<LinkResourceResp>() {
-            @Override
-            public void onResponse(LinkResourceResp response, int id) {
 
-            }
-        });
-    }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -86,14 +78,6 @@ public class MainFirstFragment extends BaseListFragment {
     }
 
 
-    public String encodeUrl(String str) {
-        String dest = str;
-        if (str != null) {
-            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
-            Matcher m = p.matcher(str);
-            dest = m.replaceAll("");
-        }
-        return dest;
-    }
+
 
 }
