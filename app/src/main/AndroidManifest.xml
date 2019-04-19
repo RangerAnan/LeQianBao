@@ -78,6 +78,23 @@
         <activity
             android:name=".view.activity.resource.VideoListActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.activity.setting.AboutUsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.activity.setting.ContactUsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.activity.setting.TeamManagerActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.activity.setting.ClickDetailedActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

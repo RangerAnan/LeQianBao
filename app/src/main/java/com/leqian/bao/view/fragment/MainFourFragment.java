@@ -34,6 +34,10 @@ import com.leqian.bao.model.ui.CommonUIModel;
 import com.leqian.bao.view.activity.account.LoginActivity;
 import com.leqian.bao.view.activity.account.ModifyLoginPsdActivity;
 import com.leqian.bao.view.activity.image.CropImageActivity;
+import com.leqian.bao.view.activity.setting.AboutUsActivity;
+import com.leqian.bao.view.activity.setting.ClickDetailedActivity;
+import com.leqian.bao.view.activity.setting.ContactUsActivity;
+import com.leqian.bao.view.activity.setting.TeamManagerActivity;
 import com.leqian.bao.view.dialog.listDilog.BottomListDialog;
 import com.leqian.bao.view.imageview.CircleImageView;
 import com.nxin.base.model.http.OkHttpUtils;
@@ -138,7 +142,7 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
                 listDialog.show();
                 break;
             case R.id.ll_zfb:
-                ToastUtil.showToastShort("支付宝");
+//                ToastUtil.showToastShort("支付宝");
                 break;
             default:
                 break;
@@ -234,19 +238,19 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
         public void onClick(View v) {
             switch (commonUIModel.code) {
                 case 0:
-                    ToastUtil.showToastShort("团队管理");
+                    intent2Activity(TeamManagerActivity.class);
                     break;
                 case 1:
-                    ToastUtil.showToastShort("点击明细");
+                    intent2Activity(ClickDetailedActivity.class);
                     break;
                 case 2:
-                    startActivity(new Intent(mContext, ModifyLoginPsdActivity.class));
+                    intent2Activity(ModifyLoginPsdActivity.class);
                     break;
                 case 3:
-                    ToastUtil.showToastShort("联系客服");
+                    intent2Activity(ContactUsActivity.class);
                     break;
                 case 4:
-                    ToastUtil.showToastShort("关于我们");
+                    intent2Activity(AboutUsActivity.class);
                     break;
                 case 5:
                     MaterialDialogUtil.showAlert(mContext, "确定退出登录吗？", "确定", "取消",
