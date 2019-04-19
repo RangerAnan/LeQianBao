@@ -30,7 +30,7 @@ public class RankingAdapter extends BaseListAdapter<RankingUIModel> {
 
     @Override
     public void setData(BaseViewHolder holder, RankingUIModel rankingUIModel, int position) {
-        Logger.i(initTag() + "---setData--" + rankingUIModel.name);
+//        Logger.i(initTag() + "---setData--" + rankingUIModel.name);
         ((TextView) holder.getView(R.id.tvTitle)).setText(rankingUIModel.name);
     }
 

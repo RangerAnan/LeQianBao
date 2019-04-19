@@ -57,7 +57,8 @@ public class MainFirstFragment extends BaseListFragment {
 
         getRefreshLayout().setEnableLoadMore(false);
 
-        mListData = getData();
+        LinkResourceResp model = new LinkResourceResp();
+        mListData.add(model);
 
         mAdapter = new LinkResourceAdapter(mListData);
         listView.setAdapter(mAdapter);
@@ -74,7 +75,7 @@ public class MainFirstFragment extends BaseListFragment {
         ResourceHttp.getLink(new ModelCallBack<LinkResourceResp>() {
             @Override
             public void onResponse(LinkResourceResp response, int id) {
-                Logger.i(initTag() + "---" + response.get_$0());
+
             }
         });
     }
@@ -82,17 +83,8 @@ public class MainFirstFragment extends BaseListFragment {
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         super.onRefresh(refreshLayout);
-        requestLinkResource();
     }
 
-    private ArrayList<LinkResourceResp> getData() {
-        for (int i = 0; i < 20; i++) {
-            LinkResourceResp model = new LinkResourceResp();
-            model.title = "title" + i;
-            mListData.add(model);
-        }
-        return mListData;
-    }
 
     public String encodeUrl(String str) {
         String dest = str;
