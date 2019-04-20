@@ -36,16 +36,16 @@
 
         <ImageButton
             android:id="@+id/iv_copy_link"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="@dimen/dp_15"
             android:background="@mipmap/news_copy" />
 
         <ImageButton
             android:id="@+id/iv_add_link"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginEnd="@dimen/dp_25"
             android:layout_toLeftOf="@id/iv_copy_link"
             android:background="@mipmap/news_making" />

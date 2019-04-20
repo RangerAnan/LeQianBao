@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?><!--actionBar-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/toolbar_size"
     android:background="@color/theme"
-    android:gravity="center"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@id/bar_left"
+        style="@style/titlebar_btn"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/title_icon_size"
+            android:layout_height="@dimen/title_icon_size"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/title_back" />
+    </RelativeLayout>
 
     <RadioGroup
         android:id="@id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:layout_margin="@dimen/dp_10"
         android:background="@drawable/edit_bg"
         android:orientation="horizontal">
@@ -36,5 +48,22 @@
             android:textSize="14sp" />
     </RadioGroup>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@id/bar_right"
+        style="@style/titlebar_btn"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@id/bar_right_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="完成"
+            android:textColor="@color/color_white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</RelativeLayout>
 

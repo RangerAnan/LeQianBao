@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">蚂蚁帮</string>
-
 
     <string name="account_is_stop">账户已经停用，请联系管理员</string>
     <string name="repeat_request">请重试</string>

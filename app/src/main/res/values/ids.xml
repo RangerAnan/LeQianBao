@@ -2,17 +2,21 @@
 <resources>
 
     <item name="bar_left" type="id" />
+    <item name="bar_right" type="id" />
+    <item name="bar_right_tv" type="id" />
+
     <item name="tv_title" type="id" />
     <item name="tv_name" type="id" />
     <item name="tv_desc" type="id" />
+
     <item name="content" type="id" />
     <item name="viewpager" type="id" />
     <item name="btn_ok" type="id" />
     <item name="listView" type="id" />
     <item name="iv_image" type="id" />
-    <item name="bar_right" type="id" />
     <item name="refreshView" type="id" />
     <item name="tabLayout" type="id" />
+
     <item name="radioGroup" type="id" />
     <item name="radio_button1" type="id" />
     <item name="radio_button2" type="id" />
