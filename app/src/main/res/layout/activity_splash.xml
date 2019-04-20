@@ -15,13 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/splash_bg" />
     </LinearLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="140dp"
         android:gravity="center">
 
         <LinearLayout
@@ -35,7 +35,7 @@
                 android:id="@+id/icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/app_icon" />
 
             <TextView
                 android:id="@+id/appName"
@@ -47,14 +47,15 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <!-- <TextView
-             android:id="@+id/slogen"
-             style="@style/small_text_gray"
-             android:layout_below="@id/layout_top"
-             android:layout_centerHorizontal="true"
-             android:layout_marginTop="5dp"
-             android:textColor="#666666"
-             android:textSize="14sp" />-->
+        <TextView
+            android:id="@+id/slogen"
+            style="@style/small_text"
+            android:layout_below="@id/layout_top"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="@string/app_slogen"
+            android:textColor="#666666"
+            android:textSize="12sp" />
 
     </RelativeLayout>
 
