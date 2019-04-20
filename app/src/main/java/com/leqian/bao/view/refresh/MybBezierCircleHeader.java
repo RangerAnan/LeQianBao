@@ -69,7 +69,7 @@ public class MybBezierCircleHeader extends InternalAbstract implements RefreshHe
 
         mSpinnerStyle = SpinnerStyle.Scale;
         final View thisView = this;
-        thisView.setMinimumHeight(DensityUtil.dp2px(80));
+        thisView.setMinimumHeight(DensityUtil.dp2px(60));
         mBackPaint = new Paint();
         mBackPaint.setColor(0xff11bbff);
         mBackPaint.setAntiAlias(true);

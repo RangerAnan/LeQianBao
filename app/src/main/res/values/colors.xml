@@ -30,6 +30,9 @@
     <color name="btn_orange2">#ee4900</color>
     <color name="btn_orange3">#d74200</color>
 
+    <color name="btn_orange4">#ff8800</color>
+    <color name="btn_orange5">#ffaadd</color>
+
     <!-- 统一上下分割线-->
     <color name="orientation_divider">#bbbbbb</color>
     <color name="content_divider">#dfdfdf</color>
@@ -44,7 +47,6 @@
 
     <color name="crop_image_bg">#414141</color>
     <color name="transparent_half">#aa000000</color>
-
 
 
 </resources>

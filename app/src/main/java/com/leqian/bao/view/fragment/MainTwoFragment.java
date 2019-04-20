@@ -4,20 +4,15 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.leqian.bao.R;
-import com.leqian.bao.common.adapter.RankingAdapter;
 import com.leqian.bao.common.adapter.RankingFragmentAdapter;
 import com.leqian.bao.model.Constants;
-import com.leqian.bao.model.ui.RankingUIModel;
 import com.leqian.bao.view.fragment.ranking.RankingListFragmnet;
-import com.nxin.base.utils.Logger;
 import com.nxin.base.widget.NXFragment;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 

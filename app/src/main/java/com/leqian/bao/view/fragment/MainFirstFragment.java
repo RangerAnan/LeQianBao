@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.LinkResourceAdapter;
-import com.leqian.bao.common.adapter.RankingAdapter;
 import com.leqian.bao.common.base.BaseListFragment;
 import com.leqian.bao.common.http.ResourceHttp;
 import com.leqian.bao.model.resource.LinkResourceResp;
