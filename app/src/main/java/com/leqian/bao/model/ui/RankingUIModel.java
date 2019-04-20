@@ -11,6 +11,8 @@ public class RankingUIModel extends CommonUIModel {
     private String icon;
     private int count;
     private String team;
+    private String uid;
+
 
     public String getIcon() {
         return icon == null ? "" : icon;
@@ -34,5 +36,13 @@ public class RankingUIModel extends CommonUIModel {
 
     public void setTeam(String team) {
         this.team = team;
+    }
+
+    public String getUid() {
+        return uid == null ? "" : uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

@@ -56,6 +56,7 @@ public class Constants {
     public static final int CROP_LOCAL = 10;
 
     public final static String INTENT_DATA_1 = "INTENT_DATA_1";
+    public final static String INTENT_DATA_2 = "INTENT_DATA_2";
 
     //tab_two
     public static int RANK_TYPE = 0;                                   //0-团员排行，1-部门排行

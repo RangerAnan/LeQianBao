@@ -18,8 +18,9 @@ import com.nxin.base.R;
 import com.nxin.base.view.dialog.LoadingDialog;
 import com.nxin.base.view.loading.CommonEmptyView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by fcl on 18.4.24

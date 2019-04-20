@@ -95,6 +95,10 @@
             android:name=".view.activity.setting.ClickDetailedActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".view.activity.statistics.ClickedTrendActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

@@ -30,8 +30,9 @@ import com.nxin.base.view.swipeback.SwipeBackLayout;
 import com.nxin.base.view.swipeback.app.SwipeBackActivity;
 import com.nxin.base.widget.statusbar.StatusBarUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 /**
  * NXToolBarActivity

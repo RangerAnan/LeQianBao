@@ -11,8 +11,11 @@ import android.widget.TextView;
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.RankingFragmentAdapter;
 import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.eventbus.RankingSwitchEvent;
 import com.leqian.bao.view.fragment.ranking.RankingListFragmnet;
 import com.nxin.base.widget.NXFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -101,13 +104,13 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
                 //团员
                 changeRadioButtonTextColor(true);
                 Constants.RANK_TYPE = 0;
-                mAdapter.setList(mFragmentList);
+                EventBus.getDefault().post(new RankingSwitchEvent(Constants.RANK_TYPE));
                 break;
             case R.id.radio_button2:
                 //部门
                 changeRadioButtonTextColor(false);
                 Constants.RANK_TYPE = 1;
-                mAdapter.setList(mFragmentList);
+                EventBus.getDefault().post(new RankingSwitchEvent(Constants.RANK_TYPE));
                 break;
             default:
                 break;
