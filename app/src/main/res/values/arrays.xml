@@ -26,4 +26,11 @@
         <item>取消</item>
     </string-array>
 
+    <string-array name="ranking_vp_item">
+        <item>今日</item>
+        <item>昨日</item>
+        <item>本周</item>
+        <item>本月</item>
+    </string-array>
+
 </resources>

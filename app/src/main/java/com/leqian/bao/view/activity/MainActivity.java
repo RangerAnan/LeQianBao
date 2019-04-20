@@ -67,8 +67,8 @@ public class MainActivity extends NXActivity {
     @BindView(R.id.viewpager)
     TabContentViewPager viewpager;
 
-    @BindView(R.id.rl2)
-    RelativeLayout rl2;
+    @BindView(R.id.rl3)
+    RelativeLayout rl3;
 
     FragmentAdapter vpAdapter;
 
@@ -94,21 +94,21 @@ public class MainActivity extends NXActivity {
         userInfo = LoginBLL.getInstance().getUserInfo();
         isLeader = userInfo.getType().equals("1");
 
-        rl2.setVisibility(isLeader ? View.VISIBLE : View.GONE);
+        rl3.setVisibility(isLeader ? View.VISIBLE : View.GONE);
         tabImgList.clear();
         tabImgList.add(iv_tab1);
+        tabImgList.add(iv_tab2);
         if (isLeader) {
-            tabImgList.add(iv_tab2);
+            tabImgList.add(iv_tab3);
         }
-        tabImgList.add(iv_tab3);
         tabImgList.add(iv_tab4);
 
         tabTextList.clear();
         tabTextList.add(tv_tab1);
+        tabTextList.add(tv_tab2);
         if (isLeader) {
-            tabTextList.add(tv_tab2);
+            tabTextList.add(tv_tab3);
         }
-        tabTextList.add(tv_tab3);
         tabTextList.add(tv_tab4);
 
         unSelectImgList.add(R.drawable.tab_msg1);

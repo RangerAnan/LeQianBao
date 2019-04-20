@@ -1,11 +1,22 @@
 package com.leqian.bao.view.fragment;
 
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.RankingAdapter;
+import com.leqian.bao.common.adapter.RankingFragmentAdapter;
+import com.leqian.bao.model.Constants;
 import com.leqian.bao.model.ui.RankingUIModel;
+import com.leqian.bao.view.fragment.ranking.RankingListFragmnet;
 import com.nxin.base.utils.Logger;
+import com.nxin.base.widget.NXFragment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -16,16 +27,38 @@ import butterknife.BindView;
  * Created by fcl on 19.4.12
  * desc:
  */
-public class MainTwoFragment extends ViewpagerFragment {
+public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnCheckedChangeListener {
 
-    @BindView(R.id.listView)
-    ListView listView;
+    @BindView(R.id.tabLayout)
+    TabLayout tabLayout;
 
-    @BindView(R.id.refreshView)
-    SmartRefreshLayout refreshView;
+    @BindView(R.id.viewpager)
+    ViewPager viewPager;
 
-    ArrayList<RankingUIModel> mListData = new ArrayList<>();
-    private RankingAdapter mAdapter;
+    @BindView(R.id.radioGroup)
+    RadioGroup radioGroup;
+
+    @BindView(R.id.radio_button1)
+    RadioButton radio_button1;
+
+    @BindView(R.id.radio_button2)
+    RadioButton radio_button2;
+
+    @BindView(R.id.tv_title)
+    TextView tv_title;
+
+    @BindView(R.id.tv_desc)
+    TextView tv_desc;
+
+    @BindView(R.id.tv_name)
+    TextView tv_name;
+
+    @BindView(R.id.tv_count_today)
+    TextView tv_count_today;
+
+    ArrayList<NXFragment> mFragmentList = new ArrayList<>();
+    private RankingFragmentAdapter mAdapter;
+
 
     @Override
     public int getLayoutId() {
@@ -35,23 +68,59 @@ public class MainTwoFragment extends ViewpagerFragment {
     @Override
     public void initView() {
         super.initView();
+        tabLayout.setupWithViewPager(viewPager);
 
-        refreshView.setEnableLoadMore(false);
+        mFragmentList = getFragment();
 
-        mListData = getData();
+        mAdapter = new RankingFragmentAdapter(getChildFragmentManager(), mFragmentList);
+        viewPager.setAdapter(mAdapter);
 
-        mAdapter = new RankingAdapter(mListData);
-        listView.setAdapter(mAdapter);
-
-        Logger.i(initTag() + "---mListData:" + mListData.size());
+        radioGroup.setOnCheckedChangeListener(this);
     }
 
-    private ArrayList<RankingUIModel> getData() {
-        for (int i = 0; i < 5; i++) {
-            RankingUIModel rankingUIModel = new RankingUIModel();
-            rankingUIModel.setTitle("title" + i);
-            mListData.add(rankingUIModel);
+    @Override
+    public void initData() {
+        super.initData();
+
+        //TODO request team info
+    }
+
+    private ArrayList<NXFragment> getFragment() {
+        String[] array = getResources().getStringArray(R.array.ranking_vp_item);
+
+        for (int i = 0; i < array.length; i++) {
+            RankingListFragmnet rankingListFragmnet = new RankingListFragmnet();
+            Bundle bundle = new Bundle();
+            bundle.putInt(Constants.INTENT_DATA_1, i);
+            rankingListFragmnet.setArguments(bundle);
+            mFragmentList.add(rankingListFragmnet);
         }
-        return mListData;
+        return mFragmentList;
+    }
+
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.radio_button1:
+                //团员
+                changeRadioButtonTextColor(true);
+                Constants.RANK_TYPE = 0;
+                mAdapter.setList(mFragmentList);
+                break;
+            case R.id.radio_button2:
+                //部门
+                changeRadioButtonTextColor(false);
+                Constants.RANK_TYPE = 1;
+                mAdapter.setList(mFragmentList);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void changeRadioButtonTextColor(boolean button1Check) {
+        radio_button1.setTextColor(button1Check ? ContextCompat.getColor(mContext, R.color.theme) : ContextCompat.getColor(mContext, R.color.color_gray));
+        radio_button2.setTextColor(!button1Check ? ContextCompat.getColor(mContext, R.color.theme) : ContextCompat.getColor(mContext, R.color.color_gray));
     }
 }

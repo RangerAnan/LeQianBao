@@ -53,7 +53,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
                     break;
                 case Constants.TAB_MONEY:
 
-                    vpFragment = isLeader ? new MainTwoFragment() : new MainThreeFragment();
+                    vpFragment = new MainTwoFragment();
                     break;
 
                 case Constants.TAB_FIND:
