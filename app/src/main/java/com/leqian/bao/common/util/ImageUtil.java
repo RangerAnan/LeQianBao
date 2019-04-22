@@ -437,4 +437,6 @@ public class ImageUtil {
         Logger.i("ImageCutUtil---readPictureDegree--degree:" + degree);
         return degree;
     }
+
+
 }

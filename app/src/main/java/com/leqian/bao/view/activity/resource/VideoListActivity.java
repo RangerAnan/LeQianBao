@@ -1,5 +1,6 @@
 package com.leqian.bao.view.activity.resource;
 
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
@@ -95,8 +96,9 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
     }
 
     @Override
-    public void initViewData() {
-        super.initViewData();
+    protected void onResume() {
+        super.onResume();
+        getRefreshLayout().autoRefresh();
         mListData = new ArrayList<>();
 
         mAdapter = new VideoListAdapter(mListData, mContext);
@@ -105,11 +107,16 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
         requestCoverList();
     }
 
+
     private void requestCoverList() {
         ResourceHttp.getCover(publicCover, new ModelCallBack<VidoeListResp>() {
             @Override
             public void onResponse(VidoeListResp response, int id) {
-                if (response == null || response.getData().size() == 0) {
+                if (response.getCode() != 1) {
+                    showErrorView();
+                    return;
+                }
+                if (response.getData() == null || response.getData().size() == 0) {
                     showEmptyView("暂无资源");
                     return;
                 }
@@ -127,7 +134,7 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
                 finish();
                 break;
             case R.id.bar_right:
-                ToastUtil.showToastShort("新增");
+                startActivity(new Intent(mContext, MakeCoverActivity.class));
                 break;
             case R.id.btn_ok:
                 ToastUtil.showToastShort("we chat");

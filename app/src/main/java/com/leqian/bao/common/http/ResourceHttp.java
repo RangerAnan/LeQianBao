@@ -5,6 +5,7 @@ import com.leqian.bao.model.BaseModelReq;
 import com.leqian.bao.model.account.LoginReq;
 import com.leqian.bao.model.resource.GetCoverReq;
 import com.leqian.bao.model.resource.GetLinkReq;
+import com.leqian.bao.model.resource.UploadCoverReq;
 import com.nxin.base.model.http.callback.ModelCallBack;
 
 /**
@@ -31,6 +32,15 @@ public class ResourceHttp extends BaseHttp {
         GetCoverReq coverReq = new GetCoverReq();
         coverReq.method = "getCover";
         coverReq.publicCover = publicCover;
+        executePostHttp(coverReq, callBack);
+    }
+
+    public static void uploadCover(String title, String desc, String coverImg, ModelCallBack callBack) {
+        UploadCoverReq coverReq = new UploadCoverReq();
+        coverReq.method = "uploadCover";
+        coverReq.title = title;
+        coverReq.desc = desc;
+        coverReq.pic = coverImg;
         executePostHttp(coverReq, callBack);
     }
 }
