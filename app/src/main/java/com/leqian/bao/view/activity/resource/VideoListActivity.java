@@ -4,6 +4,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -12,15 +13,14 @@ import android.widget.TextView;
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.VideoListAdapter;
 import com.leqian.bao.common.base.BaseListToolBarActivity;
+import com.leqian.bao.common.http.ResourceHttp;
+import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.ToastUtil;
-import com.leqian.bao.model.Constants;
-import com.leqian.bao.model.eventbus.RankingSwitchEvent;
 import com.leqian.bao.model.resource.VidoeListResp;
-import com.nxin.base.widget.NXToolBarActivity;
-
-import org.greenrobot.eventbus.EventBus;
+import com.nxin.base.model.http.callback.ModelCallBack;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -49,8 +49,15 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
     @BindView(R.id.radio_button2)
     RadioButton radio_button2;
 
-    ArrayList<VidoeListResp> mListData;
+    @BindView(R.id.btn_ok)
+    Button btn_ok;
+
+    List<VidoeListResp.DataBean> mListData;
     VideoListAdapter mAdapter;
+
+    boolean publicCover;
+
+    int selectPosition = 0;
 
     @Override
     public int getToolBarLayoutId() {
@@ -63,11 +70,21 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
     }
 
     @Override
+    public boolean isOpenViewState() {
+        return true;
+    }
+
+    @Override
     public void initView() {
         super.initView();
+        showContentView();
         bar_left.setVisibility(View.VISIBLE);
-        bar_right.setVisibility(View.VISIBLE);
-        bar_right_tv.setText("新增");
+        if (ShareUtilUser.getString(ShareUtilUser.ORG_TYPE, "").equals("1")) {
+            bar_right_tv.setText("新增");
+            bar_right.setVisibility(View.VISIBLE);
+        } else {
+            bar_right.setVisibility(View.GONE);
+        }
         getRefreshLayout().setEnableLoadMore(false);
 
         radio_button1.setText("团队标题");
@@ -82,21 +99,28 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
         super.initViewData();
         mListData = new ArrayList<>();
 
-        mListData = getData();
-        mAdapter = new VideoListAdapter(mListData);
+        mAdapter = new VideoListAdapter(mListData, mContext);
         listView.setAdapter(mAdapter);
+
+        requestCoverList();
     }
 
-    private ArrayList<VidoeListResp> getData() {
-        mListData.clear();
-        for (int i = 0; i < 10; i++) {
-            VidoeListResp resp = new VidoeListResp();
-            mListData.add(resp);
-        }
-        return mListData;
+    private void requestCoverList() {
+        ResourceHttp.getCover(publicCover, new ModelCallBack<VidoeListResp>() {
+            @Override
+            public void onResponse(VidoeListResp response, int id) {
+                if (response == null || response.getData().size() == 0) {
+                    showEmptyView("暂无资源");
+                    return;
+                }
+                mListData.clear();
+                mListData = response.getData();
+                mAdapter.setListData(mListData);
+            }
+        });
     }
 
-    @OnClick({R.id.bar_left, R.id.bar_right})
+    @OnClick({R.id.bar_left, R.id.bar_right, R.id.btn_ok})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.bar_left:
@@ -104,6 +128,9 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
                 break;
             case R.id.bar_right:
                 ToastUtil.showToastShort("新增");
+                break;
+            case R.id.btn_ok:
+                ToastUtil.showToastShort("we chat");
                 break;
             default:
                 break;
@@ -115,11 +142,15 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
         switch (checkedId) {
             case R.id.radio_button1:
                 //团队标题
+                publicCover = false;
+                requestCoverList();
                 changeRadioButtonTextColor(true);
                 getRefreshLayout().autoRefresh();
                 break;
             case R.id.radio_button2:
                 //公有标题
+                publicCover = true;
+                requestCoverList();
                 changeRadioButtonTextColor(false);
                 getRefreshLayout().autoRefresh();
                 break;
@@ -135,6 +166,20 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ToastUtil.showToastShort(String.valueOf(position));
+        updateCheckBoxState(position);
+    }
+
+    private void updateCheckBoxState(int position) {
+        VidoeListResp.DataBean dataBean = mListData.get(position);
+        if (dataBean.getState() != 1) {
+            ToastUtil.showToastShort("该资源不可推送");
+            return;
+        }
+        for (int i = 0; i < mListData.size(); i++) {
+            mListData.get(i).setCheck(i == position);
+        }
+        mAdapter.setListData(mListData);
+        selectPosition = position;
+        btn_ok.setEnabled(true);
     }
 }

@@ -20,4 +20,5 @@
     <item name="radioGroup" type="id" />
     <item name="radio_button1" type="id" />
     <item name="radio_button2" type="id" />
+    <item name="check_box" type="id" />
 </resources>

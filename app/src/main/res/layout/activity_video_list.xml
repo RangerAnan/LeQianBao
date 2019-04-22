@@ -2,19 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_common"
     android:orientation="vertical">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@id/refreshView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/bg_common">
 
         <ListView
             android:id="@id/listView"
             style="@style/lv_default_style"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/bg_common"
+            android:dividerHeight="0dp" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+    <Button
+        android:id="@id/btn_ok"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_18"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@drawable/btn_orange"
+        android:enabled="false"
+        android:text="确定"
+        android:textColor="@color/color_white"
+        android:textSize="16sp" />
 
 </LinearLayout>
