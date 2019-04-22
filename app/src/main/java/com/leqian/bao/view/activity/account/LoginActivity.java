@@ -165,7 +165,8 @@ public class LoginActivity extends NXActivity {
                 }
                 //save用户信息
                 ShareUtilMain.setBoolean(ShareUtilMain.LOGIN_STATE, true);
-                ShareUtilUser.setString(ShareUtilUser.USER_INFO, JsonUtils.object2Json(response));
+                ShareUtilUser.setString(ShareUtilUser.UID, response.getUid());
+                ShareUtilUser.setString(ShareUtilUser.ORG_TYPE, response.getType());
                 intent2Activity(MainActivity.class);
                 finish();
             }

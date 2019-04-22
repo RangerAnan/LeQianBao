@@ -51,7 +51,7 @@ public class MainFirstFragment extends BaseListFragment {
     @Override
     public void initView() {
         super.initView();
-        tv_title.setText("马上赚钱");
+        tv_title.setText("裂变");
         bar_left.setVisibility(View.INVISIBLE);
 
         getRefreshLayout().setEnableLoadMore(false);

@@ -1,5 +1,6 @@
 package com.leqian.bao.common.http;
 
+import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.model.BaseHttp;
 import com.leqian.bao.model.bll.LoginBLL;
 import com.nxin.base.model.http.OkHttpUtils;
@@ -17,7 +18,7 @@ public class UploadHttp extends BaseHttp {
     public static void uploadImage(File file, ModelCallBack callBack) {
         OkHttpUtils.post().addParams("token", token)
                 .addParams(method, "upload")
-                .addParams("uid", LoginBLL.getInstance().getUserInfo().getUid())
+                .addParams("uid", ShareUtilUser.getString(ShareUtilUser.UID, ""))
                 .addFile("image", file.getName(), file)
                 .url(commonUrl).build()
                 .execute(callBack);

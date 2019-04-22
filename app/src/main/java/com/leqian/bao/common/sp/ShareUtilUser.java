@@ -20,9 +20,11 @@ public class ShareUtilUser {
      */
     public static final String USER_INFO = "m1";
 
-    public static final String uid = "m2";
+    public static final String UID = "m2";
 
     public static final String TEAMID = "m3";
+
+    public static final String ORG_TYPE = "m4";         //type=1表示团长，2表示团员
 
 
     static {

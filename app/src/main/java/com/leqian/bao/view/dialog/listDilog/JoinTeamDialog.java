@@ -20,6 +20,7 @@ import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.BaseModelResp;
 import com.leqian.bao.model.account.LoginResp;
+import com.leqian.bao.model.account.UserInfoResp;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.view.dialog.BaseDialog;
 
@@ -36,9 +37,9 @@ public class JoinTeamDialog extends BaseDialog implements View.OnClickListener {
     private EditText et_invite_code;
     private Button btn_ok;
 
-    private LoginResp loginResp;
+    private UserInfoResp loginResp;
 
-    public JoinTeamDialog(Context context, LoginResp loginResp) {
+    public JoinTeamDialog(Context context, UserInfoResp loginResp) {
         super(context, R.style.PhotoSelectDialog);
         this.loginResp = loginResp;
     }
@@ -97,9 +98,9 @@ public class JoinTeamDialog extends BaseDialog implements View.OnClickListener {
         void onJoinTeamListener(int position);
     }
 
-    private void joinTeam(LoginResp userInfo, String trim) {
+    private void joinTeam(UserInfoResp userInfo, String trim) {
         //a1bdkc
-        AccountHttp.joinTeam(trim, userInfo, new ModelCallBack<LoginResp>() {
+        AccountHttp.joinTeam(trim, new ModelCallBack<LoginResp>() {
             @Override
             public void onResponse(LoginResp response, int id) {
                 if (response.getCode() == 0) {

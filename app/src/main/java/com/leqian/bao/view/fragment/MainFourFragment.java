@@ -17,7 +17,9 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.leqian.bao.R;
+import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.http.UploadHttp;
 import com.leqian.bao.common.permissions.PermissionsResultAction;
 import com.leqian.bao.common.permissions.PermissonsUtil;
@@ -26,8 +28,10 @@ import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ImageUtil;
 import com.leqian.bao.common.util.ToastUtil;
+import com.leqian.bao.model.BaseHttp;
 import com.leqian.bao.model.Constants;
 import com.leqian.bao.model.account.UploadImageResp;
+import com.leqian.bao.model.account.UserInfoResp;
 import com.leqian.bao.model.bll.LoginBLL;
 import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.model.ui.CommonUIModel;
@@ -43,6 +47,8 @@ import com.leqian.bao.view.imageview.CircleImageView;
 import com.nxin.base.model.http.OkHttpUtils;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.model.http.utils.ImageUtils;
+import com.nxin.base.model.network.glide.GlideUtils;
+import com.nxin.base.utils.JsonUtils;
 import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
 import com.nxin.base.view.dialog.LoadingDialog;
@@ -71,6 +77,9 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
 
     @BindView(R.id.ll_zfb)
     LinearLayout ll_zfb;
+
+    @BindView(R.id.tv_zfb)
+    TextView tv_zfb;
 
     @BindView(R.id.tv_today_charge)
     TextView tv_today_charge;
@@ -126,7 +135,32 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
             layout1.setOnClickListener(new ItemClickListener(commonUIModel));
             content.addView(inflate);
         }
+    }
 
+    @Override
+    public void initData() {
+        super.initData();
+
+        requestUserInfo();
+    }
+
+    private void requestUserInfo() {
+        AccountHttp.getUserInfo(new ModelCallBack<UserInfoResp>() {
+            @Override
+            public void onResponse(UserInfoResp response, int id) {
+                if (response == null || response.getData() == null) {
+                    Logger.i(initTag() + " user info is null ");
+                    return;
+                }
+                ShareUtilUser.setString(ShareUtilUser.USER_INFO, JsonUtils.object2Json(response));
+                GlideUtils.setDrawableRequest(Glide.with(MainFourFragment.this),
+                        BaseHttp.IMAGE_HOST + response.getData().getHeadpic(), R.mipmap.me_default_icon).into(me_user_photo);
+
+                tv_name.setText(response.getData().getName());
+                tv_zfb.setText(response.getData().getZfb());
+
+            }
+        });
     }
 
     @OnClick({R.id.me_user_photo, R.id.ll_zfb})
@@ -192,7 +226,9 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
                     ToastUtil.showToastShort(response.getMsg());
                     return;
                 }
-                //TODO
+                String headIcon = BaseHttp.IMAGE_HOST + response.getHeadpic();
+                GlideUtils.setDrawableRequest(Glide.with(MainFourFragment.this), headIcon, R.mipmap.me_default_icon).into(me_user_photo);
+
             }
         });
     }

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.leqian.bao.common.sp.ShareUtilMain;
 import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.model.account.LoginResp;
+import com.leqian.bao.model.account.UserInfoResp;
 import com.leqian.bao.view.activity.account.LoginActivity;
 import com.nxin.base.model.base.BaseManager;
 import com.nxin.base.utils.JsonUtils;
@@ -28,13 +29,13 @@ public class LoginBLL extends BaseManager {
     }
 
 
-    public LoginResp getUserInfo() {
+    public UserInfoResp getUserInfo() {
         String string = ShareUtilUser.getString(ShareUtilUser.USER_INFO, "");
         if (TextUtils.isEmpty(string)) {
             Logger.e(initTag() + "--getUserInfo-- userInfo is empty");
-            return new LoginResp();
+            return new UserInfoResp();
         }
-        return JsonUtils.parserJSONObject(string, LoginResp.class);
+        return JsonUtils.parserJSONObject(string, UserInfoResp.class);
     }
 
 

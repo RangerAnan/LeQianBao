@@ -19,6 +19,8 @@ public class BaseHttp {
 
     public static final String commonUrl = hostUrl + "/public/api.php";
 
+    public static final String IMAGE_HOST = hostUrl + "/public";
+
     public static final String token = "a84d81aa54523bcab9d88c32d9e751ac";
 
     protected static final String method = "method";
@@ -41,8 +43,8 @@ public class BaseHttp {
                 .execute(callback);
     }
 
-    public static <T> void executePostHttp(T content, ModelCallBack callback){
-        executePostHttp(content, ProHelper.getScreenHelper().currentActivity(),callback);
+    public static <T> void executePostHttp(T content, ModelCallBack callback) {
+        executePostHttp(content, ProHelper.getScreenHelper().currentActivity(), callback);
     }
 
     /**

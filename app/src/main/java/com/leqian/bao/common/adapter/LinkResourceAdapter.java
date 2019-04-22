@@ -64,12 +64,12 @@ public class LinkResourceAdapter extends BaseListAdapter<LinkResourceResp> imple
     }
 
     private void requestLinkResource() {
-        ResourceHttp.getLink(new ModelCallBack<LinkResourceResp>() {
+        ResourceHttp.getLink(false, new ModelCallBack<LinkResourceResp>() {
             @Override
             public void onResponse(LinkResourceResp response, int id) {
 
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("视频（").append(LoginBLL.getInstance().getUserInfo().getUserName()).append(")：");
+                stringBuilder.append("视频（").append(LoginBLL.getInstance().getUserInfo().getData().getName()).append(")：");
 
                 for (String link : response.getData()) {
                     stringBuilder.append("\n" + link);

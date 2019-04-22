@@ -1,5 +1,6 @@
 package com.leqian.bao.model;
 
+import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.NetworkUtils;
 import com.leqian.bao.model.bll.LoginBLL;
 import com.nxin.base.model.domain.BaseModel;
@@ -37,6 +38,6 @@ public class BaseModelReq extends BaseModel {
      */
     public String method = "";
 
-    public String uid = LoginBLL.getInstance().getUserInfo().getUid();
+    public String uid = ShareUtilUser.getString(ShareUtilUser.UID, "");
 
 }

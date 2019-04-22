@@ -17,11 +17,13 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.FragmentAdapter;
 import com.leqian.bao.common.http.AccountHttp;
+import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.ImageUtil;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.BaseModelResp;
 import com.leqian.bao.model.Constants;
 import com.leqian.bao.model.account.LoginResp;
+import com.leqian.bao.model.account.UserInfoResp;
 import com.leqian.bao.model.bll.LoginBLL;
 import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.view.dialog.listDilog.JoinTeamDialog;
@@ -77,7 +79,7 @@ public class MainActivity extends NXActivity {
     List<Integer> unSelectImgList = new ArrayList<>();
     List<Integer> selectImgList = new ArrayList<>();
 
-    private LoginResp userInfo;
+    private UserInfoResp userInfo;
 
     private int currentPosition = 0;
 
@@ -92,7 +94,7 @@ public class MainActivity extends NXActivity {
     public void initView() {
         super.initView();
         userInfo = LoginBLL.getInstance().getUserInfo();
-        isLeader = userInfo.getType().equals("1");
+        isLeader = ShareUtilUser.getString(ShareUtilUser.ORG_TYPE, "").equals("1");
 
         rl3.setVisibility(isLeader ? View.VISIBLE : View.GONE);
         tabImgList.clear();
@@ -186,7 +188,7 @@ public class MainActivity extends NXActivity {
      * 检查用户状态
      */
     private void checkAccountState() {
-        if (userInfo.getType().equals("1")) {
+        if (isLeader) {
             Logger.i(initTag() + " 团长号");
             return;
         }

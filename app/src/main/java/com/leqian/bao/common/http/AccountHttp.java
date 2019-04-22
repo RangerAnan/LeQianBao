@@ -18,7 +18,6 @@ import com.nxin.base.model.http.callback.ModelCallBack;
 public class AccountHttp extends BaseHttp {
 
 
-
     public static void userLogin(String phone, String psd, ModelCallBack callBack) {
         LoginReq loginRep = new LoginReq();
         loginRep.username = phone;
@@ -38,12 +37,11 @@ public class AccountHttp extends BaseHttp {
         executePostHttp(registerReq, callBack);
     }
 
-    public static void joinTeam(String inviteCode, LoginResp userInfo, ModelCallBack callBack) {
+    public static void joinTeam(String inviteCode, ModelCallBack callBack) {
 
         JoinTeamReq joinTeamReq = new JoinTeamReq();
         joinTeamReq.method = "joinTeam";
         joinTeamReq.code = inviteCode;
-        joinTeamReq.uid = userInfo.getUid();
         executePostHttp(joinTeamReq, callBack);
     }
 
@@ -53,4 +51,10 @@ public class AccountHttp extends BaseHttp {
         executePostHttp(baseModelReq, callBack);
     }
 
+
+    public static void getUserInfo(ModelCallBack callBack) {
+        BaseModelReq baseModelReq = new BaseModelReq();
+        baseModelReq.method = "getUserInfo";
+        executePostHttp(baseModelReq, callBack);
+    }
 }
