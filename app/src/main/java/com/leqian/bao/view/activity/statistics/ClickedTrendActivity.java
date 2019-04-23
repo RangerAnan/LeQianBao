@@ -1,15 +1,11 @@
 package com.leqian.bao.view.activity.statistics;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.leqian.bao.R;
-import com.leqian.bao.common.util.ToastUtil;
-import com.leqian.bao.model.Constants;
-import com.leqian.bao.view.activity.account.ModifyLoginPsdActivity;
-import com.leqian.bao.view.activity.account.RegisterActivity;
+import com.leqian.bao.model.constant.Constants;
 import com.nxin.base.widget.NXToolBarActivity;
 
 import butterknife.BindView;

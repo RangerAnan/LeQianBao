@@ -35,12 +35,12 @@ public class ResourceHttp extends BaseHttp {
         executePostHttp(coverReq, callBack);
     }
 
-    public static void uploadCover(String title, String desc, String coverImg, ModelCallBack callBack) {
+    /*public static void uploadCover(String title, String desc, String coverImg, ModelCallBack callBack) {
         UploadCoverReq coverReq = new UploadCoverReq();
         coverReq.method = "uploadCover";
         coverReq.title = title;
         coverReq.desc = desc;
         coverReq.pic = coverImg;
         executePostHttp(coverReq, callBack);
-    }
+    }*/
 }

@@ -5,8 +5,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 
-import com.leqian.bao.GlobalApplication;
-import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.constant.Constants;
 import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
 

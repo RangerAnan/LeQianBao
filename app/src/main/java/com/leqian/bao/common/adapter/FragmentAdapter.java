@@ -6,13 +6,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-import com.leqian.bao.model.Constants;
-import com.leqian.bao.model.account.LoginResp;
+import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.view.fragment.MainFirstFragment;
 import com.leqian.bao.view.fragment.MainFourFragment;
 import com.leqian.bao.view.fragment.MainThreeFragment;
 import com.leqian.bao.view.fragment.MainTwoFragment;
-import com.leqian.bao.view.fragment.ViewpagerFragment;
 import com.nxin.base.widget.NXFragment;
 
 

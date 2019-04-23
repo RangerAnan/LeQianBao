@@ -120,6 +120,7 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
                     showEmptyView("暂无资源");
                     return;
                 }
+                showContentView();
                 mListData.clear();
                 mListData = response.getData();
                 mAdapter.setListData(mListData);

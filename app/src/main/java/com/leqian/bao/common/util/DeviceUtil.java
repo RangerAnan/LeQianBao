@@ -28,12 +28,10 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.leqian.bao.GlobalApplication;
 import com.leqian.bao.R;
 import com.leqian.bao.common.permissions.PermissionsResultAction;
 import com.leqian.bao.common.permissions.PermissonsUtil;
-import com.leqian.bao.common.sp.ShareUtilMain;
-import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.model.code.RequestCode;
 import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;

@@ -3,13 +3,10 @@ package com.leqian.bao;
 import android.content.Context;
 
 import com.leqian.bao.common.util.FileUtil;
-import com.leqian.bao.model.AppConstants;
 import com.leqian.bao.view.refresh.MybBezierCircleHeader;
 import com.nxin.base.BaseApplication;
 import com.nxin.base.model.http.OkHttpUtils;
 import com.nxin.base.model.http.log.LoggerInterceptor;
-import com.nxin.base.model.http.ssl.HttpsCertificateUtils;
-import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -17,15 +14,9 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 /**

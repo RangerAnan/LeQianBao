@@ -122,7 +122,6 @@ public class LoginActivity extends NXActivity {
                     ToastUtil.showToastShort("密码长度不少于6位");
                     return;
                 }
-                showProgressBar();
                 loginAccount(inputPhone, inputPsd);
                 break;
             case R.id.tv_forget_psd:
@@ -158,7 +157,6 @@ public class LoginActivity extends NXActivity {
         AccountHttp.userLogin(inputPhone, inputPsd, new ModelCallBack<LoginResp>() {
             @Override
             public void onResponse(LoginResp response, int id) {
-                dismissProgressBar();
                 if (response.getCode() != 1) {
                     ToastUtil.showToastShort(response.getMsg());
                     return;

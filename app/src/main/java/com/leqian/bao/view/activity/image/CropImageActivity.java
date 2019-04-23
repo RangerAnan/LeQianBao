@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.util.ImageUtil;
-import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.constant.Constants;
 import com.nxin.base.widget.NXToolBarActivity;
 
 import java.io.ByteArrayOutputStream;

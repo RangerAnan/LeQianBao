@@ -1,9 +1,8 @@
-package com.leqian.bao.model;
+package com.leqian.bao.model.constant;
 
 import android.os.Environment;
 
 import com.leqian.bao.BuildConfig;
-import com.nxin.base.utils.ProHelper;
 
 import java.io.File;
 

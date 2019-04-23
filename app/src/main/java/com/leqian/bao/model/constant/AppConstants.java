@@ -1,4 +1,4 @@
-package com.leqian.bao.model;
+package com.leqian.bao.model.constant;
 
 import android.os.Build;
 import android.os.Environment;

@@ -7,11 +7,10 @@ import android.widget.AdapterView;
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.RankingAdapter;
 import com.leqian.bao.common.base.BaseListFragment;
-import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.model.eventbus.RankingSwitchEvent;
 import com.leqian.bao.model.ui.RankingUIModel;
 import com.leqian.bao.view.activity.statistics.ClickedTrendActivity;
-import com.nxin.base.utils.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

@@ -2,10 +2,8 @@ package com.leqian.bao.view.activity.resource;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,11 +20,10 @@ import com.leqian.bao.common.util.ImageUtil;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.BaseHttp;
 import com.leqian.bao.model.BaseModelResp;
-import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.model.account.UploadImageResp;
 import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.view.dialog.listDilog.BottomListDialog;
-import com.leqian.bao.view.fragment.MainFourFragment;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.model.network.glide.GlideUtils;
 import com.nxin.base.utils.Logger;
@@ -62,7 +59,8 @@ public class MakeCoverActivity extends NXToolBarActivity implements BottomListDi
 
 
     private BottomListDialog listDialog;
-    private String coverIcon;
+
+    private String imagePath;
 
     @Override
     public int getToolBarLayoutId() {
@@ -103,11 +101,11 @@ public class MakeCoverActivity extends NXToolBarActivity implements BottomListDi
                     ToastUtil.showToastShort("描述不能为空");
                     return;
                 }
-                if (TextUtils.isEmpty(coverIcon)) {
+                if (TextUtils.isEmpty(imagePath)) {
                     ToastUtil.showToastShort("封面不能为空");
                     return;
                 }
-                requestUploadCover(title, desc, coverIcon);
+                requestUploadCover(title, desc, imagePath);
                 break;
             case R.id.image_button:
                 String[] stringArray = getResources().getStringArray(R.array.dialog_list_item);
@@ -124,7 +122,7 @@ public class MakeCoverActivity extends NXToolBarActivity implements BottomListDi
     }
 
     private void requestUploadCover(String title, String desc, String coverIcon) {
-        ResourceHttp.uploadCover(title, desc, coverIcon, new ModelCallBack<BaseModelResp>() {
+        UploadHttp.uploadCover(title, desc, new File(coverIcon), new ModelCallBack<BaseModelResp>() {
             @Override
             public void onResponse(BaseModelResp response, int id) {
                 if (response.getCode() != 1) {
@@ -173,19 +171,11 @@ public class MakeCoverActivity extends NXToolBarActivity implements BottomListDi
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case RequestCode.CHOICE_CMARE: {
-                    String imagePath = getImagePath(Constants.PHOTOFILEPATH);
-                    if (TextUtils.isEmpty(imagePath)) {
-                        return;
-                    }
-                    uploadImage(imagePath);
+                    imagePath = getImagePath(Constants.PHOTOFILEPATH);
                 }
                 break;
                 case RequestCode.CHOICE_PHOTO: {
-                    String imagePath = getImagePath(ImageUtil.getImageAbsolutePath(mContext, data.getData()));
-                    if (TextUtils.isEmpty(imagePath)) {
-                        return;
-                    }
-                    uploadImage(imagePath);
+                    imagePath = getImagePath(ImageUtil.getImageAbsolutePath(mContext, data.getData()));
                 }
                 break;
                 default:
@@ -209,29 +199,4 @@ public class MakeCoverActivity extends NXToolBarActivity implements BottomListDi
         return filepath;
     }
 
-    /**
-     * 上传图片
-     *
-     * @param path
-     */
-    public void uploadImage(String path) {
-        File file = new File(path);
-        if (!file.exists() || file.length() == 0) {
-            Logger.i(initTag() + "----uploadImage---file is null");
-            return;
-        }
-        UploadHttp.uploadImage(file, new ModelCallBack<UploadImageResp>() {
-
-            @Override
-            public void onResponse(UploadImageResp response, int id) {
-                if (response.getCode() != 1) {
-                    ToastUtil.showToastShort(response.getMsg());
-                    return;
-                }
-                coverIcon = BaseHttp.IMAGE_HOST + response.getHeadpic();
-                GlideUtils.setDrawableRequest(Glide.with(MakeCoverActivity.this), coverIcon, R.mipmap.me_default_icon).into(image_button);
-
-            }
-        });
-    }
 }

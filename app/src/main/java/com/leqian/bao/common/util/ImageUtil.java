@@ -22,14 +22,9 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.leqian.bao.GlobalApplication;
-import com.leqian.bao.common.sp.ShareUtilMain;
-import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.model.code.RequestCode;
-import com.nxin.base.utils.FileUtil;
 import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
 

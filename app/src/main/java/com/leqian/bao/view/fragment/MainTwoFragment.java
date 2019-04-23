@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.RankingFragmentAdapter;
-import com.leqian.bao.model.Constants;
+import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.model.eventbus.RankingSwitchEvent;
 import com.leqian.bao.view.fragment.ranking.RankingListFragmnet;
 import com.nxin.base.widget.NXFragment;
