@@ -2,11 +2,14 @@ package com.leqian.bao;
 
 import android.content.Context;
 
+import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.FileUtil;
+import com.leqian.bao.model.constant.SDKConstant;
 import com.leqian.bao.view.refresh.MybBezierCircleHeader;
 import com.nxin.base.BaseApplication;
 import com.nxin.base.model.http.OkHttpUtils;
 import com.nxin.base.model.http.log.LoggerInterceptor;
+import com.nxin.base.utils.ChannelUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -14,6 +17,9 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +38,23 @@ public class GlobalApplication extends BaseApplication {
         initOkHttp();
         FileUtil.createProjectSdcardFile();
 
+        initUmeng();
+    }
+
+    private void initUmeng() {
+        UMConfigure.init(this, null, ChannelUtil.getChannel(this), UMConfigure.DEVICE_TYPE_PHONE, null);
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+
+        if (!DeviceUtil.isApkDebugable()) {
+            if (isPrintLog) {
+                UMConfigure.setLogEnabled(true);
+            } else {
+                UMConfigure.setLogEnabled(false);
+            }
+        }
+
+        MobclickAgent.openActivityDurationTrack(false);
+        PlatformConfig.setWeixin(SDKConstant.APP_KEY_WX, SDKConstant.APP_SECRET_WX);
     }
 
 

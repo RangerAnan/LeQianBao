@@ -17,8 +17,13 @@ import com.leqian.bao.common.base.BaseListToolBarActivity;
 import com.leqian.bao.common.http.ResourceHttp;
 import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.ToastUtil;
+import com.leqian.bao.model.bll.ShareBLL;
+import com.leqian.bao.model.constant.SDKConstant;
 import com.leqian.bao.model.resource.VidoeListResp;
 import com.nxin.base.model.http.callback.ModelCallBack;
+import com.nxin.base.utils.ProHelper;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +65,7 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
 
     int selectPosition = 0;
 
+
     @Override
     public int getToolBarLayoutId() {
         return R.layout.title_main_ranking;
@@ -93,6 +99,8 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
         radioGroup.setOnCheckedChangeListener(this);
 
         listView.setOnItemClickListener(this);
+
+
     }
 
     @Override
@@ -138,7 +146,9 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
                 startActivity(new Intent(mContext, MakeCoverActivity.class));
                 break;
             case R.id.btn_ok:
-                ToastUtil.showToastShort("we chat");
+                VidoeListResp.DataBean dataBean = mListData.get(selectPosition);
+                ShareBLL.getInstance().shareToWX(ProHelper.getScreenHelper().currentActivity(), "www.baidu.com",
+                        dataBean.getTitle(), dataBean.getPic(), dataBean.getDesc());
                 break;
             default:
                 break;

@@ -35,6 +35,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="${KEY_UMENG}" />
+
         <activity
             android:name=".view.activity.SplashActivity"
             android:theme="@style/AppTheme">
@@ -54,6 +58,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity
             android:name=".view.activity.account.LoginActivity"

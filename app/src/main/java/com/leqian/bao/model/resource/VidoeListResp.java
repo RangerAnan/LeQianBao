@@ -29,6 +29,8 @@ public class VidoeListResp extends BaseModelResp {
         private String pic;
         private int state;      //state=0表示等待审核，1表示审核通过，2表示审核失败。只有审核通过的才可能用
 
+        private String link;
+
         private boolean isCheck;   //ui model
 
         public int getId() {
@@ -77,6 +79,14 @@ public class VidoeListResp extends BaseModelResp {
 
         public void setCheck(boolean check) {
             isCheck = check;
+        }
+
+        public String getLink() {
+            return link == null ? "" : link;
+        }
+
+        public void setLink(String link) {
+            this.link = link;
         }
     }
 }
