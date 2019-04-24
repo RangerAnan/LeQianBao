@@ -16,7 +16,7 @@ import butterknife.BindView;
  * Created by fcl on 19.4.19
  * desc:
  */
-public class BaseListToolBarActivity extends NXToolBarActivity implements OnRefreshListener, OnRefreshLoadMoreListener {
+public class BaseListToolBarActivity extends BaseToolBarActivity implements OnRefreshListener, OnRefreshLoadMoreListener {
 
     @BindView(R.id.listView)
     protected ListView listView;

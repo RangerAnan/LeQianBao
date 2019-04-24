@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.FragmentAdapter;
+import com.leqian.bao.common.base.BaseActivity;
 import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.ImageUtil;
@@ -37,7 +38,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends NXActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.iv_tab1)
     ImageView iv_tab1;

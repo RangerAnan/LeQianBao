@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.leqian.bao.R;
+import com.leqian.bao.common.base.BaseToolBarActivity;
 import com.leqian.bao.common.http.ResourceHttp;
 import com.leqian.bao.common.http.UploadHttp;
 import com.leqian.bao.common.permissions.PermissionsResultAction;
@@ -40,7 +41,7 @@ import butterknife.OnClick;
  * Created by fcl on 19.4.22
  * desc:
  */
-public class MakeCoverActivity extends NXToolBarActivity implements BottomListDialog.IBottomListItemListener {
+public class MakeCoverActivity extends BaseToolBarActivity implements BottomListDialog.IBottomListItemListener {
 
     @BindView(R.id.tv_title)
     TextView tv_title;

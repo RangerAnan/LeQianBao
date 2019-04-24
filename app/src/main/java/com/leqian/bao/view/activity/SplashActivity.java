@@ -3,6 +3,7 @@ package com.leqian.bao.view.activity;
 import android.os.Handler;
 
 import com.leqian.bao.R;
+import com.leqian.bao.common.base.BaseActivity;
 import com.leqian.bao.common.sp.ShareUtilMain;
 import com.leqian.bao.view.activity.account.LoginActivity;
 import com.nxin.base.widget.NXActivity;
@@ -11,7 +12,7 @@ import com.nxin.base.widget.NXActivity;
  * Created by fcl on 19.4.10
  * desc:
  */
-public class SplashActivity extends NXActivity {
+public class SplashActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {

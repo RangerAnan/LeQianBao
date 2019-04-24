@@ -3,6 +3,7 @@ package com.leqian.bao.view.activity.setting;
 import android.widget.TextView;
 
 import com.leqian.bao.R;
+import com.leqian.bao.common.base.BaseToolBarActivity;
 import com.nxin.base.widget.NXToolBarActivity;
 
 import butterknife.BindView;
@@ -11,7 +12,7 @@ import butterknife.BindView;
  * Created by fcl on 19.4.19
  * desc:
  */
-public class TeamManagerActivity extends NXToolBarActivity {
+public class TeamManagerActivity extends BaseToolBarActivity {
 
     @BindView(R.id.tv_title)
     TextView tv_title;

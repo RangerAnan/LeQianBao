@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.leqian.bao.R;
+import com.leqian.bao.common.base.BaseToolBarActivity;
 import com.leqian.bao.model.constant.Constants;
 import com.nxin.base.widget.NXToolBarActivity;
 
@@ -15,7 +16,7 @@ import butterknife.OnClick;
  * Created by fcl on 19.4.20
  * desc:
  */
-public class ClickedTrendActivity extends NXToolBarActivity {
+public class ClickedTrendActivity extends BaseToolBarActivity {
 
     @BindView(R.id.tv_title)
     TextView tv_title;

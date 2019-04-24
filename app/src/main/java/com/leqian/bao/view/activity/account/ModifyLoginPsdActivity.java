@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.leqian.bao.R;
+import com.leqian.bao.common.base.BaseToolBarActivity;
 import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.account.LoginResp;
@@ -26,7 +27,7 @@ import butterknife.OnClick;
  * Created by fcl on 19.4.10
  * desc:
  */
-public class ModifyLoginPsdActivity extends NXToolBarActivity {
+public class ModifyLoginPsdActivity extends BaseToolBarActivity {
 
 
     @BindView(R.id.btn_ok)

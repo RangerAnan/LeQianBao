@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leqian.bao.R;
+import com.leqian.bao.common.base.BaseActivity;
 import com.leqian.bao.common.sp.ShareUtilMain;
 import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.ToastUtil;
@@ -28,7 +29,7 @@ import butterknife.OnClick;
  * Created by fcl on 19.4.10
  * desc:
  */
-public class LoginActivity extends NXActivity {
+public class LoginActivity extends BaseActivity {
 
 
     @BindView(R.id.tv_register)

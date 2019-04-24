@@ -104,7 +104,7 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         getRefreshLayout().autoRefresh();
         mListData = new ArrayList<>();
