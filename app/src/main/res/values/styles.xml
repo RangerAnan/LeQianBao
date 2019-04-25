@@ -126,4 +126,24 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+
+    <!-- 从下弹入弹出效果 -->
+    <style name="anim_dialog_bottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_push_bottom_out</item>
+    </style>
+
+
+    <!-- 处理底部虚拟按键遮挡问题，使用其他父样式-->
+    <style name="dialog_bottom" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowFrame">@null</item>           <!--Dialog的windowFrame框为无-->
+        <item name="android:windowIsFloating">true</item>      <!--是否浮现在activity之上-->
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsTranslucent">false</item>   <!--是否半透明-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>     <!--背景是否模糊显示-->
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 </resources>

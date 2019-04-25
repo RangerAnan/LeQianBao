@@ -22,6 +22,8 @@
     <color name="color_gray_4">#4a000000</color>
     <color name="bg_common">#f8f8f8</color>
 
+    <color name="cl_gray0">#333333</color>
+    <color name="cl_gray1">#666666</color>
 
     <color name="color_576b95">#576b95</color>
 
@@ -48,5 +50,9 @@
     <color name="crop_image_bg">#414141</color>
     <color name="transparent_half">#aa000000</color>
 
+    <color name="dialog_line_color">#b9b9b9</color>
+    <color name="share_dialog_top_line">#B0B0B0</color>
+    <color name="linecolor">#eeeeee</color>
 
+    <color name="cl_item_press">#e5e6e7</color>
 </resources>

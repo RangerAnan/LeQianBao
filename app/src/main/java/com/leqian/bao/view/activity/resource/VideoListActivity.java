@@ -17,10 +17,14 @@ import com.leqian.bao.common.base.BaseListToolBarActivity;
 import com.leqian.bao.common.http.ResourceHttp;
 import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.ToastUtil;
+import com.leqian.bao.model.BaseHttp;
 import com.leqian.bao.model.bll.ShareBLL;
 import com.leqian.bao.model.constant.SDKConstant;
+import com.leqian.bao.model.resource.LinkResourceResp;
 import com.leqian.bao.model.resource.VidoeListResp;
+import com.leqian.bao.view.dialog.share.ShareMenuDialog;
 import com.nxin.base.model.http.callback.ModelCallBack;
+import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -146,13 +150,38 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
                 startActivity(new Intent(mContext, MakeCoverActivity.class));
                 break;
             case R.id.btn_ok:
-                VidoeListResp.DataBean dataBean = mListData.get(selectPosition);
-                ShareBLL.getInstance().shareToWX(ProHelper.getScreenHelper().currentActivity(), "www.baidu.com",
-                        dataBean.getTitle(), dataBean.getPic(), dataBean.getDesc());
+                requestLink();
                 break;
             default:
                 break;
         }
+    }
+
+    private void requestLink() {
+        ResourceHttp.getLink(true, new ModelCallBack<LinkResourceResp>("正在加载...") {
+            @Override
+            public void onResponse(LinkResourceResp response, int id) {
+                List<String> data = response.getData();
+                if (data.size() == 0) {
+                    Logger.i(initTag() + "--- data is null");
+                    return;
+                }
+                showShareDialog(data.get(0));
+
+            }
+        });
+    }
+
+    private void showShareDialog(final String link) {
+        ShareMenuDialog shareMenuDialog = new ShareMenuDialog(mContext, 0, new ShareMenuDialog.OnButtonClickListener() {
+            @Override
+            public void onButtonClick(int type, int id) {
+                VidoeListResp.DataBean dataBean = mListData.get(selectPosition);
+                ShareBLL.getInstance().shareToWX(id, ProHelper.getScreenHelper().currentActivity(), link,
+                        dataBean.getTitle(), BaseHttp.IMAGE_HOST + dataBean.getPic(), dataBean.getDesc());
+            }
+        });
+        shareMenuDialog.show();
     }
 
     @Override

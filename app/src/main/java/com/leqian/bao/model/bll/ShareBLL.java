@@ -27,20 +27,30 @@ public class ShareBLL extends BaseManager {
         return instentce;
     }
 
-    public void shareToWX(Activity activity, String url, String title, String image, String desc) {
+    public void shareToWX(int id, Activity activity, String url, String title, String image, String desc) {
 
+        SHARE_MEDIA channel = SHARE_MEDIA.WEIXIN;
+
+        switch (id) {
+            case 0:
+                channel = SHARE_MEDIA.WEIXIN;
+                break;
+            case 1:
+                channel = SHARE_MEDIA.WEIXIN_CIRCLE;
+                break;
+            default:
+                break;
+        }
         UMWeb web = new UMWeb(url);
         web.setTitle(title);
         web.setThumb(new UMImage(mContext, image));
         web.setDescription(desc);
 
         new ShareAction(activity)
-                .setPlatform(SHARE_MEDIA.WEIXIN)
-                .setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setPlatform(channel)
                 .withMedia(web)
                 .setCallback(shareListener)
                 .share();
-
 
     }
 
@@ -70,7 +80,7 @@ public class ShareBLL extends BaseManager {
          */
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Logger.i(initTag() + "--onError--");
+            Logger.i(initTag() + "--onError--" + t);
         }
 
         /**
