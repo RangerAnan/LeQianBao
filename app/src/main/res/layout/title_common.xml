@@ -43,7 +43,7 @@
             android:layout_centerVertical="true"
             android:text="完成"
             android:textColor="@color/color_white"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <View

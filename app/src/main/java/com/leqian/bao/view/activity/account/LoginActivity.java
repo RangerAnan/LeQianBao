@@ -155,7 +155,7 @@ public class LoginActivity extends BaseActivity {
 
     private void loginAccount(String inputPhone, String inputPsd) {
 
-        AccountHttp.userLogin(inputPhone, inputPsd, new ModelCallBack<LoginResp>() {
+        AccountHttp.userLogin(inputPhone, inputPsd, new ModelCallBack<LoginResp>("登录中...") {
             @Override
             public void onResponse(LoginResp response, int id) {
                 if (response.getCode() != 1) {

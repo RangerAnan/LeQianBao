@@ -202,7 +202,7 @@ public class RegisterActivity extends BaseActivity {
 
     private void loginAccount(String inputPhone, String inputPsd, String zfbName, String realName) {
 
-        AccountHttp.userRegister(inputPhone, inputPsd, zfbName, realName, new ModelCallBack<LoginResp>() {
+        AccountHttp.userRegister(inputPhone, inputPsd, zfbName, realName, new ModelCallBack<LoginResp>("正在加载...") {
             @Override
             public void onResponse(LoginResp response, int id) {
                 ToastUtil.showToastShort(response.getMsg());

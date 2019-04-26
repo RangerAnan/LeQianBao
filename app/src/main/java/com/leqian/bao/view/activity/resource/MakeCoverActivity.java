@@ -123,7 +123,7 @@ public class MakeCoverActivity extends BaseToolBarActivity implements BottomList
     }
 
     private void requestUploadCover(String title, String desc, String coverIcon) {
-        UploadHttp.uploadCover(title, desc, new File(coverIcon), new ModelCallBack<BaseModelResp>() {
+        UploadHttp.uploadCover(title, desc, new File(coverIcon), new ModelCallBack<BaseModelResp>("正在上传...") {
             @Override
             public void onResponse(BaseModelResp response, int id) {
                 if (response.getCode() != 1) {

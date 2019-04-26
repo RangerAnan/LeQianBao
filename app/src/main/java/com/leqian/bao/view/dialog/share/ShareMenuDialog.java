@@ -37,7 +37,7 @@ public class ShareMenuDialog extends Dialog {
     private HorizontalScrollView shareMenuSVA, shareMenuSVB;
     private LinearLayout shareMenuA, shareMenuB;
 
-    private final int size = DeviceUtil.getScreenWidth() / 2;
+    private final int size = DeviceUtil.getScreenWidth() / 5;
 
     public interface OnButtonClickListener {
         void onButtonClick(int type, int id);
