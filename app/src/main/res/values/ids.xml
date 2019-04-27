@@ -23,4 +23,6 @@
     <item name="check_box" type="id" />
 
     <item name="image_button" type="id" />
+
+    <item name="et_content" type="id" />
 </resources>

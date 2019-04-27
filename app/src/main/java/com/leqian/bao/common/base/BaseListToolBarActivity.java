@@ -18,9 +18,6 @@ import butterknife.BindView;
  */
 public class BaseListToolBarActivity extends BaseToolBarActivity implements OnRefreshListener, OnRefreshLoadMoreListener {
 
-    @BindView(R.id.listView)
-    protected ListView listView;
-
     @BindView(R.id.refreshView)
     protected SmartRefreshLayout refreshView;
 

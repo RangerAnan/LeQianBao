@@ -88,6 +88,16 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
                 getRefreshLayout().autoRefresh();
                 mAdapter.setListData(getData(1));
                 break;
+            case 3:
+                //1-团队排行
+                getRefreshLayout().autoRefresh();
+                mAdapter.setListData(getData(1));
+                break;
+            case 4:
+                //1-个人排行
+                getRefreshLayout().autoRefresh();
+                mAdapter.setListData(getData(1));
+                break;
             default:
                 break;
         }

@@ -9,4 +9,9 @@
 
     <string name="umeng_socialize_text_weixin_key">微信</string>
     <string name="umeng_socialize_text_weixin_circle_key">朋友圈</string>
+    <string name="input_not_empty">输入内容不能为空</string>
+
+    <!--团队-->
+    <string name="user_team">-团队</string>
+    <string name="team_copy">&#160;&#160;复制</string>
 </resources>

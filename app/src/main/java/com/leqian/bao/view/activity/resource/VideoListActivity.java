@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -60,6 +61,9 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
 
     @BindView(R.id.btn_ok)
     Button btn_ok;
+
+    @BindView(R.id.listView)
+    ListView listView;
 
     List<VidoeListResp.DataBean> mListData;
     VideoListAdapter mAdapter;
