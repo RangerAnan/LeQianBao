@@ -1,11 +1,8 @@
 package com.leqian.bao.common.http;
 
-import com.leqian.bao.model.BaseHttp;
-import com.leqian.bao.model.BaseModelReq;
-import com.leqian.bao.model.account.LoginReq;
-import com.leqian.bao.model.resource.GetCoverReq;
-import com.leqian.bao.model.resource.GetLinkReq;
-import com.leqian.bao.model.resource.UploadCoverReq;
+import com.leqian.bao.model.network.base.BaseModelReq;
+import com.leqian.bao.model.network.resource.GetCoverReq;
+import com.leqian.bao.model.network.resource.GetLinkReq;
 import com.nxin.base.model.http.callback.ModelCallBack;
 
 /**

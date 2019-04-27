@@ -1,6 +1,6 @@
-package com.leqian.bao.model.resource;
+package com.leqian.bao.model.network.resource;
 
-import com.leqian.bao.model.BaseModelResp;
+import com.leqian.bao.model.network.base.BaseModelResp;
 
 import java.util.List;
 

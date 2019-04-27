@@ -8,23 +8,18 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ToastUtil;
-import com.leqian.bao.model.BaseModelResp;
-import com.leqian.bao.model.account.LoginResp;
-import com.leqian.bao.model.account.UserInfoResp;
+import com.leqian.bao.model.network.account.LoginResp;
+import com.leqian.bao.model.network.account.UserInfoResp;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.view.dialog.BaseDialog;
-
-import java.util.List;
 
 
 /**

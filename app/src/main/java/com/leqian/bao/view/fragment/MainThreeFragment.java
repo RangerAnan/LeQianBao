@@ -5,7 +5,10 @@ import android.widget.ListView;
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.RankingAdapter;
 import com.leqian.bao.common.base.BaseListFragment;
+import com.leqian.bao.common.http.StatisticsHttp;
+import com.leqian.bao.model.network.statistics.UserRankingResp;
 import com.leqian.bao.model.ui.RankingUIModel;
+import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.utils.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -47,5 +50,20 @@ public class MainThreeFragment extends BaseListFragment {
             mListData.add(rankingUIModel);
         }
         return mListData;
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+//        requestRanking();
+    }
+
+    private void requestRanking() {
+        StatisticsHttp.getUserRanking(new ModelCallBack<UserRankingResp>() {
+            @Override
+            public void onResponse(UserRankingResp response, int id) {
+
+            }
+        });
     }
 }

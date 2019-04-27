@@ -14,6 +14,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.leqian.bao.R;
 import com.leqian.bao.common.http.AccountHttp;
+import com.leqian.bao.common.http.StatisticsHttp;
 import com.leqian.bao.common.http.UploadHttp;
 import com.leqian.bao.common.permissions.PermissionsResultAction;
 import com.leqian.bao.common.permissions.PermissonsUtil;
@@ -21,10 +22,10 @@ import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ImageUtil;
 import com.leqian.bao.common.util.ToastUtil;
-import com.leqian.bao.model.BaseHttp;
+import com.leqian.bao.common.http.BaseHttp;
 import com.leqian.bao.model.constant.Constants;
-import com.leqian.bao.model.account.UploadImageResp;
-import com.leqian.bao.model.account.UserInfoResp;
+import com.leqian.bao.model.network.account.UploadImageResp;
+import com.leqian.bao.model.network.account.UserInfoResp;
 import com.leqian.bao.model.bll.LoginBLL;
 import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.model.ui.CommonUIModel;
@@ -127,7 +128,9 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
         super.initData();
 
         requestUserInfo();
+        requestUserCount();
     }
+
 
     private void requestUserInfo() {
         AccountHttp.getUserInfo(new ModelCallBack<UserInfoResp>() {
@@ -144,6 +147,16 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
                 tv_name.setText(response.getData().getName());
                 tv_zfb.setText(response.getData().getZfb());
 
+            }
+        });
+    }
+
+
+    private void requestUserCount() {
+        StatisticsHttp.getUserCount(new ModelCallBack<UserInfoResp>() {
+            @Override
+            public void onResponse(UserInfoResp response, int id) {
+                //TODO
             }
         });
     }

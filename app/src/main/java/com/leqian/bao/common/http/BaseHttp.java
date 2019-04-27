@@ -1,4 +1,4 @@
-package com.leqian.bao.model;
+package com.leqian.bao.common.http;
 
 import com.nxin.base.model.http.OkHttpUtils;
 import com.nxin.base.model.http.builder.GetBuilder;

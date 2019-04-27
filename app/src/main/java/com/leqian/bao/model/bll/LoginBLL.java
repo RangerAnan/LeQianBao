@@ -6,8 +6,7 @@ import android.text.TextUtils;
 
 import com.leqian.bao.common.sp.ShareUtilMain;
 import com.leqian.bao.common.sp.ShareUtilUser;
-import com.leqian.bao.model.account.LoginResp;
-import com.leqian.bao.model.account.UserInfoResp;
+import com.leqian.bao.model.network.account.UserInfoResp;
 import com.leqian.bao.view.activity.account.LoginActivity;
 import com.nxin.base.model.base.BaseManager;
 import com.nxin.base.utils.JsonUtils;

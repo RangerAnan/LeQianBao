@@ -15,12 +15,10 @@ import com.leqian.bao.common.base.BaseActivity;
 import com.leqian.bao.common.sp.ShareUtilMain;
 import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.ToastUtil;
-import com.leqian.bao.model.account.LoginResp;
+import com.leqian.bao.model.network.account.LoginResp;
 import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.view.activity.MainActivity;
 import com.nxin.base.model.http.callback.ModelCallBack;
-import com.nxin.base.utils.JsonUtils;
-import com.nxin.base.widget.NXActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;

@@ -1,7 +1,6 @@
-package com.leqian.bao.model.account;
+package com.leqian.bao.model.network.account;
 
-import com.leqian.bao.model.BaseModelReq;
-import com.nxin.base.model.domain.BaseModel;
+import com.leqian.bao.model.network.base.BaseModelReq;
 
 /**
  * Created by fcl on 19.4.11

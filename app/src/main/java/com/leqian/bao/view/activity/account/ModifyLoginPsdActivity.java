@@ -13,12 +13,7 @@ import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.base.BaseToolBarActivity;
-import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.util.ToastUtil;
-import com.leqian.bao.model.account.LoginResp;
-import com.nxin.base.model.http.callback.ModelCallBack;
-import com.nxin.base.widget.NXActivity;
-import com.nxin.base.widget.NXToolBarActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;

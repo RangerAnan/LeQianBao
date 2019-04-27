@@ -1,23 +1,19 @@
 package com.leqian.bao.common.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.http.ResourceHttp;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.bll.LoginBLL;
-import com.leqian.bao.model.resource.LinkResourceResp;
-import com.leqian.bao.model.ui.RankingUIModel;
+import com.leqian.bao.model.network.resource.LinkResourceResp;
 import com.leqian.bao.view.activity.resource.VideoListActivity;
 import com.nxin.base.common.adapter.BaseListAdapter;
 import com.nxin.base.common.adapter.BaseViewHolder;
 import com.nxin.base.model.http.callback.ModelCallBack;
-import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
 import com.nxin.base.utils.system.ClipboardUtils;
 

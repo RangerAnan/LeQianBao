@@ -1,17 +1,13 @@
 package com.leqian.bao.common.adapter;
 
 import android.content.Context;
-import android.content.MutableContextWrapper;
-import android.support.v4.content.ContextCompat;
-import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.leqian.bao.R;
-import com.leqian.bao.model.BaseHttp;
-import com.leqian.bao.model.resource.VidoeListResp;
+import com.leqian.bao.common.http.BaseHttp;
+import com.leqian.bao.model.network.resource.VidoeListResp;
 import com.nxin.base.common.adapter.BaseListAdapter;
 import com.nxin.base.common.adapter.BaseViewHolder;
 import com.nxin.base.model.network.glide.GlideUtils;

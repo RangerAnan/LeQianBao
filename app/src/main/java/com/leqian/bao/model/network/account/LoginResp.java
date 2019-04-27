@@ -1,6 +1,6 @@
-package com.leqian.bao.model.account;
+package com.leqian.bao.model.network.account;
 
-import com.leqian.bao.model.BaseModelResp;
+import com.leqian.bao.model.network.base.BaseModelResp;
 
 /**
  * Created by fcl on 19.4.11

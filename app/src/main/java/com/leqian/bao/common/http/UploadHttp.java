@@ -1,8 +1,6 @@
 package com.leqian.bao.common.http;
 
 import com.leqian.bao.common.sp.ShareUtilUser;
-import com.leqian.bao.model.BaseHttp;
-import com.leqian.bao.model.bll.LoginBLL;
 import com.nxin.base.model.http.OkHttpUtils;
 import com.nxin.base.model.http.callback.ModelCallBack;
 

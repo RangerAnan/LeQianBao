@@ -8,10 +8,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.leqian.bao.R;
 import com.leqian.bao.common.base.BaseToolBarActivity;
-import com.leqian.bao.common.http.ResourceHttp;
 import com.leqian.bao.common.http.UploadHttp;
 import com.leqian.bao.common.permissions.PermissionsResultAction;
 import com.leqian.bao.common.permissions.PermissonsUtil;
@@ -19,16 +17,12 @@ import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ImageCutUtil;
 import com.leqian.bao.common.util.ImageUtil;
 import com.leqian.bao.common.util.ToastUtil;
-import com.leqian.bao.model.BaseHttp;
-import com.leqian.bao.model.BaseModelResp;
+import com.leqian.bao.model.network.base.BaseModelResp;
 import com.leqian.bao.model.constant.Constants;
-import com.leqian.bao.model.account.UploadImageResp;
 import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.view.dialog.listDilog.BottomListDialog;
 import com.nxin.base.model.http.callback.ModelCallBack;
-import com.nxin.base.model.network.glide.GlideUtils;
 import com.nxin.base.utils.Logger;
-import com.nxin.base.widget.NXToolBarActivity;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,29 +1,17 @@
 package com.leqian.bao.view.fragment;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.LinkResourceAdapter;
 import com.leqian.bao.common.base.BaseListFragment;
-import com.leqian.bao.common.http.ResourceHttp;
-import com.leqian.bao.model.resource.LinkResourceResp;
-import com.leqian.bao.model.ui.RankingUIModel;
-import com.nxin.base.model.http.OkHttpUtils;
-import com.nxin.base.model.http.callback.ModelCallBack;
-import com.nxin.base.utils.Logger;
+import com.leqian.bao.model.network.resource.LinkResourceResp;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 

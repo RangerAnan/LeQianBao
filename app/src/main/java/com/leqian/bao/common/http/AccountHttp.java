@@ -1,11 +1,9 @@
 package com.leqian.bao.common.http;
 
-import com.leqian.bao.model.BaseHttp;
-import com.leqian.bao.model.BaseModelReq;
-import com.leqian.bao.model.account.JoinTeamReq;
-import com.leqian.bao.model.account.LoginReq;
-import com.leqian.bao.model.account.LoginResp;
-import com.leqian.bao.model.account.RegisterReq;
+import com.leqian.bao.model.network.base.BaseModelReq;
+import com.leqian.bao.model.network.account.JoinTeamReq;
+import com.leqian.bao.model.network.account.LoginReq;
+import com.leqian.bao.model.network.account.RegisterReq;
 import com.nxin.base.model.http.callback.ModelCallBack;
 
 

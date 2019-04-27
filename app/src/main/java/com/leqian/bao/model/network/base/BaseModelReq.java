@@ -1,4 +1,4 @@
-package com.leqian.bao.model;
+package com.leqian.bao.model.network.base;
 
 import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.NetworkUtils;

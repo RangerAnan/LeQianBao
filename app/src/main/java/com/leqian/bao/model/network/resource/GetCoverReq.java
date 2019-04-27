@@ -1,6 +1,6 @@
-package com.leqian.bao.model.resource;
+package com.leqian.bao.model.network.resource;
 
-import com.leqian.bao.model.BaseModelReq;
+import com.leqian.bao.model.network.base.BaseModelReq;
 
 /**
  * Created by fcl on 19.4.22

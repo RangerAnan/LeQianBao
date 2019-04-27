@@ -9,16 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.base.BaseActivity;
 import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.util.ToastUtil;
-import com.leqian.bao.model.account.LoginResp;
+import com.leqian.bao.model.network.account.LoginResp;
 import com.nxin.base.model.http.callback.ModelCallBack;
-import com.nxin.base.widget.NXActivity;
-import com.nxin.base.widget.NXToolBarActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
