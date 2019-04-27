@@ -1,6 +1,7 @@
 package com.leqian.bao.view.activity.resource;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +27,7 @@ import com.leqian.bao.view.dialog.share.ShareMenuDialog;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -115,8 +117,6 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
 
         mAdapter = new VideoListAdapter(mListData, mContext);
         listView.setAdapter(mAdapter);
-
-        requestCoverList();
     }
 
 
@@ -133,11 +133,18 @@ public class VideoListActivity extends BaseListToolBarActivity implements RadioG
                     return;
                 }
                 showContentView();
+                getRefreshLayout().finishRefresh();
                 mListData.clear();
                 mListData = response.getData();
                 mAdapter.setListData(mListData);
             }
         });
+    }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        super.onRefresh(refreshLayout);
+        requestCoverList();
     }
 
     @OnClick({R.id.bar_left, R.id.bar_right, R.id.btn_ok})

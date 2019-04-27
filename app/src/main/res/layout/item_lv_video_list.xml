@@ -39,6 +39,7 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:layout_marginLeft="@dimen/dp_15"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/image_defalut" />
 
             <LinearLayout

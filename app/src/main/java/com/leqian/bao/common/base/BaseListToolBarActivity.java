@@ -46,12 +46,12 @@ public class BaseListToolBarActivity extends BaseToolBarActivity implements OnRe
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        getRefreshLayout().finishLoadMore(2000/*,false*/);//传入false表示刷新失败
+        getRefreshLayout().finishLoadMore(1500/*,false*/);//传入false表示刷新失败
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        getRefreshLayout().finishRefresh(2000/*,false*/);//传入false表示加载失败
+        getRefreshLayout().finishRefresh(1500/*,false*/);//传入false表示加载失败
     }
 
     public SmartRefreshLayout getRefreshLayout() {

@@ -119,6 +119,7 @@ public class ShareMenuDialog extends Dialog {
                     int type = Integer.parseInt(tagArr[0]);
                     int id = Integer.parseInt(tagArr[1]);
                     mOnButtonClickListener.onButtonClick(type, id);
+                    dismiss();
                 }
             });
         }
