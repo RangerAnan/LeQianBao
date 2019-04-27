@@ -97,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/bg_gray"
+                    android:background="@drawable/bg_gray_line"
                     android:gravity="start"
                     android:hint="请填写团队公告"
                     android:maxLines="4"
