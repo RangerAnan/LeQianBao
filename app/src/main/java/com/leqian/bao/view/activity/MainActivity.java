@@ -232,4 +232,9 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
+
+    @Override
+    public boolean isSetStatusBar() {
+        return true;
+    }
 }

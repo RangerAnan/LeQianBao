@@ -66,7 +66,9 @@ public class NXToolBarActivity extends SwipeBackActivity {
 
         initLayout();
         ButterKnife.bind(this);
-        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(mContext, R.color.theme));
+        if (isSetStatusBar()) {
+            StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(mContext, R.color.theme));
+        }
         initView();
         initViewData();
     }
@@ -392,7 +394,7 @@ public class NXToolBarActivity extends SwipeBackActivity {
         showProgressBar(R.string.loading_public, cancel);
     }
 
-    public void showProgressBar(){
+    public void showProgressBar() {
         showProgressBar(R.string.loading_public, true);
     }
 
@@ -429,5 +431,12 @@ public class NXToolBarActivity extends SwipeBackActivity {
         transaction.add(R.id.content_frame, fragment, fragment.getClass().getSimpleName());
         transaction.addToBackStack(null);
         transaction.commitAllowingStateLoss();
+    }
+
+    /**
+     * 是否设置状态栏
+     */
+    public boolean isSetStatusBar() {
+        return true;
     }
 }
