@@ -18,6 +18,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.leqian.bao.R;
 import com.leqian.bao.common.base.BaseListToolBarActivity;
 import com.leqian.bao.common.base.BaseToolBarActivity;
@@ -28,6 +36,10 @@ import com.leqian.bao.view.activity.resource.MakeCoverActivity;
 import com.nxin.base.utils.system.ClipboardUtils;
 import com.nxin.base.widget.NXToolBarActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -58,6 +70,12 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
 
     @BindView(R.id.btn_ok)
     Button btn_ok;
+
+    @BindView(R.id.lineChart)
+    LineChart lineChart;
+
+    @BindView(R.id.team_click_count)
+    TextView team_click_count;
 
     TeamInfoResp model;
 
@@ -92,6 +110,8 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
                 setButtonState(et_content.getText().toString().trim());
             }
         });
+
+        getRefreshLayout().setEnableLoadMore(false);
     }
 
     @Override
@@ -101,6 +121,13 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
 
         model = new TeamInfoResp();
         showTeamInfo(model);
+
+        //模拟数据
+        List<Entry> entries = new ArrayList<>();
+        for (int i = 0; i < 24; i++) {
+            entries.add(new Entry(i, new Random().nextInt(300)));
+        }
+        setBrokenLine(entries);
     }
 
     @Override
@@ -150,6 +177,7 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
                     return;
                 }
                 //TODO
+                ToastUtil.showToastShort("发布公告");
                 break;
             case R.id.tv_invite_code:
                 ClipboardUtils.setTextToClipboard(mContext, model.inviteCode, model.inviteCode);
@@ -158,5 +186,70 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
             default:
                 break;
         }
+    }
+
+    private void setBrokenLine(List<Entry> entries) {
+        // add entries to dataset
+        LineDataSet dataSet = new LineDataSet(entries, "");
+        //线条设置
+        dataSet.setColor(ContextCompat.getColor(mContext, R.color.yellow_ffd500));
+        dataSet.setCircleColor(ContextCompat.getColor(mContext, R.color.yellow_ffd500));
+        dataSet.setLineWidth(1.4f);
+        dataSet.setValueTextSize(10);
+        dataSet.setValueTextColor(ContextCompat.getColor(mContext, R.color.yellow_ffd500));
+        dataSet.setDrawFilled(true);
+        dataSet.setFillColor(ContextCompat.getColor(mContext, R.color.yellow_ffd500));
+        dataSet.setFillAlpha(20);
+
+        //设置y轴
+        YAxis axisLeft = lineChart.getAxisLeft();
+        axisLeft.setDrawLabels(false);
+        axisLeft.setDrawAxisLine(false);
+        axisLeft.setGridColor(ContextCompat.getColor(mContext, R.color.white));
+        axisLeft.setGridLineWidth(2f);
+        axisLeft.setAxisLineColor(ContextCompat.getColor(mContext, R.color.white));
+        axisLeft.setAxisLineWidth(2f);
+        axisLeft.setAxisMinimum(0);
+
+        YAxis axisRight = lineChart.getAxisRight();
+        axisRight.setEnabled(false);
+        axisRight.setGridColor(ContextCompat.getColor(mContext, R.color.white));
+        axisRight.setGridLineWidth(2f);
+
+        //设置x轴的显示位置
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setDrawLabels(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGridColor(ContextCompat.getColor(mContext, R.color.white));
+        xAxis.setGridLineWidth(2f);
+        xAxis.setAxisLineColor(ContextCompat.getColor(mContext, R.color.white));
+        xAxis.setAxisLineWidth(2f);
+        //避免第一次最后剪裁
+        xAxis.setAvoidFirstLastClipping(true);
+
+
+        //透明化图例
+        Legend legend = lineChart.getLegend();
+        legend.setForm(Legend.LegendForm.NONE);
+        legend.setTextColor(Color.WHITE);
+
+        //隐藏x轴描述
+        Description description = new Description();
+        description.setEnabled(false);
+        lineChart.setDescription(description);
+
+
+        //chart设置数据
+        LineData lineData = new LineData(dataSet);
+        lineChart.setData(lineData);
+        //设置x轴最多显示数据条数
+        lineChart.setVisibleXRangeMaximum(7.5f);
+        // 不可以双击缩放
+        lineChart.setDoubleTapToZoomEnabled(false);
+        lineChart.setScaleEnabled(false);
+        //隐藏触摸高亮
+        lineChart.setHighlightPerTapEnabled(false);
+
+        lineChart.invalidate(); // refresh
     }
 }
