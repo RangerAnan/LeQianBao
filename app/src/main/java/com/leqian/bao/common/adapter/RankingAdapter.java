@@ -30,9 +30,12 @@ public class RankingAdapter extends BaseListAdapter<UserRankingResp.DataBean> {
 
     NXFragment fragment;
 
-    public RankingAdapter(List<UserRankingResp.DataBean> dataList, NXFragment fragment) {
+    int rankType;
+
+    public RankingAdapter(List<UserRankingResp.DataBean> dataList, NXFragment fragment, int rankType) {
         super(dataList);
         this.fragment = fragment;
+        this.rankType = rankType;
     }
 
     @Override
@@ -51,15 +54,27 @@ public class RankingAdapter extends BaseListAdapter<UserRankingResp.DataBean> {
         showRanking(tv_ranking, position);
         tv_title.setText(rankingUIModel.getName());
         showCount(tv_count, rankingUIModel, position);
-        tv_desc.setText(rankingUIModel.getName());
+
 
         String headIcon = BaseHttp.IMAGE_HOST + rankingUIModel.getHeadpic();
-        GlideUtils.setCircleDrawableRequest(Glide.with(fragment), headIcon, R.mipmap.team_director).into(iv_image);
 
+        if (rankType == 0) {
+            iv_image.setVisibility(View.VISIBLE);
+            GlideUtils.setCircleDrawableRequest(Glide.with(fragment), headIcon, R.mipmap.team_director).into(iv_image);
+        } else {
+            iv_image.setVisibility(View.GONE);
+        }
+
+        if (rankType == 3) {
+            tv_desc.setVisibility(View.VISIBLE);
+            tv_desc.setText(rankingUIModel.getFatherName());
+        } else {
+            tv_desc.setVisibility(View.GONE);
+        }
     }
 
     private void showCount(TextView tv_count, UserRankingResp.DataBean rankingUIModel, int position) {
-        tv_count.setText(String.valueOf(rankingUIModel.getCount()));
+        tv_count.setText("总点击量：" + String.valueOf(rankingUIModel.getCount()));
         if (position == 0) {
             tv_count.setTextColor(ContextCompat.getColor(ProHelper.getApplication(), R.color.theme));
         } else if (position == 1) {
@@ -87,4 +102,7 @@ public class RankingAdapter extends BaseListAdapter<UserRankingResp.DataBean> {
         }
     }
 
+    public void setRankType(int rankType) {
+        this.rankType = rankType;
+    }
 }

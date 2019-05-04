@@ -7,7 +7,7 @@ package com.leqian.bao.model.eventbus;
 public class RankingSwitchEvent extends BaseEvent {
 
     /**
-     * 0-团员排行，1-部门排行
+     * 0-团员排行，1-部门排行,2-团队排行，3-个人排行
      */
     public int rankType;
 

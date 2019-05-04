@@ -40,4 +40,24 @@ public class StatisticsHttp extends BaseHttp {
         req.setTime(time);
         executePostHttp(req, callBack);
     }
+
+    /**
+     * 获取排行按钮下的团队排行
+     */
+    public static void getTeamRank(String time, ModelCallBack callBack) {
+        UserRankingReq req = new UserRankingReq();
+        req.method = "getTeamRank";
+        req.setTime(time);
+        executePostHttp(req, callBack);
+    }
+
+    /**
+     * 获取排行按钮下的个人排行
+     */
+    public static void getPersonRank(String time, ModelCallBack callBack) {
+        UserRankingReq req = new UserRankingReq();
+        req.method = "getPersonRank";
+        req.setTime(time);
+        executePostHttp(req, callBack);
+    }
 }

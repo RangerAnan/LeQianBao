@@ -59,5 +59,25 @@ public class UserRankingResp extends BaseModelResp {
         public void setCount(int count) {
             this.count = count;
         }
+
+        //个人排行
+        private String father;
+        private String fatherName;
+
+        public String getFather() {
+            return father == null ? "" : father;
+        }
+
+        public void setFather(String father) {
+            this.father = father;
+        }
+
+        public String getFatherName() {
+            return fatherName == null ? "" : fatherName;
+        }
+
+        public void setFatherName(String fatherName) {
+            this.fatherName = fatherName;
+        }
     }
 }

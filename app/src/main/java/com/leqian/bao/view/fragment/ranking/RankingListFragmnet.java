@@ -16,6 +16,7 @@ import com.leqian.bao.model.network.statistics.UserRankingResp;
 import com.leqian.bao.model.ui.RankingUIModel;
 import com.leqian.bao.view.activity.statistics.ClickedTrendActivity;
 import com.nxin.base.model.http.callback.ModelCallBack;
+import com.nxin.base.utils.Logger;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -32,6 +33,16 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
 
     /**
      * 0-今日 1-昨日 2-本周 3-本月
+     */
+    private int timeType;
+
+    /**
+     * 0-团员排行，1-部门排行,2-团队排行，3-个人排行
+     */
+    private int rankType;
+
+    /**
+     * 团队进入-0，排行进入-1
      */
     private int pageFrom;
 
@@ -54,35 +65,75 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
     public void initView() {
         super.initView();
         Bundle arguments = getArguments();
-        pageFrom = arguments.getInt(Constants.INTENT_DATA_1, 0);
+        timeType = arguments.getInt(Constants.INTENT_DATA_1, 0);
+        rankType = arguments.getInt(Constants.INTENT_DATA_2, 0);
+        pageFrom = arguments.getInt(Constants.INTENT_DATA_3, 0);
         getRefreshLayout().setEnableLoadMore(false);
 
+        if (pageFrom == 0) {
+            rankType = Constants.TAB_TWO_RANK_TYPE;
+        } else if (pageFrom == 1) {
+            rankType = Constants.TAB_THREE_RANK_TYPE;
+        }
     }
 
     @Override
     public void initData() {
         super.initData();
-        mAdapter = new RankingAdapter(mListData,this);
+        mAdapter = new RankingAdapter(mListData, this, rankType);
         listView.setAdapter(mAdapter);
 
         mAdapter.setListData(mListData);
 
         listView.setOnItemClickListener(this);
 
-        //check rankType
-        if (pageFrom == 0) {
+        //check timeType
+        if (timeType == 0) {
             rankTime = UserRankingReq.TIME_TODAY;
-        } else if (pageFrom == 1) {
+        } else if (timeType == 1) {
             rankTime = UserRankingReq.TIME_YESTERDAY;
-        } else if (pageFrom == 2) {
+        } else if (timeType == 2) {
             rankTime = UserRankingReq.TIME_WEEK;
-        } else if (pageFrom == 3) {
+        } else if (timeType == 3) {
             rankTime = UserRankingReq.TIME_MONTH;
         }
-        requestRanking();
+
+        //check rankType
+        requestServerCount();
     }
 
-    private void requestRanking() {
+    private void requestServerCount() {
+        Logger.i(initTag() + "---requestServerCount--rankType:" + rankType + ";timeType:" + timeType);
+        if (rankType == 0) {
+            requestMemberRanking();
+        } else if (rankType == 2) {   //团队
+            requestTeamRank();
+        } else if (rankType == 3) {   //个人
+            requestUserRank();
+        }
+    }
+
+    private void requestUserRank() {
+        StatisticsHttp.getPersonRank(rankTime, new ModelCallBack<UserRankingResp>() {
+            @Override
+            public void onResponse(UserRankingResp response, int id) {
+                mListData = response.getData();
+                mAdapter.setListData(mListData);
+            }
+        });
+    }
+
+    private void requestTeamRank() {
+        StatisticsHttp.getTeamRank(rankTime, new ModelCallBack<UserRankingResp>() {
+            @Override
+            public void onResponse(UserRankingResp response, int id) {
+                mListData = response.getData();
+                mAdapter.setListData(mListData);
+            }
+        });
+    }
+
+    private void requestMemberRanking() {
         StatisticsHttp.getMemberRank(rankTime, new ModelCallBack<UserRankingResp>() {
             @Override
             public void onResponse(UserRankingResp response, int id) {
@@ -92,35 +143,32 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
         });
     }
 
-    private List<UserRankingResp.DataBean> getData(int type) {
-        mListData.clear();
-        for (int i = 0; i < 10; i++) {
-            UserRankingResp.DataBean model = new UserRankingResp.DataBean();
-            model.setName("name" + i + (type == 0 ? "团员" : "部门"));
-            model.setCount(i);
-            mListData.add(model);
-        }
-        return mListData;
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void switchRankType(RankingSwitchEvent event) {
+        if (pageFrom == 0 && event.rankType != 0 && event.rankType != 1) {
+            return;
+        }
+        if (pageFrom == 1 && (event.rankType != 2 && event.rankType != 3)) {
+            return;
+        }
+
+        rankType = event.rankType;
+        Logger.i(initTag() + "---switchRankType--rankType:" + rankType + ";timeType:" + timeType + ";pageFrom:" + pageFrom);
+        mAdapter.setRankType(rankType);
+        getRefreshLayout().autoRefresh();
+
         switch (event.rankType) {
             case 0:
                 //0-团员排行
-                getRefreshLayout().autoRefresh();
                 break;
             case 1:
                 //1-部门排行
-                getRefreshLayout().autoRefresh();
+                break;
+            case 2:
+                //1-团队排行
                 break;
             case 3:
-                //1-团队排行
-                getRefreshLayout().autoRefresh();
-                break;
-            case 4:
                 //1-个人排行
-                getRefreshLayout().autoRefresh();
                 break;
             default:
                 break;
@@ -130,7 +178,7 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         super.onRefresh(refreshLayout);
-        requestRanking();
+        requestServerCount();
     }
 
     @Override

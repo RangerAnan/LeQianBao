@@ -22,4 +22,7 @@ public class UserRankingReq extends BaseModelReq {
     public void setTime(String time) {
         this.time = time;
     }
+
+
+
 }

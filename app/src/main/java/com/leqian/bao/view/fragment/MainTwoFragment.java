@@ -93,6 +93,8 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
             RankingListFragmnet rankingListFragmnet = new RankingListFragmnet();
             Bundle bundle = new Bundle();
             bundle.putInt(Constants.INTENT_DATA_1, i);
+            bundle.putInt(Constants.INTENT_DATA_2, Constants.TAB_TWO_RANK_TYPE);
+            bundle.putInt(Constants.INTENT_DATA_3, 0);
             rankingListFragmnet.setArguments(bundle);
             mFragmentList.add(rankingListFragmnet);
         }
@@ -106,14 +108,14 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
             case R.id.radio_button1:
                 //团员
                 changeRadioButtonTextColor(true);
-                Constants.RANK_TYPE = 0;
-                EventBus.getDefault().post(new RankingSwitchEvent(Constants.RANK_TYPE));
+                Constants.TAB_TWO_RANK_TYPE = 0;
+                EventBus.getDefault().post(new RankingSwitchEvent(Constants.TAB_TWO_RANK_TYPE));
                 break;
             case R.id.radio_button2:
                 //部门
                 changeRadioButtonTextColor(false);
-                Constants.RANK_TYPE = 1;
-                EventBus.getDefault().post(new RankingSwitchEvent(Constants.RANK_TYPE));
+                Constants.TAB_TWO_RANK_TYPE = 1;
+                EventBus.getDefault().post(new RankingSwitchEvent(Constants.TAB_TWO_RANK_TYPE));
                 break;
             default:
                 break;

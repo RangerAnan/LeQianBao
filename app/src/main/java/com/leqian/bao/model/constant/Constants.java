@@ -56,7 +56,11 @@ public class Constants {
 
     public final static String INTENT_DATA_1 = "INTENT_DATA_1";
     public final static String INTENT_DATA_2 = "INTENT_DATA_2";
+    public final static String INTENT_DATA_3 = "INTENT_DATA_3";
 
     //tab_two
-    public static int RANK_TYPE = 0;                                   //0-团员排行，1-部门排行
+    public static int TAB_TWO_RANK_TYPE = 0;                                   //0-团员排行，1-部门排行
+
+    //2-团队排行，3-个人排行
+    public static int TAB_THREE_RANK_TYPE = 2;
 }
