@@ -33,8 +33,13 @@
     <color name="btn_orange2">#ee4900</color>
     <color name="btn_orange3">#d74200</color>
 
-    <color name="btn_orange4">#ff8800</color>
+    <color name="btn_orange4">#F7FF00</color>
     <color name="btn_orange5">#ffaadd</color>
+
+
+    <color name="yellow_ffd500">#ffd500</color>
+    <color name="yellow_F7FF00">#F7FF00</color>
+    <color name="yellow_little">#0DFFF200</color>
 
     <!-- 统一上下分割线-->
     <color name="orientation_divider">#bbbbbb</color>

@@ -78,7 +78,7 @@ public class RankingAdapter extends BaseListAdapter<UserRankingResp.DataBean> {
         if (position == 0) {
             tv_count.setTextColor(ContextCompat.getColor(ProHelper.getApplication(), R.color.theme));
         } else if (position == 1) {
-            tv_count.setTextColor(ContextCompat.getColor(ProHelper.getApplication(), R.color.btn_orange4));
+            tv_count.setTextColor(ContextCompat.getColor(ProHelper.getApplication(), R.color.yellow_ffd500));
         } else if (position == 2) {
             tv_count.setTextColor(ContextCompat.getColor(ProHelper.getApplication(), R.color.btn_orange5));
         } else {
