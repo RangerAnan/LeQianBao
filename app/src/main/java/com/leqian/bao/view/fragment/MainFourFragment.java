@@ -87,6 +87,11 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
 
 
     @Override
+    protected boolean isDelayLoad() {
+        return true;
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.fragment_main_four;
     }

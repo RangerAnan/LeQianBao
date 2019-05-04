@@ -64,6 +64,12 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
         return R.layout.fragment_main_two;
     }
 
+
+    @Override
+    protected boolean isDelayLoad() {
+        return true;
+    }
+
     @Override
     public void initView() {
         super.initView();

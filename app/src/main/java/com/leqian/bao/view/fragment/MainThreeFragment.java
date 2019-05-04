@@ -55,6 +55,11 @@ public class MainThreeFragment extends ViewpagerFragment implements RadioGroup.O
 
 
     @Override
+    protected boolean isDelayLoad() {
+        return true;
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.fragment_main_three;
     }
