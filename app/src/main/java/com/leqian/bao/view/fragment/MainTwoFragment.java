@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -66,6 +67,8 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
     @Override
     public void initView() {
         super.initView();
+        radio_button2.setVisibility(View.GONE);
+
         tabLayout.setupWithViewPager(viewPager);
 
         mFragmentList = getFragment();

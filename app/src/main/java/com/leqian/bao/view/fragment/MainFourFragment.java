@@ -28,6 +28,7 @@ import com.leqian.bao.model.network.account.UploadImageResp;
 import com.leqian.bao.model.network.account.UserInfoResp;
 import com.leqian.bao.model.bll.LoginBLL;
 import com.leqian.bao.model.code.RequestCode;
+import com.leqian.bao.model.network.statistics.UserCountResp;
 import com.leqian.bao.model.ui.CommonUIModel;
 import com.leqian.bao.view.activity.account.ModifyLoginPsdActivity;
 import com.leqian.bao.view.activity.setting.AboutUsActivity;
@@ -153,10 +154,15 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
 
 
     private void requestUserCount() {
-        StatisticsHttp.getUserCount(new ModelCallBack<UserInfoResp>() {
+        StatisticsHttp.getUserCount(new ModelCallBack<UserCountResp>() {
             @Override
-            public void onResponse(UserInfoResp response, int id) {
-                //TODO
+            public void onResponse(UserCountResp response, int id) {
+                if (response.getData() == null) {
+                    return;
+                }
+                tv_today_charge.setText(String.valueOf(response.getData().getToday()));
+                tv_yesterday_charge.setText(String.valueOf(response.getData().getYesterday()));
+                tv_month_charge.setText(String.valueOf(response.getData().getMonth()));
             }
         });
     }

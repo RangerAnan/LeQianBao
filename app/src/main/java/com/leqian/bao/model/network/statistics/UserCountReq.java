@@ -8,4 +8,6 @@ import com.tencent.mm.opensdk.modelbase.BaseReq;
  * desc:
  */
 public class UserCountReq extends BaseModelReq {
+
+
 }

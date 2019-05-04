@@ -38,7 +38,7 @@ public class MainThreeFragment extends BaseListFragment implements RadioGroup.On
     @BindView(R.id.radioGroup)
     RadioGroup radioGroup;
 
-    ArrayList<RankingUIModel> mListData = new ArrayList<>();
+    ArrayList<UserRankingResp.DataBean> mListData = new ArrayList<>();
     private RankingAdapter mAdapter;
 
     @Override
@@ -52,7 +52,7 @@ public class MainThreeFragment extends BaseListFragment implements RadioGroup.On
 
         mListData = getData();
 
-        mAdapter = new RankingAdapter(mListData);
+        mAdapter = new RankingAdapter(mListData, this);
         listView.setAdapter(mAdapter);
 
         getRefreshLayout().setEnableLoadMore(false);
@@ -61,10 +61,10 @@ public class MainThreeFragment extends BaseListFragment implements RadioGroup.On
         radio_button2.setText("个人排行");
     }
 
-    private ArrayList<RankingUIModel> getData() {
+    private ArrayList<UserRankingResp.DataBean> getData() {
         for (int i = 0; i < 20; i++) {
-            RankingUIModel rankingUIModel = new RankingUIModel();
-            rankingUIModel.name = "title" + i;
+            UserRankingResp.DataBean rankingUIModel = new UserRankingResp.DataBean();
+            rankingUIModel.setName("title" + i);
             mListData.add(rankingUIModel);
         }
         return mListData;

@@ -8,19 +8,15 @@ import com.nxin.base.model.domain.BaseModel;
  */
 public class RankingUIModel extends CommonUIModel {
 
-    private String icon;
     private int count;
     private String team;
     private String uid;
 
 
-    public String getIcon() {
-        return icon == null ? "" : icon;
-    }
+    private String name;
+    private String headpic;
 
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
+
 
     public int getCount() {
         return count;
@@ -45,4 +41,22 @@ public class RankingUIModel extends CommonUIModel {
     public void setUid(String uid) {
         this.uid = uid;
     }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getHeadpic() {
+        return headpic;
+    }
+
+    public void setHeadpic(String headpic) {
+        this.headpic = headpic;
+    }
+
 }

@@ -30,4 +30,14 @@ public class StatisticsHttp extends BaseHttp {
         req.method = "getCount";
         executePostHttp(req, callBack);
     }
+
+    /**
+     * 获取团队按钮下的团员排行
+     */
+    public static void getMemberRank(String time, ModelCallBack callBack) {
+        UserRankingReq req = new UserRankingReq();
+        req.method = "getMemberRank";
+        req.setTime(time);
+        executePostHttp(req, callBack);
+    }
 }
