@@ -11,9 +11,12 @@ import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.RankingFragmentAdapter;
+import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.model.eventbus.RankingSwitchEvent;
+import com.leqian.bao.model.network.team.TeamInfoResp;
 import com.leqian.bao.view.fragment.ranking.RankingListFragmnet;
+import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.widget.NXFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -89,7 +92,20 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
     public void initData() {
         super.initData();
 
-        //TODO request team info
+        requestTeamInfo();
+    }
+
+    private void requestTeamInfo() {
+        AccountHttp.getTeamManage(new ModelCallBack<TeamInfoResp>() {
+            @Override
+            public void onResponse(TeamInfoResp response, int id) {
+                String name = response.getName();
+                tv_title.setText(name + "-团队");
+                tv_desc.setText(response.getAnnouncement());
+
+            }
+        });
+
     }
 
     private ArrayList<NXFragment> getFragment() {

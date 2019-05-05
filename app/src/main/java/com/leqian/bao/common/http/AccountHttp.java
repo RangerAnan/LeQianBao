@@ -1,5 +1,6 @@
 package com.leqian.bao.common.http;
 
+import com.leqian.bao.model.network.account.UpdateTeamManageReq;
 import com.leqian.bao.model.network.base.BaseModelReq;
 import com.leqian.bao.model.network.account.JoinTeamReq;
 import com.leqian.bao.model.network.account.LoginReq;
@@ -54,5 +55,19 @@ public class AccountHttp extends BaseHttp {
         BaseModelReq baseModelReq = new BaseModelReq();
         baseModelReq.method = "getUserInfo";
         executePostHttp(baseModelReq, callBack);
+    }
+
+
+    public static void getTeamManage(ModelCallBack callBack) {
+        BaseModelReq baseModelReq = new BaseModelReq();
+        baseModelReq.method = "getTeamManage";
+        executePostHttp(baseModelReq, callBack);
+    }
+
+    public static void updateTeamManage(String desc, ModelCallBack callBack) {
+        UpdateTeamManageReq req = new UpdateTeamManageReq();
+        req.method = "updateTeamManage";
+        req.announcement = desc;
+        executePostHttp(req, callBack);
     }
 }

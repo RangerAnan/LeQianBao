@@ -44,12 +44,12 @@ public class BaseListFragment extends NXFragment implements OnRefreshListener, O
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        getRefreshLayout().finishLoadMore(1000/*,false*/);//传入false表示刷新失败
+        getRefreshLayout().finishLoadMore(700/*,false*/);//传入false表示刷新失败
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        getRefreshLayout().finishRefresh(1000/*,false*/);//传入false表示加载失败
+        getRefreshLayout().finishRefresh(700/*,false*/);//传入false表示加载失败
     }
 
     public SmartRefreshLayout getRefreshLayout() {

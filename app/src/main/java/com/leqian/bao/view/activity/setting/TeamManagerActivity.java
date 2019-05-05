@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -29,10 +30,15 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.leqian.bao.R;
 import com.leqian.bao.common.base.BaseListToolBarActivity;
 import com.leqian.bao.common.base.BaseToolBarActivity;
+import com.leqian.bao.common.http.AccountHttp;
+import com.leqian.bao.common.http.BaseHttp;
 import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ToastUtil;
+import com.leqian.bao.model.network.account.UpdateTeamManageResp;
 import com.leqian.bao.model.network.team.TeamInfoResp;
 import com.leqian.bao.view.activity.resource.MakeCoverActivity;
+import com.nxin.base.model.http.callback.ModelCallBack;
+import com.nxin.base.model.network.glide.GlideUtils;
 import com.nxin.base.utils.system.ClipboardUtils;
 import com.nxin.base.widget.NXToolBarActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -120,7 +126,6 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
         getRefreshLayout().autoRefresh();
 
         model = new TeamInfoResp();
-        showTeamInfo(model);
 
         //模拟数据
         List<Entry> entries = new ArrayList<>();
@@ -137,14 +142,22 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
     }
 
     private void requestTeamInfo() {
-        //TODO
+        AccountHttp.getTeamManage(new ModelCallBack<TeamInfoResp>() {
+            @Override
+            public void onResponse(TeamInfoResp response, int id) {
+                if (response.getCode() != 1) {
+                    return;
+                }
+                showTeamInfo(response);
+            }
+        });
     }
 
     private void showTeamInfo(TeamInfoResp model) {
-        SpannableString teamSpan = new SpannableString(model.name + getString(R.string.user_team) + "（" + model.person + "）");
-        teamSpan.setSpan(new AbsoluteSizeSpan((int) DeviceUtil.sp2px(14)), (model.name + getString(R.string.user_team)).length(),
+        SpannableString teamSpan = new SpannableString(model.getName() + getString(R.string.user_team) + "（" + model.getPopulation() + "）");
+        teamSpan.setSpan(new AbsoluteSizeSpan((int) DeviceUtil.sp2px(14)), (model.getName() + getString(R.string.user_team)).length(),
                 teamSpan.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        teamSpan.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), (model.name + getString(R.string.user_team)).length(),
+        teamSpan.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), (model.getName() + getString(R.string.user_team)).length(),
                 teamSpan.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_team.setText(teamSpan);
 
@@ -154,10 +167,10 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
                 codeSpan.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_invite_code.setText(codeSpan);
 
-        tv_name.setText(model.name);
-        et_content.setText(model.des);
-        et_content.setSelection(model.des.length());
-        iv_image.setImageResource(R.mipmap.app_icon);
+        tv_name.setText(model.getName());
+        et_content.setText(model.getAnnouncement());
+        et_content.setSelection(model.getAnnouncement().length());
+        GlideUtils.setCircleDrawableRequest(Glide.with(this), BaseHttp.IMAGE_HOST + model.getHeadpic(), R.mipmap.me_default_icon).into(iv_image);
     }
 
     private void setButtonState(String content) {
@@ -176,8 +189,7 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
                     ToastUtil.showToastShort(R.string.input_not_empty);
                     return;
                 }
-                //TODO
-                ToastUtil.showToastShort("发布公告");
+                releaseAnnouncement(teamDesc);
                 break;
             case R.id.tv_invite_code:
                 ClipboardUtils.setTextToClipboard(mContext, model.inviteCode, model.inviteCode);
@@ -186,6 +198,19 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
             default:
                 break;
         }
+    }
+
+    private void releaseAnnouncement(String teamDesc) {
+        AccountHttp.updateTeamManage(teamDesc, new ModelCallBack<UpdateTeamManageResp>() {
+            @Override
+            public void onResponse(UpdateTeamManageResp response, int id) {
+                if (response.getCode() != 1) {
+                    ToastUtil.showToastShort(response.getMsg());
+                    return;
+                }
+                ToastUtil.showToastShort("发布成功");
+            }
+        });
     }
 
     private void setBrokenLine(List<Entry> entries) {
