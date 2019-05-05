@@ -39,9 +39,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:background="@color/spannable_click_bg" />
+        android:layout_height="15dp"
+        android:background="@color/bg_common" />
 
 </LinearLayout>

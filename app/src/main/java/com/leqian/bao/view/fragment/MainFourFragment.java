@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.leqian.bao.R;
+import com.leqian.bao.common.base.BaseListFragment;
 import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.http.StatisticsHttp;
 import com.leqian.bao.common.http.UploadHttp;
@@ -42,6 +43,7 @@ import com.nxin.base.model.network.glide.GlideUtils;
 import com.nxin.base.utils.JsonUtils;
 import com.nxin.base.utils.Logger;
 import com.nxin.base.view.dialog.MaterialDialogUtil;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,7 +56,7 @@ import butterknife.OnClick;
  * Created by fcl on 19.4.12
  * desc:我的模块
  */
-public class MainFourFragment extends ViewpagerFragment implements BottomListDialog.IBottomListItemListener {
+public class MainFourFragment extends BaseListFragment implements BottomListDialog.IBottomListItemListener {
 
     @BindView(R.id.me_user_photo)
     CircleImageView me_user_photo;
@@ -127,16 +129,31 @@ public class MainFourFragment extends ViewpagerFragment implements BottomListDia
             layout1.setOnClickListener(new ItemClickListener(commonUIModel));
             content.addView(inflate);
         }
+
+        getRefreshLayout().setEnableLoadMore(false);
     }
 
     @Override
     public void initData() {
         super.initData();
-
         requestUserInfo();
-        requestUserCount();
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            getRefreshLayout().autoRefresh();
+        }
+    }
+
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        super.onRefresh(refreshLayout);
+        requestUserCount();
+    }
 
     private void requestUserInfo() {
         AccountHttp.getUserInfo(new ModelCallBack<UserInfoResp>() {

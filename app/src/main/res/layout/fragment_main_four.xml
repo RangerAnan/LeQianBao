@@ -1,163 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/refreshView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_common"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_18"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_18"
+            android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/me_user_layout"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="@color/theme"
-                android:descendantFocusability="blocksDescendants">
+                android:layout_height="wrap_content">
 
-                <com.leqian.bao.view.imageview.CircleImageView
-                    android:id="@+id/me_user_photo"
-                    android:layout_width="@dimen/dp_60"
-                    android:layout_height="@dimen/dp_60"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/dp_30"
-                    android:src="@mipmap/me_default_icon"
-                    app:border_color="@color/white"
-                    app:border_width="@dimen/dp_2" />
+                <RelativeLayout
+                    android:id="@+id/me_user_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@color/theme"
+                    android:descendantFocusability="blocksDescendants">
 
-                <TextView
-                    android:id="@id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/me_user_photo"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:text="name"
-                    android:textColor="@color/color_white"
-                    android:textSize="16sp" />
+                    <com.leqian.bao.view.imageview.CircleImageView
+                        android:id="@+id/me_user_photo"
+                        android:layout_width="@dimen/dp_60"
+                        android:layout_height="@dimen/dp_60"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_30"
+                        android:src="@mipmap/me_default_icon"
+                        app:border_color="@color/white"
+                        app:border_width="@dimen/dp_2" />
+
+                    <TextView
+                        android:id="@id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/me_user_photo"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:text="name"
+                        android:textColor="@color/color_white"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_zfb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_name"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_3"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_zfb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="支付宝账号"
+                            android:textColor="@color/color_white"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginLeft="@dimen/dp_3"
+                            android:src="@mipmap/my_user_by" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_zfb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_name"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/dp_3"
+                    style="@style/roundconor"
+                    android:layout_below="@id/me_user_layout"
+                    android:layout_marginTop="-20dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_zfb"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/ll_today_charge"
+                        style="@style/ripple_fg"
+                        android:layout_width="@dimen/dimens_0"
                         android:layout_height="wrap_content"
-                        android:text="支付宝账号"
-                        android:textColor="@color/color_white"
-                        android:textSize="12sp" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10">
 
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:layout_marginLeft="@dimen/dp_3"
-                        android:src="@mipmap/my_user_by" />
+                        <TextView
+                            android:id="@+id/tv_today_charge"
+                            style="@style/small_text"
+                            android:text="0" />
+
+                        <TextView
+                            style="@style/small_text"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="今日计费次数" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_yesterday_charge"
+                        style="@style/ripple_fg"
+                        android:layout_width="@dimen/dimens_0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10">
+
+                        <TextView
+                            android:id="@+id/tv_yesterday_charge"
+                            style="@style/small_text"
+                            android:text="0" />
+
+                        <TextView
+                            style="@style/small_text"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="昨日计费次数" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_month_charge"
+                        style="@style/ripple_fg"
+                        android:layout_width="@dimen/dimens_0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10">
+
+                        <TextView
+                            android:id="@+id/tv_month_charge"
+                            style="@style/small_text"
+                            android:text="0" />
+
+                        <TextView
+                            style="@style/small_text"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="本月计费次数" />
+
+                    </LinearLayout>
+
                 </LinearLayout>
-
 
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@id/content"
                 style="@style/roundconor"
-                android:layout_below="@id/me_user_layout"
-                android:layout_marginTop="-20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="vertical" />
+        </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_today_charge"
-                    style="@style/ripple_fg"
-                    android:layout_width="@dimen/dimens_0"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_10">
-
-                    <TextView
-                        android:id="@+id/tv_today_charge"
-                        style="@style/small_text"
-                        android:text="0" />
-
-                    <TextView
-                        style="@style/small_text"
-                        android:layout_marginTop="@dimen/dp_5"
-                        android:text="今日计费次数" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_yesterday_charge"
-                    style="@style/ripple_fg"
-                    android:layout_width="@dimen/dimens_0"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_10">
-
-                    <TextView
-                        android:id="@+id/tv_yesterday_charge"
-                        style="@style/small_text"
-                        android:text="0" />
-
-                    <TextView
-                        style="@style/small_text"
-                        android:layout_marginTop="@dimen/dp_5"
-                        android:text="昨日计费次数" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_month_charge"
-                    style="@style/ripple_fg"
-                    android:layout_width="@dimen/dimens_0"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_10">
-
-                    <TextView
-                        android:id="@+id/tv_month_charge"
-                        style="@style/small_text"
-                        android:text="0" />
-
-                    <TextView
-                        style="@style/small_text"
-                        android:layout_marginTop="@dimen/dp_5"
-                        android:text="本月计费次数" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@id/content"
-            style="@style/roundconor"
-            android:layout_marginTop="@dimen/dp_20"
-            android:orientation="vertical" />
-    </LinearLayout>
-
-
-</ScrollView>
+    </ScrollView>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

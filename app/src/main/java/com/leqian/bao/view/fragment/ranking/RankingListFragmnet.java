@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.RankingAdapter;
@@ -25,6 +26,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by fcl on 19.4.20
  * desc:排行列表
@@ -45,6 +48,9 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
      * 团队进入-0，排行进入-1
      */
     private int pageFrom;
+
+    @BindView(R.id.listView)
+    protected ListView listView;
 
     private RankingAdapter mAdapter;
     private List<UserRankingResp.DataBean> mListData = new ArrayList<>();

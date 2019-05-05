@@ -2,6 +2,7 @@ package com.leqian.bao.view.fragment;
 
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,6 +27,9 @@ public class MainFirstFragment extends BaseListFragment {
 
     @BindView(R.id.bar_left)
     RelativeLayout bar_left;
+
+    @BindView(R.id.listView)
+    protected ListView listView;
 
     ArrayList<LinkResourceResp> mListData = new ArrayList<>();
 

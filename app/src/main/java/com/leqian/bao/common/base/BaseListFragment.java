@@ -18,8 +18,6 @@ import butterknife.BindView;
  */
 public class BaseListFragment extends NXFragment implements OnRefreshListener, OnRefreshLoadMoreListener {
 
-    @BindView(R.id.listView)
-    protected ListView listView;
 
     @BindView(R.id.refreshView)
     protected SmartRefreshLayout refreshView;
@@ -46,12 +44,12 @@ public class BaseListFragment extends NXFragment implements OnRefreshListener, O
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        getRefreshLayout().finishLoadMore(1500/*,false*/);//传入false表示刷新失败
+        getRefreshLayout().finishLoadMore(1000/*,false*/);//传入false表示刷新失败
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        getRefreshLayout().finishRefresh(1500/*,false*/);//传入false表示加载失败
+        getRefreshLayout().finishRefresh(1000/*,false*/);//传入false表示加载失败
     }
 
     public SmartRefreshLayout getRefreshLayout() {
