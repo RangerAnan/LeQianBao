@@ -1,5 +1,6 @@
 package com.leqian.bao.common.http;
 
+import com.leqian.bao.model.network.base.BaseModelReq;
 import com.leqian.bao.model.network.resource.GetCoverReq;
 import com.leqian.bao.model.network.statistics.UserCountReq;
 import com.leqian.bao.model.network.statistics.UserCountResp;
@@ -58,6 +59,26 @@ public class StatisticsHttp extends BaseHttp {
         UserRankingReq req = new UserRankingReq();
         req.method = "getPersonRank";
         req.setTime(time);
+        executePostHttp(req, callBack);
+    }
+
+
+    /**
+     * 获取团队点击明细，做折线图，包括一天24小时图，和前七日图
+     */
+    public static void getTeamClickDetail(ModelCallBack callBack) {
+        BaseModelReq req = new BaseModelReq();
+        req.method = "getTeamClickDetail";
+        executePostHttp(req, callBack);
+    }
+
+
+    /**
+     * 获取团队点击明细，做折线图，包括一天24小时图，和前七日图
+     */
+    public static void getPersonClickDetail(ModelCallBack callBack) {
+        BaseModelReq req = new BaseModelReq();
+        req.method = "getPersonClickDetail";
         executePostHttp(req, callBack);
     }
 }

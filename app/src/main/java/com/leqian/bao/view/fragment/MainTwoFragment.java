@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.RankingFragmentAdapter;
 import com.leqian.bao.common.http.AccountHttp;
+import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.model.eventbus.RankingSwitchEvent;
 import com.leqian.bao.model.network.team.TeamInfoResp;
@@ -93,15 +94,25 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
         super.initData();
 
         requestTeamInfo();
+
+        requestTeamClickDetail();
+    }
+
+    private void requestTeamClickDetail() {
+
     }
 
     private void requestTeamInfo() {
         AccountHttp.getTeamManage(new ModelCallBack<TeamInfoResp>() {
             @Override
             public void onResponse(TeamInfoResp response, int id) {
-                String name = response.getName();
+                if (response.getCode() != 1) {
+                    ToastUtil.showToastShort(response.getMsg());
+                    return;
+                }
+                String name = response.getData().getName();
                 tv_title.setText(name + "-团队");
-                tv_desc.setText(response.getAnnouncement());
+                tv_desc.setText(response.getData().getAnnouncement());
 
             }
         });

@@ -52,9 +52,13 @@ public class RankingAdapter extends BaseListAdapter<UserRankingResp.DataBean> {
         TextView tv_count = holder.getView(R.id.tv_count);
 
         showRanking(tv_ranking, position);
-        tv_title.setText(rankingUIModel.getName());
         showCount(tv_count, rankingUIModel, position);
 
+        if (rankType != 2) {
+            tv_title.setText(rankingUIModel.getName());
+        } else {
+            tv_title.setText(rankingUIModel.getName() + "-团队");
+        }
 
         String headIcon = BaseHttp.IMAGE_HOST + rankingUIModel.getHeadpic();
 
@@ -67,7 +71,7 @@ public class RankingAdapter extends BaseListAdapter<UserRankingResp.DataBean> {
 
         if (rankType == 3) {
             tv_desc.setVisibility(View.VISIBLE);
-            tv_desc.setText(rankingUIModel.getFatherName());
+            tv_desc.setText(rankingUIModel.getFatherName() + "-团队");
         } else {
             tv_desc.setVisibility(View.GONE);
         }

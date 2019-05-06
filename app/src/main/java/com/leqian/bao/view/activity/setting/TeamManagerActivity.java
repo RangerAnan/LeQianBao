@@ -32,9 +32,11 @@ import com.leqian.bao.common.base.BaseListToolBarActivity;
 import com.leqian.bao.common.base.BaseToolBarActivity;
 import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.http.BaseHttp;
+import com.leqian.bao.common.http.StatisticsHttp;
 import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.network.account.UpdateTeamManageResp;
+import com.leqian.bao.model.network.statistics.TeamClickDetailResp;
 import com.leqian.bao.model.network.team.TeamInfoResp;
 import com.leqian.bao.view.activity.resource.MakeCoverActivity;
 import com.nxin.base.model.http.callback.ModelCallBack;
@@ -83,6 +85,12 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
     @BindView(R.id.team_click_count)
     TextView team_click_count;
 
+    @BindView(R.id.click_week_count)
+    TextView click_week_count;
+
+    @BindView(R.id.lineChart_week)
+    LineChart lineChart_week;
+
     TeamInfoResp model;
 
     @Override
@@ -127,18 +135,13 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
 
         model = new TeamInfoResp();
 
-        //模拟数据
-        List<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            entries.add(new Entry(i, new Random().nextInt(300)));
-        }
-        setBrokenLine(entries);
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         super.onRefresh(refreshLayout);
         requestTeamInfo();
+        requestTeamClickDetail();
     }
 
     private void requestTeamInfo() {
@@ -146,15 +149,17 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
             @Override
             public void onResponse(TeamInfoResp response, int id) {
                 if (response.getCode() != 1) {
+                    ToastUtil.showToastShort(response.getMsg());
                     return;
                 }
-                showTeamInfo(response);
+                model = response;
+                showTeamInfo(response.getData());
             }
         });
     }
 
-    private void showTeamInfo(TeamInfoResp model) {
-        SpannableString teamSpan = new SpannableString(model.getName() + getString(R.string.user_team) + "（" + model.getPopulation() + "）");
+    private void showTeamInfo(TeamInfoResp.DataBean model) {
+        SpannableString teamSpan = new SpannableString(model.getName() + getString(R.string.user_team) + "（" + model.getPopulation() + "人）");
         teamSpan.setSpan(new AbsoluteSizeSpan((int) DeviceUtil.sp2px(14)), (model.getName() + getString(R.string.user_team)).length(),
                 teamSpan.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         teamSpan.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), (model.getName() + getString(R.string.user_team)).length(),
@@ -162,8 +167,8 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
         tv_team.setText(teamSpan);
 
 
-        SpannableString codeSpan = new SpannableString(model.inviteCode + getString(R.string.team_copy));
-        codeSpan.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.color_0000ff)), getString(R.string.team_copy).length(),
+        SpannableString codeSpan = new SpannableString(model.getCodeX() + getString(R.string.team_copy));
+        codeSpan.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.color_0000ff)), model.getCodeX().length(),
                 codeSpan.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_invite_code.setText(codeSpan);
 
@@ -192,7 +197,7 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
                 releaseAnnouncement(teamDesc);
                 break;
             case R.id.tv_invite_code:
-                ClipboardUtils.setTextToClipboard(mContext, model.inviteCode, model.inviteCode);
+                ClipboardUtils.setTextToClipboard(mContext, model.getData().getCodeX(), model.getData().getCodeX());
                 ToastUtil.showToastShort("复制成功");
                 break;
             default:
@@ -201,7 +206,7 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
     }
 
     private void releaseAnnouncement(String teamDesc) {
-        AccountHttp.updateTeamManage(teamDesc, new ModelCallBack<UpdateTeamManageResp>() {
+        AccountHttp.updateTeamManage(teamDesc, new ModelCallBack<UpdateTeamManageResp>("正在发布...") {
             @Override
             public void onResponse(UpdateTeamManageResp response, int id) {
                 if (response.getCode() != 1) {
@@ -209,6 +214,26 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
                     return;
                 }
                 ToastUtil.showToastShort("发布成功");
+            }
+        });
+    }
+
+
+    private void requestTeamClickDetail() {
+        StatisticsHttp.getTeamClickDetail(new ModelCallBack<TeamClickDetailResp>() {
+            @Override
+            public void onResponse(TeamClickDetailResp response, int id) {
+                if (response.getCode() != 1) {
+                    ToastUtil.showToastShort(response.getMsg());
+                    return;
+                }
+
+                //模拟数据
+                List<Entry> entries = new ArrayList<>();
+                for (int i = 0; i < 24; i++) {
+                    entries.add(new Entry(i, new Random().nextInt(300)));
+                }
+                setBrokenLine(entries);
             }
         });
     }
