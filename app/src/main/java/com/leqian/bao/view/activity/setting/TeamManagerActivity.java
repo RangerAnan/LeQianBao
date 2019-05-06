@@ -43,6 +43,7 @@ import com.leqian.bao.model.network.account.UpdateTeamManageResp;
 import com.leqian.bao.model.network.statistics.TeamClickDetailResp;
 import com.leqian.bao.model.network.team.TeamInfoResp;
 import com.leqian.bao.view.activity.resource.MakeCoverActivity;
+import com.leqian.bao.view.linechart.LineValueFormatter;
 import com.leqian.bao.view.linechart.XAxisValueFormatter;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.model.network.glide.GlideUtils;
@@ -245,7 +246,7 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
                 }
                 List<Entry> entries = new ArrayList<>();
                 for (int i = 0; i < 24; i++) {
-                    entries.add(new Entry((float) i, (float)response.getData().getToday().get(i)));
+                    entries.add(new Entry((float) i, (float) response.getData().getToday().get(i)));
                 }
                 setBrokenLine(entries, lineChart, false, null);
                 team_click_count.setText("团队今日计费：" + response.getData().getTotalToday() + "次");
@@ -259,7 +260,7 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
                 List<Entry> weekEntries = new ArrayList<>();
                 String[] str = new String[dayBeanList.size()];
                 for (int i = 0; i < dayBeanList.size(); i++) {
-                    weekEntries.add(new Entry((float)i, (float)dayBeanList.get(i).getCount()));
+                    weekEntries.add(new Entry((float) i, (float) dayBeanList.get(i).getCount()));
                     str[i] = dayBeanList.get(i).getDate();
                 }
                 XAxisValueFormatter xAxisValueFormatter = new XAxisValueFormatter(str);
@@ -282,6 +283,8 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
         dataSet.setDrawFilled(true);
         dataSet.setFillColor(ContextCompat.getColor(mContext, R.color.yellow_ffd500));
         dataSet.setFillAlpha(20);
+        dataSet.setValueFormatter(new LineValueFormatter());
+
 
         //设置y轴
         YAxis axisLeft = lineChart.getAxisLeft();

@@ -25,6 +25,7 @@ import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.model.network.statistics.PersonClickDetailResp;
 import com.leqian.bao.model.network.statistics.TeamClickDetailResp;
+import com.leqian.bao.view.linechart.LineValueFormatter;
 import com.leqian.bao.view.linechart.XAxisValueFormatter;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.widget.NXToolBarActivity;
@@ -133,6 +134,7 @@ public class ClickedTrendActivity extends BaseToolBarActivity {
         dataSet.setDrawFilled(true);
         dataSet.setFillColor(ContextCompat.getColor(mContext, R.color.yellow_ffd500));
         dataSet.setFillAlpha(20);
+        dataSet.setValueFormatter(new LineValueFormatter());
 
         //设置y轴
         YAxis axisLeft = lineChart.getAxisLeft();
