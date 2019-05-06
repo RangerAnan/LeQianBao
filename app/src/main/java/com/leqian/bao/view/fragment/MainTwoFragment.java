@@ -4,20 +4,31 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.RankingFragmentAdapter;
 import com.leqian.bao.common.http.AccountHttp;
+import com.leqian.bao.common.http.BaseHttp;
+import com.leqian.bao.common.http.StatisticsHttp;
+import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.model.eventbus.RankingSwitchEvent;
+import com.leqian.bao.model.network.statistics.TeamClickDetailResp;
 import com.leqian.bao.model.network.team.TeamInfoResp;
 import com.leqian.bao.view.fragment.ranking.RankingListFragmnet;
 import com.nxin.base.model.http.callback.ModelCallBack;
+import com.nxin.base.model.network.glide.GlideUtils;
 import com.nxin.base.widget.NXFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -59,6 +70,9 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
     @BindView(R.id.tv_count_today)
     TextView tv_count_today;
 
+    @BindView(R.id.iv_image)
+    ImageView iv_image;
+
     ArrayList<NXFragment> mFragmentList = new ArrayList<>();
     private RankingFragmentAdapter mAdapter;
 
@@ -99,7 +113,16 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
     }
 
     private void requestTeamClickDetail() {
-
+        StatisticsHttp.getTeamClickDetail(new ModelCallBack<TeamClickDetailResp>() {
+            @Override
+            public void onResponse(TeamClickDetailResp response, int id) {
+                if (response.getCode() != 1) {
+                    ToastUtil.showToastShort(response.getMsg());
+                    return;
+                }
+                tv_count_today.setText(tv_count_today.getText() + "：" + response.getData().getTotalToday() + "次");
+            }
+        });
     }
 
     private void requestTeamInfo() {
@@ -110,10 +133,18 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
                     ToastUtil.showToastShort(response.getMsg());
                     return;
                 }
-                String name = response.getData().getName();
-                tv_title.setText(name + "-团队");
-                tv_desc.setText(response.getData().getAnnouncement());
+                TeamInfoResp.DataBean model = response.getData();
 
+                SpannableString teamSpan = new SpannableString(model.getName() + getString(R.string.user_team) + "（" + model.getPopulation() + "人）");
+                teamSpan.setSpan(new AbsoluteSizeSpan((int) DeviceUtil.sp2px(14)), (model.getName() + getString(R.string.user_team)).length(),
+                        teamSpan.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                teamSpan.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), (model.getName() + getString(R.string.user_team)).length(),
+                        teamSpan.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                tv_title.setText(teamSpan);
+
+                tv_desc.setText(response.getData().getAnnouncement());
+                tv_name.setText(model.getName());
+                GlideUtils.setCircleDrawableRequest(Glide.with(mContext), BaseHttp.IMAGE_HOST + model.getHeadpic(), R.mipmap.me_default_icon).into(iv_image);
             }
         });
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -27,6 +28,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.leqian.bao.R;
 import com.leqian.bao.common.base.BaseListToolBarActivity;
 import com.leqian.bao.common.base.BaseToolBarActivity;
@@ -39,6 +42,7 @@ import com.leqian.bao.model.network.account.UpdateTeamManageResp;
 import com.leqian.bao.model.network.statistics.TeamClickDetailResp;
 import com.leqian.bao.model.network.team.TeamInfoResp;
 import com.leqian.bao.view.activity.resource.MakeCoverActivity;
+import com.leqian.bao.view.linechart.XAxisValueFormatter;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.model.network.glide.GlideUtils;
 import com.nxin.base.utils.system.ClipboardUtils;
@@ -90,6 +94,12 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
 
     @BindView(R.id.lineChart_week)
     LineChart lineChart_week;
+
+    @BindView(R.id.cardView_week)
+    CardView cardView_week;
+
+    @BindView(R.id.cardView_today)
+    CardView cardView_today;
 
     TeamInfoResp model;
 
@@ -228,17 +238,38 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
                     return;
                 }
 
-                //模拟数据
+                //1.今日统计
+                if (response.getData().getToday().size() > 0) {
+                    cardView_today.setVisibility(View.VISIBLE);
+                }
                 List<Entry> entries = new ArrayList<>();
                 for (int i = 0; i < 24; i++) {
-                    entries.add(new Entry(i, new Random().nextInt(300)));
+                    entries.add(new Entry(i, response.getData().getToday().get(i)));
                 }
-                setBrokenLine(entries);
+                setBrokenLine(entries, lineChart, false, null);
+                team_click_count.setText(team_click_count.getText() + "：" + response.getData().getTotalToday() + "次");
+
+                //2.本周统计
+                List<TeamClickDetailResp.DataBean.DayBean> dayBeanList = response.getData().getDay();
+                if (dayBeanList.size() > 0) {
+                    cardView_week.setVisibility(View.VISIBLE);
+                }
+
+                List<Entry> weekEntries = new ArrayList<>();
+                String[] str = new String[dayBeanList.size()];
+                for (int i = 0; i < dayBeanList.size(); i++) {
+                    weekEntries.add(new Entry(i, dayBeanList.get(i).getCount()));
+                    str[i] = dayBeanList.get(i).getDate();
+                }
+                XAxisValueFormatter xAxisValueFormatter = new XAxisValueFormatter(str);
+                setBrokenLine(weekEntries, lineChart_week, true, xAxisValueFormatter);
+                click_week_count.setText(click_week_count.getText() + "：" + response.getData().getTotalToday() + "次");
+
             }
         });
     }
 
-    private void setBrokenLine(List<Entry> entries) {
+    private void setBrokenLine(List<Entry> entries, LineChart lineChart, boolean isFormat, ValueFormatter formatter) {
         // add entries to dataset
         LineDataSet dataSet = new LineDataSet(entries, "");
         //线条设置
@@ -268,6 +299,10 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
 
         //设置x轴的显示位置
         XAxis xAxis = lineChart.getXAxis();
+        if (isFormat && formatter != null) {
+            xAxis.setValueFormatter(formatter);
+        }
+
         xAxis.setDrawLabels(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGridColor(ContextCompat.getColor(mContext, R.color.white));
