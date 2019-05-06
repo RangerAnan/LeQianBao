@@ -197,10 +197,12 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        UserRankingResp.DataBean model = mListData.get(position);
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.INTENT_DATA_1, model.getUid());
-        bundle.putString(Constants.INTENT_DATA_2, model.getName());
-        intent2Activity(ClickedTrendActivity.class, bundle);
+        if (rankType == 0) {
+            UserRankingResp.DataBean model = mListData.get(position);
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.INTENT_DATA_1, model.getUid());
+            bundle.putString(Constants.INTENT_DATA_2, model.getName());
+            intent2Activity(ClickedTrendActivity.class, bundle);
+        }
     }
 }

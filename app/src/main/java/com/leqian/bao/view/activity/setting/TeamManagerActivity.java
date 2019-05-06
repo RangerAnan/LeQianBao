@@ -156,7 +156,7 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
     }
 
     private void requestTeamInfo() {
-        AccountHttp.getTeamManage(ShareUtilUser.getString(ShareUtilUser.TEAMID, ""), new ModelCallBack<TeamInfoResp>() {
+        AccountHttp.getTeamManage(ShareUtilUser.getString(ShareUtilUser.UID, ""), new ModelCallBack<TeamInfoResp>() {
             @Override
             public void onResponse(TeamInfoResp response, int id) {
                 if (response.getCode() != 1) {
@@ -335,6 +335,10 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
         lineChart.setScaleEnabled(false);
         //隐藏触摸高亮
         lineChart.setHighlightPerTapEnabled(false);
+
+        if (isFormat) {
+            lineChart.setTouchEnabled(false);
+        }
 
         lineChart.invalidate(); // refresh
     }
