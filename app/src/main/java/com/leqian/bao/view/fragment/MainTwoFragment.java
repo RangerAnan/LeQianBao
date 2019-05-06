@@ -20,9 +20,11 @@ import com.leqian.bao.common.adapter.RankingFragmentAdapter;
 import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.http.BaseHttp;
 import com.leqian.bao.common.http.StatisticsHttp;
+import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.constant.Constants;
+import com.leqian.bao.model.eventbus.ClickTotalEvent;
 import com.leqian.bao.model.eventbus.RankingSwitchEvent;
 import com.leqian.bao.model.network.statistics.TeamClickDetailResp;
 import com.leqian.bao.model.network.team.TeamInfoResp;
@@ -32,6 +34,8 @@ import com.nxin.base.model.network.glide.GlideUtils;
 import com.nxin.base.widget.NXFragment;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -109,24 +113,11 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
 
         requestTeamInfo();
 
-        requestTeamClickDetail();
     }
 
-    private void requestTeamClickDetail() {
-        StatisticsHttp.getTeamClickDetail(new ModelCallBack<TeamClickDetailResp>() {
-            @Override
-            public void onResponse(TeamClickDetailResp response, int id) {
-                if (response.getCode() != 1) {
-                    ToastUtil.showToastShort(response.getMsg());
-                    return;
-                }
-                tv_count_today.setText(tv_count_today.getText() + "：" + response.getData().getTotalToday() + "次");
-            }
-        });
-    }
 
     private void requestTeamInfo() {
-        AccountHttp.getTeamManage(new ModelCallBack<TeamInfoResp>() {
+        AccountHttp.getTeamManage(ShareUtilUser.getString(ShareUtilUser.UID, ""), new ModelCallBack<TeamInfoResp>() {
             @Override
             public void onResponse(TeamInfoResp response, int id) {
                 if (response.getCode() != 1) {
@@ -189,5 +180,15 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
     private void changeRadioButtonTextColor(boolean button1Check) {
         radio_button1.setTextColor(button1Check ? ContextCompat.getColor(mContext, R.color.theme) : ContextCompat.getColor(mContext, R.color.color_gray));
         radio_button2.setTextColor(!button1Check ? ContextCompat.getColor(mContext, R.color.theme) : ContextCompat.getColor(mContext, R.color.color_gray));
+    }
+
+    @Override
+    public boolean isOpenEventBus() {
+        return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void clickTotalEvent(ClickTotalEvent event) {
+        tv_count_today.setText(tv_count_today.getText() + "：" + event.todayTotalCount + "次");
     }
 }

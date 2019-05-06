@@ -109,7 +109,10 @@ public class MainFourFragment extends BaseListFragment implements BottomListDial
         String[] stringArray = getResources().getStringArray(R.array.mine_ui_item);
         int[] iconArray = {R.mipmap.team_management, R.mipmap.my_user_detailed, R.mipmap.my_user_password,
                 R.mipmap.my_user_message_n, R.mipmap.my_user_about_us, R.mipmap.my_user_exit};
-        for (int i = 0; i < stringArray.length; i++) {
+
+        boolean isTeamer = ShareUtilUser.getString(ShareUtilUser.ORG_TYPE, "").equals("1");
+
+        for (int i = isTeamer ? 0 : 1; i < stringArray.length; i++) {
             CommonUIModel commonUIModel = new CommonUIModel();
             commonUIModel.name = stringArray[i];
             commonUIModel.code = i;

@@ -11,6 +11,7 @@ import com.leqian.bao.common.adapter.RankingAdapter;
 import com.leqian.bao.common.base.BaseListFragment;
 import com.leqian.bao.common.http.StatisticsHttp;
 import com.leqian.bao.model.constant.Constants;
+import com.leqian.bao.model.eventbus.ClickTotalEvent;
 import com.leqian.bao.model.eventbus.RankingSwitchEvent;
 import com.leqian.bao.model.network.statistics.UserRankingReq;
 import com.leqian.bao.model.network.statistics.UserRankingResp;
@@ -20,6 +21,7 @@ import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.utils.Logger;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -145,6 +147,12 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
             public void onResponse(UserRankingResp response, int id) {
                 mListData = response.getData();
                 mAdapter.setListData(mListData);
+
+                if (timeType == 0 && rankType == 0) {
+                    //今日
+                    int total = response.getData2().getTotal();
+                    EventBus.getDefault().post(new ClickTotalEvent(total));
+                }
             }
         });
     }

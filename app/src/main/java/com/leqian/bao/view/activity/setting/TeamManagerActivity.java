@@ -36,6 +36,7 @@ import com.leqian.bao.common.base.BaseToolBarActivity;
 import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.http.BaseHttp;
 import com.leqian.bao.common.http.StatisticsHttp;
+import com.leqian.bao.common.sp.ShareUtilUser;
 import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ToastUtil;
 import com.leqian.bao.model.network.account.UpdateTeamManageResp;
@@ -155,7 +156,7 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
     }
 
     private void requestTeamInfo() {
-        AccountHttp.getTeamManage(new ModelCallBack<TeamInfoResp>() {
+        AccountHttp.getTeamManage(ShareUtilUser.getString(ShareUtilUser.TEAMID, ""), new ModelCallBack<TeamInfoResp>() {
             @Override
             public void onResponse(TeamInfoResp response, int id) {
                 if (response.getCode() != 1) {

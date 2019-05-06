@@ -69,7 +69,7 @@ public class MybBezierCircleHeader extends InternalAbstract implements RefreshHe
 
         mSpinnerStyle = SpinnerStyle.Scale;
         final View thisView = this;
-        thisView.setMinimumHeight(DensityUtil.dp2px(60));
+        thisView.setMinimumHeight(DensityUtil.dp2px(40));
         mBackPaint = new Paint();
         mBackPaint.setColor(0xff11bbff);
         mBackPaint.setAntiAlias(true);
@@ -99,7 +99,7 @@ public class MybBezierCircleHeader extends InternalAbstract implements RefreshHe
             mHeadHeight = viewHeight;
             mRefreshStop = 270;
             mBollY = mHeadHeight / 2;
-            mBollRadius = mHeadHeight / 10;
+            mBollRadius = mHeadHeight / 6;
         }
 
         drawWave(canvas, viewWidth, viewHeight);

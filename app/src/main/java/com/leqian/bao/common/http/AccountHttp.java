@@ -58,9 +58,10 @@ public class AccountHttp extends BaseHttp {
     }
 
 
-    public static void getTeamManage(ModelCallBack callBack) {
+    public static void getTeamManage(String uid, ModelCallBack callBack) {
         BaseModelReq baseModelReq = new BaseModelReq();
         baseModelReq.method = "getTeamManage";
+        baseModelReq.uid = uid;
         executePostHttp(baseModelReq, callBack);
     }
 
