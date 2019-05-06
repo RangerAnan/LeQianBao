@@ -245,10 +245,10 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
                 }
                 List<Entry> entries = new ArrayList<>();
                 for (int i = 0; i < 24; i++) {
-                    entries.add(new Entry(i, response.getData().getToday().get(i)));
+                    entries.add(new Entry((float) i, (float)response.getData().getToday().get(i)));
                 }
                 setBrokenLine(entries, lineChart, false, null);
-                team_click_count.setText(team_click_count.getText() + "：" + response.getData().getTotalToday() + "次");
+                team_click_count.setText("团队今日计费：" + response.getData().getTotalToday() + "次");
 
                 //2.本周统计
                 List<TeamClickDetailResp.DataBean.DayBean> dayBeanList = response.getData().getDay();
@@ -259,12 +259,12 @@ public class TeamManagerActivity extends BaseListToolBarActivity {
                 List<Entry> weekEntries = new ArrayList<>();
                 String[] str = new String[dayBeanList.size()];
                 for (int i = 0; i < dayBeanList.size(); i++) {
-                    weekEntries.add(new Entry(i, dayBeanList.get(i).getCount()));
+                    weekEntries.add(new Entry((float)i, (float)dayBeanList.get(i).getCount()));
                     str[i] = dayBeanList.get(i).getDate();
                 }
                 XAxisValueFormatter xAxisValueFormatter = new XAxisValueFormatter(str);
                 setBrokenLine(weekEntries, lineChart_week, true, xAxisValueFormatter);
-                click_week_count.setText(click_week_count.getText() + "：" + response.getData().getTotalToday() + "次");
+                click_week_count.setText("团队七日计费：" + response.getData().getTotalDay() + "次");
 
             }
         });

@@ -63,7 +63,10 @@ public class LinkResourceAdapter extends BaseListAdapter<LinkResourceResp> imple
         ResourceHttp.getLink(false, new ModelCallBack<LinkResourceResp>() {
             @Override
             public void onResponse(LinkResourceResp response, int id) {
-
+                if (response.getCode() != 1) {
+                    ToastUtil.showToastShort(response.getMsg());
+                    return;
+                }
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("视频（").append(LoginBLL.getInstance().getUserInfo().getData().getName()).append(")：");
 

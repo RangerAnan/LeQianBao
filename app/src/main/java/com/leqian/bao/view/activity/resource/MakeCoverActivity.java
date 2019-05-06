@@ -2,6 +2,8 @@ package com.leqian.bao.view.activity.resource;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -167,15 +169,26 @@ public class MakeCoverActivity extends BaseToolBarActivity implements BottomList
             switch (requestCode) {
                 case RequestCode.CHOICE_CMARE: {
                     imagePath = getImagePath(Constants.PHOTOFILEPATH);
+                    showImage(imagePath);
                 }
                 break;
                 case RequestCode.CHOICE_PHOTO: {
                     imagePath = getImagePath(ImageUtil.getImageAbsolutePath(mContext, data.getData()));
+                    showImage(imagePath);
                 }
                 break;
                 default:
                     break;
             }
+        }
+    }
+
+    private void showImage(String imagePath) {
+        try {
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            image_button.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

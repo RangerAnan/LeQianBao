@@ -189,6 +189,6 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void clickTotalEvent(ClickTotalEvent event) {
-        tv_count_today.setText(tv_count_today.getText() + "：" + event.todayTotalCount + "次");
+        tv_count_today.setText("今日总计费：" + event.todayTotalCount + "次");
     }
 }

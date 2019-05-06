@@ -72,7 +72,7 @@ android {
             ]
             applicationId "com.leqian.bao"
             resValue "string", "app_name", "蚂蚁帮"
-            resValue "string", "app_slogen", "积小成大的赚钱平台"
+            resValue "string", "app_slogen", "蚂蚁帮让赚钱更简单"
         }
     }
 }
