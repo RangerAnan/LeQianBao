@@ -111,8 +111,6 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
     public void initData() {
         super.initData();
 
-        requestTeamInfo();
-
     }
 
 
@@ -189,6 +187,31 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void clickTotalEvent(ClickTotalEvent event) {
-        tv_count_today.setText("今日总计费：" + event.todayTotalCount + "次");
+        String append = "今日";
+        switch (event.timeType) {
+            case 0:
+                append = "今日";
+                break;
+            case 1:
+                append = "昨日";
+                break;
+            case 2:
+                append = "本周";
+                break;
+            case 3:
+                append = "本月";
+                break;
+            default:
+                break;
+        }
+        tv_count_today.setText(append + "总计费：" + event.todayTotalCount + "次");
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            requestTeamInfo();
+        }
     }
 }

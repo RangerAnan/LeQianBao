@@ -58,6 +58,7 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
     private List<UserRankingResp.DataBean> mListData = new ArrayList<>();
 
     private String rankTime = UserRankingReq.TIME_TODAY;
+    private int total;
 
     @Override
     public boolean isOpenEventBus() {
@@ -148,11 +149,7 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
                 mListData = response.getData();
                 mAdapter.setListData(mListData);
 
-                if (timeType == 0 && rankType == 0) {
-                    //今日
-                    int total = response.getData2().getTotal();
-                    EventBus.getDefault().post(new ClickTotalEvent(total));
-                }
+                total = response.getData2().getTotal();
             }
         });
     }
@@ -203,6 +200,16 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
             bundle.putString(Constants.INTENT_DATA_1, model.getUid());
             bundle.putString(Constants.INTENT_DATA_2, model.getName());
             intent2Activity(ClickedTrendActivity.class, bundle);
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            if (rankType == 0) {
+                EventBus.getDefault().post(new ClickTotalEvent(total, timeType));
+            }
         }
     }
 }
