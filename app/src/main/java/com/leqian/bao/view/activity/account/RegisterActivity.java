@@ -1,5 +1,6 @@
 package com.leqian.bao.view.activity.account;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -9,11 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.base.BaseActivity;
 import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.util.ToastUtil;
+import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.model.network.account.LoginResp;
 import com.nxin.base.model.http.callback.ModelCallBack;
 
@@ -30,8 +33,8 @@ public class RegisterActivity extends BaseActivity {
     @BindView(R.id.btn_register)
     Button btn_register;
 
-    @BindView(R.id.et_phone)
-    EditText et_phone;
+    @BindView(R.id.tv_phone)
+    TextView tv_phone;
 
     @BindView(R.id.et_input_psd)
     EditText et_input_psd;
@@ -49,6 +52,7 @@ public class RegisterActivity extends BaseActivity {
     RelativeLayout bar_left;
 
     private boolean isShowPwd = false;
+    private String phone;
 
     @Override
     public int getLayoutId() {
@@ -59,23 +63,10 @@ public class RegisterActivity extends BaseActivity {
     @Override
     public void initViewData() {
         super.initViewData();
-        et_phone.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                setLoginButtonState(s.toString(), et_input_psd.getText().toString().trim(),
-                        et_zfb.getText().toString().trim(), et_realName.getText().toString().trim());
-            }
-        });
+        Intent intent = getIntent();
+        phone = intent.getStringExtra(Constants.INTENT_DATA_1);
+        tv_phone.setText(phone);
 
         et_input_psd.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,7 +81,7 @@ public class RegisterActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                setLoginButtonState(et_phone.getText().toString().trim(), s.toString(),
+                setLoginButtonState(tv_phone.getText().toString().trim(), s.toString(),
                         et_zfb.getText().toString().trim(), et_realName.getText().toString().trim());
             }
         });
@@ -108,7 +99,7 @@ public class RegisterActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                setLoginButtonState(et_phone.getText().toString().trim(), et_input_psd.getText().toString().trim(),
+                setLoginButtonState(tv_phone.getText().toString().trim(), et_input_psd.getText().toString().trim(),
                         s.toString(), et_realName.getText().toString().trim());
             }
         });
@@ -126,7 +117,7 @@ public class RegisterActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                setLoginButtonState(et_phone.getText().toString().trim(), et_input_psd.getText().toString().trim(),
+                setLoginButtonState(tv_phone.getText().toString().trim(), et_input_psd.getText().toString().trim(),
                         et_zfb.getText().toString().trim(), s.toString());
             }
         });
@@ -142,7 +133,7 @@ public class RegisterActivity extends BaseActivity {
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.btn_register:
-                String inputPhone = et_phone.getText().toString().trim();
+                String inputPhone = tv_phone.getText().toString().trim();
                 String inputPsd = et_input_psd.getText().toString().trim();
                 String zfbName = et_zfb.getText().toString().trim();
                 String realName = et_realName.getText().toString().trim();

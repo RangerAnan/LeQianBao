@@ -1,5 +1,6 @@
 package com.leqian.bao.common.http;
 
+import com.leqian.bao.model.network.account.CheckSmsReq;
 import com.leqian.bao.model.network.account.SmsCodeReq;
 import com.leqian.bao.model.network.account.UpdateTeamManageReq;
 import com.leqian.bao.model.network.base.BaseModelReq;
@@ -8,13 +9,9 @@ import com.leqian.bao.model.network.account.LoginReq;
 import com.leqian.bao.model.network.account.RegisterReq;
 import com.nxin.base.model.http.callback.ModelCallBack;
 
-
 /**
- * @CreateBy qsmaxmin
- * @Date 2017/5/9 15:53
- * @Description
+ * 账户相关网络请求
  */
-
 public class AccountHttp extends BaseHttp {
 
 
@@ -78,6 +75,15 @@ public class AccountHttp extends BaseHttp {
         req.method = "sendMsg";
         req.phone = phone;
         req.msgType = msgType;
+        executePostHttp(req, callBack);
+    }
+
+
+    public static void regValidatePhone(String phone, String code, ModelCallBack callBack) {
+        CheckSmsReq req = new CheckSmsReq();
+        req.method = "regValidatePhone ";
+        req.phone = phone;
+        req.code = code;
         executePostHttp(req, callBack);
     }
 }
