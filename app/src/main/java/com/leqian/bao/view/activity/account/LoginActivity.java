@@ -127,7 +127,7 @@ public class LoginActivity extends BaseActivity {
                 intent2Activity(ModifyLoginPsdActivity.class);
                 break;
             case R.id.tv_register:
-                intent2Activity(RegisterActivity.class);
+                intent2Activity(SendSMSActivity.class);
                 break;
             case R.id.iv_psd_look:
                 showPwd();

@@ -74,6 +74,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".view.activity.account.SendSMSActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".view.activity.account.ModifyLoginPsdActivity"
             android:screenOrientation="portrait" />
 
