@@ -1,5 +1,6 @@
 package com.leqian.bao.common.http;
 
+import com.leqian.bao.model.network.account.ChangePsdReq;
 import com.leqian.bao.model.network.account.CheckSmsReq;
 import com.leqian.bao.model.network.account.SmsCodeReq;
 import com.leqian.bao.model.network.account.UpdateTeamManageReq;
@@ -81,9 +82,18 @@ public class AccountHttp extends BaseHttp {
 
     public static void regValidatePhone(String phone, String code, ModelCallBack callBack) {
         CheckSmsReq req = new CheckSmsReq();
-        req.method = "regValidatePhone ";
+        req.method = "regValidatePhone";
         req.phone = phone;
         req.code = code;
+        executePostHttp(req, callBack);
+    }
+
+    public static void changePass(String phone, String psd, String code, ModelCallBack callBack) {
+        ChangePsdReq req = new ChangePsdReq();
+        req.method = "changePass";
+        req.phone = phone;
+        req.code = code;
+        req.password = psd;
         executePostHttp(req, callBack);
     }
 }

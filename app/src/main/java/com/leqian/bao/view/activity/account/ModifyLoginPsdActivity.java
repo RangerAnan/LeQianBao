@@ -1,5 +1,6 @@
 package com.leqian.bao.view.activity.account;
 
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -13,7 +14,11 @@ import android.widget.TextView;
 
 import com.leqian.bao.R;
 import com.leqian.bao.common.base.BaseToolBarActivity;
+import com.leqian.bao.common.http.AccountHttp;
 import com.leqian.bao.common.util.ToastUtil;
+import com.leqian.bao.model.network.account.LoginResp;
+import com.leqian.bao.model.network.base.BaseModelResp;
+import com.nxin.base.model.http.callback.ModelCallBack;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -52,6 +57,9 @@ public class ModifyLoginPsdActivity extends BaseToolBarActivity {
     @BindView(R.id.tv_title)
     TextView tv_title;
 
+    @BindView(R.id.btn_send_msg)
+    Button btn_send_msg;
+
     private boolean isShowPwd = false;
     private boolean isShowPwdAgain = false;
 
@@ -85,6 +93,8 @@ public class ModifyLoginPsdActivity extends BaseToolBarActivity {
             public void afterTextChanged(Editable s) {
                 setLoginButtonState(s.toString(), et_input_psd.getText().toString().trim(),
                         et_sms_code.getText().toString().trim(), et_input_psd_again.getText().toString().trim());
+
+                btn_send_msg.setEnabled(!TextUtils.isEmpty(s));
             }
         });
 
@@ -149,10 +159,10 @@ public class ModifyLoginPsdActivity extends BaseToolBarActivity {
     }
 
 
-    @OnClick({R.id.btn_ok, R.id.iv_psd_look, R.id.bar_left, R.id.iv_psd_look_again})
+    @OnClick({R.id.btn_ok, R.id.iv_psd_look, R.id.bar_left, R.id.iv_psd_look_again, R.id.btn_send_msg})
     public void onViewClicked(View v) {
         switch (v.getId()) {
-            case R.id.btn_register:
+            case R.id.btn_ok:
                 String inputPhone = et_phone.getText().toString().trim();
                 String inputPsd = et_input_psd.getText().toString().trim();
                 String smsCode = et_sms_code.getText().toString().trim();
@@ -173,12 +183,16 @@ public class ModifyLoginPsdActivity extends BaseToolBarActivity {
                     ToastUtil.showToastShort("密码长度在6-12位之间");
                     return;
                 }
+                if (!inputPsd.equals(inputPsdAgain)) {
+                    ToastUtil.showToastShort("两次密码输入不一致");
+                    return;
+                }
                 if (TextUtils.isEmpty(smsCode)) {
                     ToastUtil.showToastShort("验证码不能为空");
                     return;
                 }
 
-                loginAccount(inputPhone, inputPsd, smsCode, inputPsdAgain);
+                changePsd(inputPhone, inputPsd, smsCode);
                 break;
             case R.id.iv_psd_look:
                 showPwd(et_input_psd, iv_psd_look, isShowPwd);
@@ -191,9 +205,52 @@ public class ModifyLoginPsdActivity extends BaseToolBarActivity {
             case R.id.bar_left:
                 onBackPressed();
                 break;
+            case R.id.btn_send_msg:
+                String trim = et_phone.getText().toString().trim();
+                if (TextUtils.isEmpty(trim)) {
+                    ToastUtil.showToastShort("手机号不能为空");
+                    return;
+                }
+                if (trim.length() != 11) {
+                    ToastUtil.showToastShort("手机号格式不对");
+                    return;
+                }
+                requestSmsCode(trim);
+                break;
             default:
                 break;
         }
+    }
+
+    private void requestSmsCode(String trim) {
+        AccountHttp.getMsg(trim, "changePass", new ModelCallBack<BaseModelResp>("获取验证码...") {
+            @Override
+            public void onResponse(BaseModelResp response, int id) {
+                ToastUtil.showToastShort(response.getMsg());
+                if (response.getCode() != 1) {
+                    return;
+                }
+                btn_send_msg.setEnabled(false);
+                startTimer();
+            }
+        });
+    }
+
+    private void startTimer() {
+        /** 倒计时60秒，一次1秒 */
+        CountDownTimer timer = new CountDownTimer(60 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                btn_send_msg.setText(millisUntilFinished / 1000 + " 秒");
+            }
+
+            @Override
+            public void onFinish() {
+                btn_send_msg.setText("获取验证码");
+                btn_send_msg.setEnabled(!TextUtils.isEmpty(et_phone.getText().toString().trim()));
+            }
+        }.start();
+
     }
 
     private void showPwd(EditText et, ImageView iv, boolean isShow) {
@@ -202,9 +259,9 @@ public class ModifyLoginPsdActivity extends BaseToolBarActivity {
         et.setSelection(et.getText().toString().length());
     }
 
-    private void loginAccount(String inputPhone, String inputPsd, String zfbName, String realName) {
-        ToastUtil.showToastShort("完成");
-      /*  AccountHttp.userRegister(inputPhone, inputPsd, zfbName, realName, new ModelCallBack<LoginResp>() {
+    private void changePsd(String inputPhone, String inputPsd, String code) {
+
+        AccountHttp.changePass(inputPhone, inputPsd, code, new ModelCallBack<LoginResp>("正在加载...") {
             @Override
             public void onResponse(LoginResp response, int id) {
                 ToastUtil.showToastShort(response.getMsg());
@@ -212,7 +269,7 @@ public class ModifyLoginPsdActivity extends BaseToolBarActivity {
                     finish();
                 }
             }
-        });*/
+        });
     }
 
 }

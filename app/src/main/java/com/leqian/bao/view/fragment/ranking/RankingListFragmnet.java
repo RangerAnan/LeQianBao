@@ -149,7 +149,11 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
                 mListData = response.getData();
                 mAdapter.setListData(mListData);
 
+                //成员排行
                 total = response.getData2().getTotal();
+                if (getUserVisibleHint()) {
+                    EventBus.getDefault().post(new ClickTotalEvent(total, timeType));
+                }
             }
         });
     }
@@ -206,6 +210,7 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        Logger.i(initTag() + "---setUserVisibleHint--" + getUserVisibleHint() + ";total:" + total + ";timeType:" + timeType + ";rankType:" + rankType);
         if (getUserVisibleHint()) {
             if (rankType == 0) {
                 EventBus.getDefault().post(new ClickTotalEvent(total, timeType));

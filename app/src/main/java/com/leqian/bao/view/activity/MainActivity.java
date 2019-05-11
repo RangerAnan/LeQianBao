@@ -1,6 +1,6 @@
 package com.leqian.bao.view.activity;
 
-import android.app.Activity;
+import  android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -15,17 +15,23 @@ import com.leqian.bao.R;
 import com.leqian.bao.common.adapter.FragmentAdapter;
 import com.leqian.bao.common.base.BaseActivity;
 import com.leqian.bao.common.http.AccountHttp;
+import com.leqian.bao.common.http.AppInfoHttp;
+import com.leqian.bao.common.sp.ShareUtilMain;
 import com.leqian.bao.common.sp.ShareUtilUser;
+import com.leqian.bao.common.util.DeviceUtil;
 import com.leqian.bao.common.util.ImageUtil;
 import com.leqian.bao.common.util.ToastUtil;
+import com.leqian.bao.model.network.appinfo.CheckAppVersionResp;
 import com.leqian.bao.model.network.base.BaseModelResp;
 import com.leqian.bao.model.constant.Constants;
 import com.leqian.bao.model.network.account.UserInfoResp;
 import com.leqian.bao.model.bll.LoginBLL;
 import com.leqian.bao.model.code.RequestCode;
 import com.leqian.bao.view.dialog.listDilog.JoinTeamDialog;
+import com.leqian.bao.view.dialog.updat.VersionUpgradeDialog;
 import com.leqian.bao.view.fragment.MainFourFragment;
 import com.leqian.bao.view.viewpager.TabContentViewPager;
+import com.leqian.bao.widget.VersionUpdateService;
 import com.nxin.base.model.http.callback.ModelCallBack;
 import com.nxin.base.utils.Logger;
 import com.nxin.base.utils.ProHelper;
@@ -235,5 +241,48 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean isSetStatusBar() {
         return true;
+    }
+
+    @Override
+    public void initViewData() {
+        super.initViewData();
+
+        checkAppVersion();
+    }
+
+    private void checkAppVersion() {
+        AppInfoHttp.checkAppVersion(DeviceUtil.getVersionName(), new ModelCallBack<CheckAppVersionResp>() {
+            @Override
+            public void onResponse(CheckAppVersionResp response, int id) {
+                if (!response.hasUpdate) {
+                    return;
+                }
+                showVersionDialog(response);
+            }
+        });
+    }
+
+    /**
+     * 展示升级对话框
+     */
+    private void showVersionDialog(final CheckAppVersionResp model) {
+        final VersionUpgradeDialog dialog = new VersionUpgradeDialog(mContext, model.updateDesc, "暂不更新");
+        dialog.setUpgradeButton(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent serviceIntent = new Intent(mContext, VersionUpdateService.class);
+                serviceIntent.putExtra("APK_URL", model.apkUrl);
+                serviceIntent.putExtra("APK_VERSION", model.newVersion);
+                startService(serviceIntent);
+            }
+        }).setCancelButton(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        }).show();
+        dialog.setCancelable(false);
     }
 }

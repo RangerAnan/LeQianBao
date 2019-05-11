@@ -14,4 +14,9 @@
     <!--团队-->
     <string name="user_team">-团队</string>
     <string name="team_copy">&#160;&#160;复制</string>
+
+    <!--版本更新-->
+    <string name="version_update_warm_prompt">温馨提示\n\n您想要下载新版本、体验新功能时可以在\"我>设置>检查新版本\"中随时更新</string>
+    <string name="version_update_button_name">知道了</string>
+    <string name="download_app_description">正在下载%s最新版本</string>
 </resources>

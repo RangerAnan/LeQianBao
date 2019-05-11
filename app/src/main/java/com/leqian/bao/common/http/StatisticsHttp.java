@@ -76,9 +76,10 @@ public class StatisticsHttp extends BaseHttp {
     /**
      * 获取团队点击明细，做折线图，包括一天24小时图，和前七日图
      */
-    public static void getPersonClickDetail(ModelCallBack callBack) {
+    public static void getPersonClickDetail(String uid, ModelCallBack callBack) {
         BaseModelReq req = new BaseModelReq();
         req.method = "getPersonClickDetail";
+        req.uid = uid;
         executePostHttp(req, callBack);
     }
 }

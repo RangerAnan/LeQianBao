@@ -28,6 +28,7 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.leqian.bao.BuildConfig;
 import com.leqian.bao.R;
 import com.leqian.bao.common.permissions.PermissionsResultAction;
 import com.leqian.bao.common.permissions.PermissonsUtil;
@@ -515,6 +516,38 @@ public class DeviceUtil {
             }
         }
         return infos;
+    }
+
+    /**
+     * 获取icon的资源id
+     */
+    public static int getIconRes(Context mContext) {
+//        return getMetaDataRes(mContext, "IMAGE_ICON");
+        return mContext.getResources().getIdentifier("app_icon", "mipmap", mContext.getPackageName());
+    }
+
+    /**
+     * 获取small icon的资源id
+     */
+    public static int getIconSmallRes(Context mContext) {
+//        return getMetaDataRes(mContext, "IMAGE_ICON_SMALL");
+        return mContext.getResources().getIdentifier("ic_launcher_" + BuildConfig.FLAVOR + "_small", "mipmap", mContext.getPackageName());
+    }
+
+
+    /**
+     * 从meta中获取资源
+     */
+    public static int getMetaDataRes(Context mContext, String name) {
+        try {
+            ApplicationInfo appInfo = mContext.getApplicationContext().getPackageManager()
+                    .getApplicationInfo(mContext.getApplicationContext().getPackageName(),
+                            PackageManager.GET_META_DATA);
+            return appInfo.metaData.getInt(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
 }

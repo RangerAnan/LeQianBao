@@ -88,7 +88,8 @@ public class ClickDetailedActivity extends BaseListToolBarActivity implements On
     }
 
     private void requestPersonClickDetail() {
-        StatisticsHttp.getPersonClickDetail(new ModelCallBack<PersonClickDetailResp>() {
+        String uid = ShareUtilUser.getString(ShareUtilUser.UID, "");
+        StatisticsHttp.getPersonClickDetail(uid, new ModelCallBack<PersonClickDetailResp>() {
             @Override
             public void onResponse(PersonClickDetailResp response, int id) {
                 if (response.getCode() != 1) {

@@ -22,6 +22,7 @@
     <color name="color_gray_9">#999999</color>
     <color name="color_gray_4">#4a000000</color>
     <color name="bg_common">#f8f8f8</color>
+    <color name="cl_line_gray1">#adadad</color>
 
     <color name="cl_gray0">#333333</color>
     <color name="cl_gray1">#666666</color>

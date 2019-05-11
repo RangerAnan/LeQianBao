@@ -89,7 +89,7 @@ public class ClickedTrendActivity extends BaseToolBarActivity {
     }
 
     private void requestTeamClickDetail() {
-        StatisticsHttp.getPersonClickDetail(new ModelCallBack<PersonClickDetailResp>() {
+        StatisticsHttp.getPersonClickDetail(uid, new ModelCallBack<PersonClickDetailResp>() {
             @Override
             public void onResponse(PersonClickDetailResp response, int id) {
                 if (response.getCode() != 1) {
@@ -103,7 +103,7 @@ public class ClickedTrendActivity extends BaseToolBarActivity {
                     entries.add(new Entry(i, response.getData().getToday().get(i)));
                 }
                 setBrokenLine(entries, lineChart, false, null);
-                tv_today_count.setText(tv_today_count.getText() + "：" + response.getData().getTotalToday() + "次");
+                tv_today_count.setText("今日计费明细趋势：" + response.getData().getTotalToday() + "次");
 
                 //2.本周统计
                 List<PersonClickDetailResp.DataBean.DayBean> dayBeanList = response.getData().getDay();
@@ -116,7 +116,9 @@ public class ClickedTrendActivity extends BaseToolBarActivity {
                 }
                 XAxisValueFormatter xAxisValueFormatter = new XAxisValueFormatter(str);
                 setBrokenLine(weekEntries, lineChart_week, true, xAxisValueFormatter);
-                tv_week_count.setText(tv_week_count.getText() + "：" + response.getData().getTotalToday() + "次");
+                tv_week_count.setText("7日计费明细趋势：" + response.getData().getTotalDay() + "次");
+
+                tv_title.setText(response.getData().getName() + "点击明细趋势");
 
             }
         });
