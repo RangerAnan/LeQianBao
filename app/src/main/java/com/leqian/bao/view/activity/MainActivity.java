@@ -1,6 +1,6 @@
 package com.leqian.bao.view.activity;
 
-import  android.app.Activity;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -254,10 +254,21 @@ public class MainActivity extends BaseActivity {
         AppInfoHttp.checkAppVersion(DeviceUtil.getVersionName(), new ModelCallBack<CheckAppVersionResp>() {
             @Override
             public void onResponse(CheckAppVersionResp response, int id) {
-                if (!response.hasUpdate) {
+                if (response.getCode() != 1) {
+                    ToastUtil.showToastShort(response.getMsg());
                     return;
                 }
-                showVersionDialog(response);
+                String versionNew = response.getData().getVersion();
+                String versionName = DeviceUtil.getVersionName();
+                try {
+                    String svNew = versionNew.replace(".", "");
+                    String svOld = versionName.replace(".", "");
+                    if (Integer.parseInt(svNew) > Integer.parseInt(svOld)) {
+                        showVersionDialog(response);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -266,14 +277,15 @@ public class MainActivity extends BaseActivity {
      * 展示升级对话框
      */
     private void showVersionDialog(final CheckAppVersionResp model) {
-        final VersionUpgradeDialog dialog = new VersionUpgradeDialog(mContext, model.updateDesc, "暂不更新");
+
+        final VersionUpgradeDialog dialog = new VersionUpgradeDialog(mContext, model.getData().getMsgX(), "暂不更新");
         dialog.setUpgradeButton(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent serviceIntent = new Intent(mContext, VersionUpdateService.class);
-                serviceIntent.putExtra("APK_URL", model.apkUrl);
-                serviceIntent.putExtra("APK_VERSION", model.newVersion);
+                serviceIntent.putExtra("APK_URL", model.getData().getAddress());
+                serviceIntent.putExtra("APK_VERSION", model.getData().getVersion());
                 startService(serviceIntent);
             }
         }).setCancelButton(new View.OnClickListener() {
@@ -284,5 +296,6 @@ public class MainActivity extends BaseActivity {
             }
         }).show();
         dialog.setCancelable(false);
+        dialog.setForce(model.getData().getForceUpdate() == 1);
     }
 }

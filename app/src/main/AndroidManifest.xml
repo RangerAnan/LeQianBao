@@ -118,6 +118,7 @@
             android:name=".view.activity.resource.MakeCoverActivity"
             android:screenOrientation="portrait" />
 
+        <service android:name=".widget.VersionUpdateService" />
     </application>
 
 </manifest>
