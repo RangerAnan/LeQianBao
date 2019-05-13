@@ -95,7 +95,7 @@ public class MainTwoFragment extends ViewpagerFragment implements RadioGroup.OnC
     @Override
     public void initView() {
         super.initView();
-        radio_button2.setVisibility(View.GONE);
+        radio_button2.setVisibility(View.VISIBLE);
 
         tabLayout.setupWithViewPager(viewPager);
 

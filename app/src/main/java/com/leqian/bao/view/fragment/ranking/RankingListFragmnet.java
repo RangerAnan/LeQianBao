@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.leqian.bao.R;
@@ -54,6 +55,9 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
     @BindView(R.id.listView)
     protected ListView listView;
 
+    @BindView(R.id.ll_emptyView)
+    LinearLayout ll_emptyView;
+
     private RankingAdapter mAdapter;
     private List<UserRankingResp.DataBean> mListData = new ArrayList<>();
 
@@ -64,6 +68,7 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
     public boolean isOpenEventBus() {
         return true;
     }
+
 
     @Override
     public int getLayoutId() {
@@ -113,13 +118,31 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
 
     private void requestServerCount() {
         Logger.i(initTag() + "---requestServerCount--rankType:" + rankType + ";timeType:" + timeType);
-        if (rankType == 0) {
+        if (rankType == 0) {          //成员
             requestMemberRanking();
         } else if (rankType == 2) {   //团队
             requestTeamRank();
         } else if (rankType == 3) {   //个人
             requestUserRank();
+        } else if (rankType == 1) {   //部门
+            requestDePartRank();
         }
+    }
+
+    private void requestDePartRank() {
+        StatisticsHttp.getDepartRank(rankTime, new ModelCallBack<UserRankingResp>() {
+            @Override
+            public void onResponse(UserRankingResp response, int id) {
+                mListData = response.getData();
+                mAdapter.setListData(mListData);
+                showListContent(mListData.size() != 0);
+                //成员排行
+                total = response.getData2().getTotal();
+                if (getUserVisibleHint()) {
+                    EventBus.getDefault().post(new ClickTotalEvent(total, timeType));
+                }
+            }
+        });
     }
 
     private void requestUserRank() {
@@ -128,6 +151,7 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
             public void onResponse(UserRankingResp response, int id) {
                 mListData = response.getData();
                 mAdapter.setListData(mListData);
+                showListContent(mListData.size() != 0);
             }
         });
     }
@@ -138,6 +162,7 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
             public void onResponse(UserRankingResp response, int id) {
                 mListData = response.getData();
                 mAdapter.setListData(mListData);
+                showListContent(mListData.size() != 0);
             }
         });
     }
@@ -148,6 +173,7 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
             public void onResponse(UserRankingResp response, int id) {
                 mListData = response.getData();
                 mAdapter.setListData(mListData);
+                showListContent(mListData.size() != 0);
 
                 //成员排行
                 total = response.getData2().getTotal();
@@ -212,9 +238,14 @@ public class RankingListFragmnet extends BaseListFragment implements AdapterView
         super.setUserVisibleHint(isVisibleToUser);
         Logger.i(initTag() + "---setUserVisibleHint--" + getUserVisibleHint() + ";total:" + total + ";timeType:" + timeType + ";rankType:" + rankType);
         if (getUserVisibleHint()) {
-            if (rankType == 0) {
+            if (rankType == 0 || rankType == 1) {
                 EventBus.getDefault().post(new ClickTotalEvent(total, timeType));
             }
         }
+    }
+
+    private void showListContent(boolean isShow) {
+        ll_emptyView.setVisibility(isShow ? View.GONE : View.VISIBLE);
+        listView.setVisibility(!isShow ? View.GONE : View.VISIBLE);
     }
 }

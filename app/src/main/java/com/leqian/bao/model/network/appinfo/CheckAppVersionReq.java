@@ -8,5 +8,5 @@ import com.leqian.bao.model.network.base.BaseModelReq;
  */
 public class CheckAppVersionReq extends BaseModelReq {
 
-    public String versionName;
+    public String  version;
 }

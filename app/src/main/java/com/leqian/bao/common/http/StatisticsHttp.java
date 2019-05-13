@@ -43,6 +43,16 @@ public class StatisticsHttp extends BaseHttp {
     }
 
     /**
+     * 获取团队按钮下的部门排行
+     */
+    public static void getDepartRank(String time, ModelCallBack callBack) {
+        UserRankingReq req = new UserRankingReq();
+        req.method = "getDepartRank";
+        req.setTime(time);
+        executePostHttp(req, callBack);
+    }
+
+    /**
      * 获取排行按钮下的团队排行
      */
     public static void getTeamRank(String time, ModelCallBack callBack) {

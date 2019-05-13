@@ -96,4 +96,10 @@ public class AccountHttp extends BaseHttp {
         req.password = psd;
         executePostHttp(req, callBack);
     }
+
+    public static void getStar(ModelCallBack callBack) {
+        BaseModelReq req = new BaseModelReq();
+        req.method = "getStar";
+        executePostHttp(req, callBack);
+    }
 }

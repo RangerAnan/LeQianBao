@@ -41,6 +41,7 @@ public class UserRankingResp extends BaseModelResp {
         private String headpic;
         private String uid;
         private int count;
+        private String departName;
 
         public String getName() {
             return name;
@@ -72,6 +73,14 @@ public class UserRankingResp extends BaseModelResp {
 
         public void setCount(int count) {
             this.count = count;
+        }
+
+        public String getDepartName() {
+            return departName == null ? "" : departName;
+        }
+
+        public void setDepartName(String departName) {
+            this.departName = departName;
         }
 
         //个人排行

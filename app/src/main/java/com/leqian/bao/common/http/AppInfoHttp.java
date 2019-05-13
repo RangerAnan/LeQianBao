@@ -12,8 +12,8 @@ public class AppInfoHttp extends BaseHttp {
 
     public static void checkAppVersion(String version, ModelCallBack callBack) {
         CheckAppVersionReq loginRep = new CheckAppVersionReq();
-        loginRep.versionName = version;
-        loginRep.method = "checkAppVersion";
+        loginRep.version = version;
+        loginRep.method = "version";
         executePostHttp(loginRep, callBack);
     }
 }
